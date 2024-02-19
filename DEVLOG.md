@@ -18,4 +18,10 @@ So this is the design I'm going with roughly
 
 <img src="./design.JPG"/>
 
- 
+5:39 PM
+
+While modeling the LCD screen, I decided I'm not going to screw it down rather use glue, not on the weak parts, the wires and part of the PCB.
+
+It's not touch so this won't get much pressure applied to it anyway.
+
+Otherwise it will use compression fit to fit into the body
