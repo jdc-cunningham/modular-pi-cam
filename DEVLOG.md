@@ -25,3 +25,9 @@ While modeling the LCD screen, I decided I'm not going to screw it down rather u
 It's not touch so this won't get much pressure applied to it anyway.
 
 Otherwise it will use compression fit to fit into the body
+
+5:41 PM
+
+Today I'll definitely get the LCD turned on, I may even keep the pins as is/male header vs. soldering custom board.
+
+I could see it working... the pins use the 3.3V pin of the pi/with resistor to feed the control board, then into the GPIO pins... reduces parts
