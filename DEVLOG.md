@@ -82,6 +82,12 @@ Learned that the top non-circular bit is the top
 
 Doing part/body modeling now
 
+1:16 PM
+
+Making a conscious decision for the SD card to not be accessible since there's no need... and even if you need to, just unscrew four phillips screws
+
+ehh.... idk I have a very short camera cable is the thing but it's long enough
+
 ---
 
 02/19/2024
