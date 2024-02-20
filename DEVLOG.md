@@ -1,3 +1,21 @@
+02/20/2024
+
+11:04 AM
+
+Ehh... I think I went to sleep between 1:30 and 3 AM not sure
+
+Not great but here we are, got things to do
+
+I want to get the middle section done today, that means all the electronics are mostly wired
+
+I don't like the idea of soldering to a pi... so I will use a male header pin to female header with daughter board... question is just how much space/how big is the middle section or is that part of the front/back plate... means have to split up the female header
+
+Let me solder a new pi zero 2 real quick since I'm going to swap the pi zero 1
+
+
+
+---
+
 02/19/2024
 
 4:10 PM
