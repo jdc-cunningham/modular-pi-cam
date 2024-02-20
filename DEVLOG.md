@@ -8,7 +8,7 @@ I just got the parts, I'm really gushing over the touch screen demo that comes w
 
 As of right now the design is not solidified yet, it will help to make the physical part models/arrange them but I have a vague idea from this old drawing.
 
-<img src="./concept.png"/>
+<img src="./devlog-images/concept.png"/>
 
 After trying the touch screen round display I'm really impressed wow... like I want to make a watch project or something... I'm not a watch person though
 
@@ -16,7 +16,7 @@ After trying the touch screen round display I'm really impressed wow... like I w
 
 So this is the design I'm going with roughly
 
-<img src="./design.JPG"/>
+<img src="./devlog-images/design.JPG"/>
 
 5:39 PM
 
@@ -109,3 +109,23 @@ The thing is... this camera isn't really doing anything so I'm not trying to stu
 7:57 PM
 
 I think what I'll do is prototype all the stuff that's unknown like snap connectors while I have the black filament loaded... it's not a huge deal to switch but yeah
+
+8:01 PM
+
+It's so funny I'm like "what does the 8MP camera sample look like?" well I have one on the "floating navigation sensor assembly" project
+
+I'll boot it up, ssh into it real quick and take a pic
+
+I haven't turned this thing on in a while crazy, don't remember the ip for it, arp-scan
+
+Oh man that's brutal, I haven't turned it on since Jan 2023
+
+it uses libcamera huh
+
+<img src="./devlog-images/v2-indoor-sample-image.jpg"/>
+
+Dang I see a bell pepper dying from lack of light gotta fix that
+
+8:15 PM
+
+Yeah... modular body is good, you can upgrade the camera, change the color, front design etc... while keeping most of the guts the same, I like it
