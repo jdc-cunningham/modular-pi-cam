@@ -12,7 +12,65 @@ I don't like the idea of soldering to a pi... so I will use a male header pin to
 
 Let me solder a new pi zero 2 real quick since I'm going to swap the pi zero 1
 
+11:09 AM
 
+At some point I may make a full size RPi so that's why I'm having a pi zero folder
+
+11:52 AM
+
+Alright done soldering
+
+I'm working on a full/long video as I make this so that takes up my time too, I want to get the audio in sync right away (rode)
+
+Now I gotta find this new pi's ip arp-scan that ho
+
+12:01 PM
+
+Man... took me a bit to find the new ip, only place I have arp-scan working on is my 2015 i7 MBP that massive laptop
+
+Anyway I'm working on just getting an image to show up on the round display with the sample library code right now
+
+Then I'll go back to modeling to start building out the dimensions
+
+Also I know the edges of the middle piece will be a standard for back/front face plates to follow, it will have a step-seal design that helps with keeping it together other than the screws
+
+12:06 PM
+
+I'm concerned swapping sd cards from pi zero 1 (older install) to pi zero 2 may be problematic... but I also don't want to start from scratch idk... now is the time
+
+I'll do it
+
+I'm gonna use a better card too
+
+Ugh... gotta deal with that supplicant crap but the imager has it
+
+Ehhhhhhh 128GB seems overkill for storage idk...
+
+Why not... why not... future proof
+
+Yeah... I think I'll pick up the v2 camera tomorrow from the locker when I have to go out too, then I won't have that mini distraction driving there... I have a v2 module on hand for dimensions although it's on that navigation project, I also have a model of it already
+
+I won't print that piece today though, can work on back tomorrow
+
+OMG... I have to arp-scan again...
+
+12:19 PM
+
+Alright new OS is loaded 64-bit lite
+
+OMG that speed... yes
+
+12:27 PM
+
+distracted, potential job looked at my LI profile, don't get your hopes up boy
+
+gotta add git
+
+12:32 PM
+
+it's all about mentality man, the world is open
+
+Alright gonna do some dev on the pi itself
 
 ---
 
