@@ -78,6 +78,10 @@ Learned that the top non-circular bit is the top
 
 <img src="./devlog-images/on-off.JPG"/>
 
+12:39 PM
+
+Doing part/body modeling now
+
 ---
 
 02/19/2024
