@@ -1,6 +1,6 @@
 ### Electronic components
 
-* $15.00 pi zero w 1
+* $15.00 pi zero w
 * $7.99 Navigation Button Module 5D Rocker Joystick
 * $0.78 5V 1A charging board
 * $0.80 DC DC Boost Converter
