@@ -100,6 +100,12 @@ I just gotta design the screw holes, outer edges then can start printing soon
 
 Quick break
 
+2:35 PM
+
+back on
+
+
+
 ---
 
 02/19/2024
