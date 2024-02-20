@@ -72,6 +72,12 @@ it's all about mentality man, the world is open
 
 Alright gonna do some dev on the pi itself
 
+yoooooo it's bright as hell damn!
+
+Learned that the top non-circular bit is the top
+
+<img src="./devlog-images/on-off.JPG"/>
+
 ---
 
 02/19/2024
