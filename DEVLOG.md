@@ -88,6 +88,18 @@ Making a conscious decision for the SD card to not be accessible since there's n
 
 ehh.... idk I have a very short camera cable is the thing but it's long enough
 
+1:55 PM
+
+Hmm... it's a tad small 4" longest dimension
+
+Right now the middle piece is 1" wide, not sure if that's enough or not
+
+It's relying on some of the volume being provided by the face plate
+
+I just gotta design the screw holes, outer edges then can start printing soon
+
+Quick break
+
 ---
 
 02/19/2024
