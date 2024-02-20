@@ -129,3 +129,7 @@ Dang I see a bell pepper dying from lack of light gotta fix that
 8:15 PM
 
 Yeah... modular body is good, you can upgrade the camera, change the color, front design etc... while keeping most of the guts the same, I like it
+
+9:14 PM
+
+Since the display is SPI and this camera is modular, I will go ahead and use a pi zero 2, I have some since I had bought a few in a previous madness driven buying spree
