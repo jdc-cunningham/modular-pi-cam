@@ -1,3 +1,17 @@
+02/21/2024
+
+10:34 AM
+
+Poor sleep but got up decent, had to do a house cleaning chore but back on
+
+I'm going to start with soldering the electronics inside the middle layer
+
+I want to print the back plate but I'll make sure the middle one is good before I switch filament colors
+
+
+
+---
+
 02/20/2024
 
 11:04 AM
