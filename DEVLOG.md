@@ -32,6 +32,12 @@ I can also alternatively use the shutter button as a menu selector
 
 Ehh... idk
 
+3:21 PM
+
+Ehh... this sucks
+
+I might just go with the shutter button, the debouncer is not great
+
 ---
 
 02/20/2024
