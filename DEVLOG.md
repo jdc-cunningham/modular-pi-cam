@@ -126,7 +126,13 @@ oh god it's ugly lmao
 
 After a certain size project you start fighting sketchup because it starts to lag like 5 second delay ugh after a click
 
+7:55 PM
 
+Ooh that looks good
+
+<img src="./devlog-images/cam-parts.JPG"/>
+
+Front is just the camera with a custom design not bad
 
 ---
 
