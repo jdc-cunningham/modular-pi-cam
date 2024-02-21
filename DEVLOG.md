@@ -20,7 +20,17 @@ Since I'm making a new camera software with some main concepts borrowed from the
 
 I'm a bad pattern setter though with regard to best practices
 
+3:07 PM
 
+Ugh... idk if my 5D rocker joystick is defective or what... when you click the middle it clicks other buttons
+
+I have some work arounds just sucks..
+
+I cna do a debouncer since it fires multiple things vs. just one, the other directions are reliable
+
+I can also alternatively use the shutter button as a menu selector
+
+Ehh... idk
 
 ---
 
