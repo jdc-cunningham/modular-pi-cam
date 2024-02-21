@@ -14,7 +14,7 @@ GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # SHUTTER
 sample_count = 3
 buttons_fired = []
 
-def emit_btn_pressed():
+def get_btn_pressed():
   # dumb
   if (len(buttons_fired) < 3):
     return
@@ -40,28 +40,30 @@ def emit_btn_pressed():
 def update_fired_btns(button_fired):
   if (len(buttons_fired) < sample_count):
     buttons_fired.append(button_fired)
-    return emit_btn_pressed()
+    btn_pressed = get_btn_pressed()
+    print(btn_pressed)
+    return btn_pressed
   else:
     buttons_fired.pop(0)
 
 while True:
   if GPIO.input(4) == GPIO.HIGH:
-    print("UP")
+    # print("UP")
     update_fired_btns('UP')
   if GPIO.input(21) == GPIO.HIGH:
-    print("LEFT")
+    # print("LEFT")
     update_fired_btns('LEFT')
   if GPIO.input(26) == GPIO.HIGH:
-    print("CENTER")
+    # print("CENTER")
     update_fired_btns('CENTER')
   if GPIO.input(23) == GPIO.HIGH:
-    print("RIGHT")
+    # print("RIGHT")
     update_fired_btns('RIGHT')
   if GPIO.input(24) == GPIO.HIGH:
-    print("DOWN")
+    # print("DOWN")
     update_fired_btns('DOWN')
   if GPIO.input(12) == GPIO.HIGH:
-    print("SHUTTER")
+    # print("SHUTTER")
     update_fired_btns('SHUTTER')
 
   time.sleep(0.05)
