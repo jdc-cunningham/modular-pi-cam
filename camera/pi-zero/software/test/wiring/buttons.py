@@ -16,6 +16,9 @@ buttons_fired = []
 
 def emit_btn_pressed():
   # dumb
+  if (len(buttons_fired) < 3):
+    return
+
   if (buttons_fired[0] == 'UP' and buttons_fired[1] == 'UP' and buttons_fired[2] == 'UP'):
     return 'UP'
   
