@@ -8,6 +8,18 @@ I'm going to start with soldering the electronics inside the middle layer
 
 I want to print the back plate but I'll make sure the middle one is good before I switch filament colors
 
+2:31 PM
+
+Oh man that took me a while... longer than I thought, about 3 hours to solder everything
+
+Going to write some test code now to verify everything is soldered up
+
+So funny my cat sheds so I see a random white hair floating by and I think it's the hardware smoking
+
+Since I'm making a new camera software with some main concepts borrowed from the other camera... starting to wonder if it's worth writing dedicated code... for custom cameras
+
+I'm a bad pattern setter though with regard to best practices
+
 
 
 ---
