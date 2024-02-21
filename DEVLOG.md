@@ -38,6 +38,16 @@ Ehh... this sucks
 
 I might just go with the shutter button, the debouncer is not great
 
+3:23 PM
+
+I have to go do this appointment thing (donate plasma for money) then pick up the v2 cam module
+
+I should have the back plate done soon, hopefully everything fits
+
+I'll modify the front plate design when I come back and print it tomorrow
+
+Tonight I'll work on the software
+
 ---
 
 02/20/2024
