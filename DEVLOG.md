@@ -134,6 +134,12 @@ Ooh that looks good
 
 Front is just the camera with a custom design not bad
 
+8:36 PM
+
+Design is going well, almost done, doing food break
+
+Won't be able to print anymore but I can start printing tomorrow morning
+
 ---
 
 02/19/2024
