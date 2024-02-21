@@ -104,6 +104,28 @@ Quick break
 
 back on
 
+4:25 PM
+
+starting to print...
+
+regarding the menu, I was thinking of using circular icons to fit the round display
+
+then I do want to try an animation as you hit left/right and it enlarges the focused circle
+
+4:29 PM
+
+Well... while that prints guess I'll start working on the back plate then for the display and 5D joystick
+
+It's possible I made the design a little too small where it'll be hard to solder wires... use smaller wires I guess
+
+5:03 PM
+
+oh god it's ugly lmao
+
+6:01 PM
+
+After a certain size project you start fighting sketchup because it starts to lag like 5 second delay ugh after a click
+
 
 
 ---
