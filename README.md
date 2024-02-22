@@ -1,4 +1,4 @@
-### Modular Raspberry Pi Camera Body
+### Modular Pi Cam
 
 Modular body raspberry pi camera
 
