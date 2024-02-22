@@ -73,6 +73,10 @@ Happens with a lot of my projects I just lose interest in them
 
 Quick break
 
+3:59 PM
+
+It's assembled at this point, drew first menu scene, still need lots of code
+
 ---
 
 02/21/2024
