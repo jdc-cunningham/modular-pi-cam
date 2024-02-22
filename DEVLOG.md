@@ -58,6 +58,10 @@ Working on front plate design right now
 
 Ugh... it's unfortunate how much empty space there will be with this front plate, it's mostly the height for the camera. The front of the design has it countersunk so that removes depth.
 
+I also flipped the circles around ugh... supposed to be matching like back blate circle is on left side (around display) front plate would have it on right... oh well
+
+If the camera cable is longer can have it on same side
+
 ---
 
 02/20/2024
