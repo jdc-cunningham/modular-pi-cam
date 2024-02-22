@@ -8,3 +8,7 @@ class Camera:
   def __init__(self, main):
     self.picam2 = Picamera2()
     self.encoder = H264Encoder()
+
+  def start(self):
+    self.pimcam2.start()
+

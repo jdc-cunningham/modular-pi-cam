@@ -57,7 +57,21 @@ Got this distraction in the way
 
 Alright let's go... focus mode
 
+2:35 PM
 
+Dang camera died gotta wait to run code on it, still a lot of code prep to do but yeah
+
+I saw a value of 40MHz or something like that for SPI value I'm hoping it is actually fast, maybe it's limited to the 20 something MHz of Pi Zero 2, I'm probably wrong on that
+
+2:38 PM
+
+I do feel myself losing momentum though, reality on the mind and losing the vision/excitement of this project
+
+Happens with a lot of my projects I just lose interest in them
+
+2:40 PM
+
+Quick break
 
 ---
 
