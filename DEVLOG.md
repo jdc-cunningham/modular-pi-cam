@@ -62,6 +62,16 @@ I also flipped the circles around ugh... supposed to be matching like back blate
 
 If the camera cable is longer can have it on same side
 
+9:22 PM
+
+Man... I don't like how it looks now, it was thin before
+
+<img src="./devlog-images/looks-now.JPG"/>
+
+The thinness made it cool somehow, not so blocky/basic
+
+idk... modular right... make a new one with the v3 camera module
+
 ---
 
 02/20/2024
