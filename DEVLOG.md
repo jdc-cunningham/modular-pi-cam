@@ -79,6 +79,10 @@ It's assembled at this point, drew first menu scene, still need lots of code
 
 Also need to provide the cliche MS paint wiring diagram and pins
 
+5:06 PM
+
+Damn... I'm not sure how much further I'll get today... I should be able to make the basic program/control loop to cycle through the menu/enter camera mode (needs live pass through) then take a photo.
+
 ---
 
 02/21/2024
