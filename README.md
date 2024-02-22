@@ -6,6 +6,8 @@ Modular body raspberry pi camera
 
 <img src="back-lcd.JPG"/>
 
+<img src="back-iso-ps.JPG"/>
+
 This version uses round display (non-touch) with 5D joystick
 
 ### Modularity
