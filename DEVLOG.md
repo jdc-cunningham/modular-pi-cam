@@ -83,6 +83,10 @@ Also need to provide the cliche MS paint wiring diagram and pins
 
 Damn... I'm not sure how much further I'll get today... I should be able to make the basic program/control loop to cycle through the menu/enter camera mode (needs live pass through) then take a photo.
 
+5:23 PM
+
+Oh man I'm spent, headache, gotta get that ver 0.0.1 out ha
+
 ---
 
 02/21/2024
