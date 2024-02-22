@@ -1,3 +1,17 @@
+02/22/2024
+
+Damn... cool company rejected me sad... I spent 2 hours on their CTF challenge just to apply lmao
+
+11:32 AM
+
+Alright let me write some code for this camera, last day off
+
+I started the front-plate print already
+
+
+
+---
+
 02/21/2024
 
 10:34 AM

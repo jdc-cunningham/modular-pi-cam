@@ -11,3 +11,9 @@
 * $19.99 8MP V2 Raspberry Pi camera module
 
 $70.00 camera cost excluding printing material and screws
+
+<img src="./parts.JPG"/>
+
+### Disclaimer
+
+This uses a cheap charger/bms that gets very hot. Also the charger is more intended for an 18650 cell (low voltage cutoff) so the software tries to prevent going that low for a pouch-style 3.7V lipo cell that ideally does not go below 3.7V or 3.0V max.
