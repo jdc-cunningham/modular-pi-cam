@@ -72,6 +72,12 @@ The thinness made it cool somehow, not so blocky/basic
 
 idk... modular right... make a new one with the v3 camera module
 
+9:47 PM
+
+I'm pretty spent now, I won't be able to program but I can do some menu design.
+
+I'll write the code for this camera tomorrow, I have been seeing a round menu in my mind
+
 ---
 
 02/20/2024
