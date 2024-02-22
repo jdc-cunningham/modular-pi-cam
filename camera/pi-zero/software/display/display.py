@@ -36,16 +36,16 @@ class Display:
       disp.clear()
 
       # Create blank image for drawing.
-      image1 = Image.new("RGB", (disp.width, disp.height), "BLACK")
-      draw = ImageDraw.Draw(image1)
+      # image1 = Image.new("RGB", (disp.width, disp.height), "BLACK")
+      # draw = ImageDraw.Draw(image1)
 
-      draw.text((40, 50), 'WaveShare', fill = (128,255,128), font=Font3)
+      # draw.text((40, 50), 'WaveShare', fill = (128,255,128), font=Font3)
 
-      disp.ShowImage(image1)
+      # disp.ShowImage(image1)
 
-      # image = Image.open('./pic/LCD_1inch28_1.jpg')	
-      # im_r = image.rotate(180)
-      # disp.ShowImage(im_r)
+      image = Image.open('../menu/sprites/base-blue-gradient.png')	
+      im_r = image.rotate(180)
+      disp.ShowImage(im_r)
 
       time.sleep(3)
 

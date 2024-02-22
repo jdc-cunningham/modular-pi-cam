@@ -3,27 +3,41 @@
 import RPi.GPIO as GPIO
 import time
 
-GPIO.setmode(GPIO.BCM)
+from threading import Thread
 
-GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # UP
-GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # LEFT
-GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # CENTER
-GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # RIGHT
-GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # DOWN
-GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # SHUTTER
+class Buttons():
+  def __init__(self, main):
+    self.exit = False
+    self.callback = main.button_pressed
 
-while True:
-  if GPIO.input(4) == GPIO.HIGH:
-    print("UP")
-  if GPIO.input(21) == GPIO.HIGH:
-    print("LEFT")
-  if GPIO.input(26) == GPIO.HIGH:
-    print("CENTER")
-  if GPIO.input(23) == GPIO.HIGH:
-    print("RIGHT")
-  if GPIO.input(24) == GPIO.HIGH:
-    print("DOWN")
-  if GPIO.input(12) == GPIO.HIGH:
-    print("SHUTTER")
+    # already set as BCM by OLED
 
-  time.sleep(0.05)
+    GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # UP
+    GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # LEFT
+    GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # CENTER
+    GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # RIGHT
+    GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # DOWN
+    GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # SHUTTER
+
+  def start(self):
+    Thread(target=self.listen).start()
+
+  # listen for input
+  def listen(self):
+    while True:
+      if self.exit: return False
+
+      if GPIO.input(4) == GPIO.HIGH:
+        self.callback("UP")
+      if GPIO.input(21) == GPIO.HIGH:
+        self.callback("LEFT")
+      if GPIO.input(26) == GPIO.HIGH:
+        self.callback("CENTER")
+      if GPIO.input(23) == GPIO.HIGH:
+        self.callback("RIGHT")
+      if GPIO.input(24) == GPIO.HIGH:
+        self.callback("DOWN")
+      if GPIO.input(12) == GPIO.HIGH:
+        self.callback("SHUTTER")
+
+      time.sleep(0.1)

@@ -12,7 +12,40 @@ I started the front-plate print already
 
 Distracted with repositioning the LCD and updating design files, back to code
 
+1:29 PM
 
+Main thing need to accomplish today is a functional menu/able to take photos
+
+- [ ] basic menu
+  - [ ] three options
+    - [ ] files
+    - [ ] camera
+    - [ ] settings
+- [ ] camera live preview
+- [ ] take photo
+
+1:34 PM
+
+For some reason the menu I see in my mind is blue-ish... like Windows 7, aero style... so I'll try it
+
+Need a light blue gradient background
+
+I've also started to see a menu schema in my mind like
+
+```
+[
+  {
+    "name": "battery icon",
+    "img_path": "../path/path",
+    "size": [30, 50],
+    "position": [15, 15],
+    "interactive": true,
+    "callback": "fcn"
+  }
+]
+```
+
+Then the menu would go through the list of icons and apply them to the layer before drawing the whole thing on screen
 
 ---
 
