@@ -8,6 +8,10 @@ Alright let me write some code for this camera, last day off
 
 I started the front-plate print already
 
+12:41 PM
+
+Distracted with repositioning the LCD and updating design files, back to code
+
 
 
 ---
