@@ -47,6 +47,18 @@ I've also started to see a menu schema in my mind like
 
 Then the menu would go through the list of icons and apply them to the layer before drawing the whole thing on screen
 
+1:53 PM
+
+Got this distraction in the way
+
+<img src="./devlog-images/bonus-cat.JPG"/>
+
+2:08 PM
+
+Alright let's go... focus mode
+
+
+
 ---
 
 02/21/2024

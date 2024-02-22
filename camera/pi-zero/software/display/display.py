@@ -24,31 +24,47 @@ logging.basicConfig(level=logging.DEBUG)
 
 Font3 = ImageFont.truetype("./Font/Font02.ttf",32) # normal
 
+# img paths
+camera_sprite_path = "../menu/sprites/camera_120_89.png"
+folder_sprite_path = "../menu/sprites/folder_120_96.png"
+settings_sprite_path = "../menu/sprites/settings_120_120.png"
+film_sprite_path = "../menu/sprites/film_120_131.png"
+
 class Display:
   def __init__(self):
-      disp = LCD_1inch28.LCD_1inch28()
+      self.lcd = LCD_1inch28.LCD_1inch28()
       # Initialize library.
-      disp.Init()
+      self.lcd.Init()
 
-      # time.sleep(3)
+  def clear(self):
+     self.lcd.clear()
 
-      # Clear display.
-      disp.clear()
+  # proportional resize
+  def resize_img(img, width):
+    wpercent = (width / float(img.size[0]))
+    hsize = int((float(img.size[1]) * float(wpercent)))
+    new_img = img.resize((width, hsize), resample=Image.LANCZOS)
 
-      # Create blank image for drawing.
-      # image1 = Image.new("RGB", (disp.width, disp.height), "BLACK")
-      # draw = ImageDraw.Draw(image1)
+  def draw_menu(self, which):
+     if (which == 'home'):
+      image = Image.open('../menu/sprites/base-blue-gradient.png')
+
+      camera_icon = Image.open(camera_sprite_path)
+      folder_sprite = Image.open(folder_sprite_path)
+      settings_sprite = Image.open(settings_sprite_path)
+      film_sprite = Image.open(film_sprite_path)
+
+      # scale down side images
+      folder_sprite_sm = self.resize_img(folder_sprite, 60)
+      settings_sprite_sm = self.resize_img(settings_sprite, 60)
+
+      image.paste(folder_sprite_sm, (30, 90))
+      image.paste(camera_icon, (60, 60)) # middle of screen
+      image.paste(settings_sprite_sm, (210, 90))
 
       # draw.text((40, 50), 'WaveShare', fill = (128,255,128), font=Font3)
 
-      # disp.ShowImage(image1)
-
-      image = Image.open('../menu/sprites/base-blue-gradient.png')	
       im_r = image.rotate(90)
-      disp.ShowImage(im_r)
-
-      time.sleep(3)
-
-      disp.clear()
+      self.lcd.ShowImage(im_r)
 
 Display()
