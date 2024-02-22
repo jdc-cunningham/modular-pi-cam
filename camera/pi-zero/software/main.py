@@ -15,5 +15,4 @@ def button_pressed(self, button):
   if (self.processing):
       return
   
-  
-  
+Main()
