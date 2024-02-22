@@ -44,7 +44,7 @@ class Display:
       # disp.ShowImage(image1)
 
       image = Image.open('../menu/sprites/base-blue-gradient.png')	
-      im_r = image.rotate(180)
+      im_r = image.rotate(90)
       disp.ShowImage(im_r)
 
       time.sleep(3)
