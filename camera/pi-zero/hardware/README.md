@@ -14,6 +14,14 @@ $70.00 camera cost excluding printing material and screws
 
 <img src="./parts.JPG"/>
 
+### Wiring
+
+<img src="./wiring.png"/>
+
+Sorry this is a pretty lazy one but basic wiring no step down or other sensors
+
+Refer to annotated image above for what each part is
+
 ### Disclaimer
 
 This uses a cheap charger/bms that gets very hot. Also the charger is more intended for an 18650 cell (low voltage cutoff) so the software tries to prevent going that low for a pouch-style 3.7V lipo cell that ideally does not go below 3.7V or 3.0V max.

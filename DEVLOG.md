@@ -77,6 +77,8 @@ Quick break
 
 It's assembled at this point, drew first menu scene, still need lots of code
 
+Also need to provide the cliche MS paint wiring diagram and pins
+
 ---
 
 02/21/2024
