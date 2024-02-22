@@ -48,6 +48,16 @@ I'll modify the front plate design when I come back and print it tomorrow
 
 Tonight I'll work on the software
 
+7:39 PM
+
+Got back like 30 mins ago, was putting black tape around the LCD since it has a gap... also it would need redesign to have a smaller diameter so the black ring around the LCD is under it
+
+Working on front plate design right now
+
+8:01 PM
+
+Ugh... it's unfortunate how much empty space there will be with this front plate, it's mostly the height for the camera. The front of the design has it countersunk so that removes depth.
+
 ---
 
 02/20/2024
