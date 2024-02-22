@@ -40,10 +40,11 @@ class Display:
      self.lcd.clear()
 
   # proportional resize
-  def resize_img(img, width):
+  def resize_img(self, img, width):
     wpercent = (width / float(img.size[0]))
     hsize = int((float(img.size[1]) * float(wpercent)))
     new_img = img.resize((width, hsize), resample=Image.LANCZOS)
+    return new_img
 
   def draw_menu(self, which):
      if (which == 'home'):
@@ -58,13 +59,18 @@ class Display:
       folder_sprite_sm = self.resize_img(folder_sprite, 60)
       settings_sprite_sm = self.resize_img(settings_sprite, 60)
 
-      image.paste(folder_sprite_sm, (30, 90))
-      image.paste(camera_icon, (60, 60)) # middle of screen
-      image.paste(settings_sprite_sm, (210, 90))
+      image.paste(folder_sprite_sm, (-30, 90), mask=folder_sprite_sm) # 3rd param fixes transparency issue
+      image.paste(camera_icon, (60, 75), mask=camera_icon) # middle of screen
+      image.paste(settings_sprite_sm, (210, 90), mask=settings_sprite_sm)
 
-      # draw.text((40, 50), 'WaveShare', fill = (128,255,128), font=Font3)
+      draw = ImageDraw.Draw(image)
+      draw.text((79, 180), 'Camera', fill = (0,0,0), font=Font3)
 
       im_r = image.rotate(90)
       self.lcd.ShowImage(im_r)
 
-Display()
+      time.sleep(60)
+
+d = Display()
+
+d.draw_menu('home')
