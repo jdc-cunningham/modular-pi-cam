@@ -27,16 +27,17 @@ class Buttons():
     while True:
       if self.exit: return False
 
-      if GPIO.input(4) == GPIO.HIGH:
-        self.callback("UP")
-      if GPIO.input(21) == GPIO.HIGH:
-        self.callback("LEFT")
-      if GPIO.input(26) == GPIO.HIGH:
-        self.callback("CENTER")
-      if GPIO.input(23) == GPIO.HIGH:
-        self.callback("RIGHT")
-      if GPIO.input(24) == GPIO.HIGH:
+      # flip direction due to board being upside down
+      if GPIO.input(4) == GPIO.HIGH: # UP
         self.callback("DOWN")
+      if GPIO.input(21) == GPIO.HIGH: # LEFT
+        self.callback("RIGHT")
+      if GPIO.input(26) == GPIO.HIGH: # not used due to misfire other directions
+        self.callback("CENTER")
+      if GPIO.input(23) == GPIO.HIGH: # RIGHT
+        self.callback("LEFT")
+      if GPIO.input(24) == GPIO.HIGH: # DOWN
+        self.callback("UP")
       if GPIO.input(12) == GPIO.HIGH:
         self.callback("SHUTTER")
 
