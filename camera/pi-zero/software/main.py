@@ -17,6 +17,13 @@ class Main:
 
     self.start_up()
 
+    # keep main running
+    while (self.on):
+      # repaint menu particularly for battery
+      if (self.menu_pos == 0):
+        self.display.draw_menu("home")
+      time.sleep(300)
+
   def start_up(self):
     self.buttons.start()
 
