@@ -37,6 +37,8 @@ class Display:
   def __init__(self):
     self.lcd = LCD_1inch28.LCD_1inch28()
 
+    self.lcd.Init()
+
     self.draw_menu("home")
 
   def clear(self):
