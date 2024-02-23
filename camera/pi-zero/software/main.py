@@ -8,6 +8,7 @@ from camera.camera import Camera
 
 class Main:
   def __init__(self):
+    self.on = True
     self.processing = False
     self.display = Display()
     self.buttons = Buttons(self)
