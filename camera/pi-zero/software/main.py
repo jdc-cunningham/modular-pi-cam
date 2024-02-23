@@ -39,11 +39,16 @@ class Main:
     print("pressed " + button)
 
     if (button == "SHUTTER"):
-      self.live_passthrough = True
-      self.camera.start()
-      self.camera.live_preview_active = True
-      self.camera.live_preview_start = time.time()
-      self.camera.start_live_preview()
+      if (self.camera.live_preview_pause):
+        self.live_passthrough = True
+        self.camera.live_preview_pause = False
+        self.camera.live_preview_start = time.time()
+      else:
+        self.live_passthrough = True
+        self.camera.start()
+        self.camera.live_preview_active = True
+        self.camera.live_preview_start = time.time()
+        self.camera.start_live_preview()
 
     if (button == "LEFT"):
       if (self.menu_pos == -1):
