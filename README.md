@@ -4,7 +4,9 @@ Modular body raspberry pi camera
 
 <img src="iso-front.JPG"/>
 
-<img src="back-lcd.JPG"/>
+<img src="modular-pi-cam-lcd.JPG"/>
+
+<img src="modular-pi-cam-passthrough.JPG"/>
 
 <img src="back-iso-ps.JPG"/>
 

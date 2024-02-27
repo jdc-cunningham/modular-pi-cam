@@ -57,7 +57,7 @@ class Display:
   # hardcoded for now to get it done
   def draw_menu(self, which):
     if (which == 'home'):
-      image = Image.open(software_path + '/menu/sprites/base-blue-gradient.png')
+      image = Image.open(software_path + '/menu/sprites/base-orange-solid.png')
 
       camera_icon = Image.open(camera_sprite_path)
       folder_sprite = Image.open(folder_sprite_path)
@@ -79,7 +79,7 @@ class Display:
       self.lcd.ShowImage(im_r)
 
     if (which == 'files'): # left
-      image = Image.open(software_path + '/menu/sprites/base-blue-gradient.png')
+      image = Image.open(software_path + '/menu/sprites/base-orange-solid.png')
 
       camera_icon = Image.open(camera_sprite_path)
       folder_sprite = Image.open(folder_sprite_path)
@@ -102,7 +102,7 @@ class Display:
       self.lcd.ShowImage(im_r)
 
     if (which == 'settings'): # right
-      image = Image.open(software_path + '/menu/sprites/base-blue-gradient.png')
+      image = Image.open(software_path + '/menu/sprites/base-orange-solid.png')
 
       camera_icon = Image.open(camera_sprite_path)
       folder_sprite = Image.open(folder_sprite_path)

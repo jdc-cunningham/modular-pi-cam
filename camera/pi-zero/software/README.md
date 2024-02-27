@@ -1,6 +1,10 @@
 ### Deps
 * need SPI enabled (raspi-config)
 
+### Please note
+
+After you change code on the Raspberry Pi the `systemctl daemon` has to be reloaded as shown below then the `modular-pi-cam.service` itself
+
 ### Boot script
 
 There is a boot script that runs `main.py` in the `software` folder
