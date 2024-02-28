@@ -57,7 +57,29 @@ Okay anyway gotta go for MVP, video out today... got like 4.5 hours before I got
 
 so now I'll take apart the mjpeg_server.py example and modify it, add more to it then it's already in class form so it should be straightforward to add it to existing camera code
 
+11:24 AM
 
+Ugh... more code nastiness... so the mjpeg_server.py hosts its own html file which I'm expanding upon... it's just nasty because it's not serving static files, it's injecting them as plaintext
+
+11:27 AM
+
+The good news is the code can be developed separately/opened on its own, when python runs it injects all the files together with the stream
+
+Still don't have the websocket and dynamic camera settings
+
+<img src="./devlog-images/design.JPG"/>
+
+Update this
+
+11:38 AM
+
+The other thing I have to verify is the websocket working, the issue is the ip/hostname with the AP mode
+
+I'm hoping localhost just works
+
+11:44 AM
+
+Oh yeah I should do an overlay on the video for the current values
 
 ---
 

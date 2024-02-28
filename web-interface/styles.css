@@ -1,0 +1,29 @@
+body * {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: #282828;
+}
+
+.web-stream-ui {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.web-stream-ui__controls {
+  width: 15%;
+  height: 100%;
+  border-right: 1px solid #282828;
+}
+
+.web-stream-ui__video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+  height: 100%;
+}

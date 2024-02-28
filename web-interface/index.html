@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Web UI</title>
+  <link rel="stylesheet" href="./css-reset.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- this file is used for local development, it is rebuilt in the mjpeg_server.py file -->
+  <div class="web-stream-ui">
+    <div class="web-stream-ui__controls">
+      <button type="button">capture</button>
+    </div>
+    <div class="web-stream-ui__video">
+      <img src="./camera-output.jpg" width="640" height="480"/>
+      <p id="video-overlay"></p>
+    </div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>

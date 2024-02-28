@@ -4,15 +4,22 @@
 # Run this script, then point a web browser at http:<this-ip-address>:8000
 # Note: needs simplejpeg to be installed (pip3 install simplejpeg).
 
+# https://websockets.readthedocs.io/en/stable/intro/quickstart.html
+
 import io
 import logging
 import socketserver
+import asyncio
+import websockets
+
 from http import server
 from threading import Condition, Thread
-
 from picamera2 import Picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
+from pathlib import Path
+
+js_content = Path("./script.js").read_text()
 
 PAGE = """\
 <html>
@@ -21,6 +28,13 @@ PAGE = """\
 </head>
 <body>
 <img src="stream.mjpg" width="640" height="480" />
+<script>
+"""
+
+PAGE += js_content
+
+PAGE += """\
+</script>
 </body>
 </html>
 """
@@ -79,6 +93,21 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
     daemon_threads = True
 
+async def recvd_msg(msg, socket):
+    print(msg)
+
+async def socket_listener(websocket):
+    while True:
+        msg = await websocket.recv()
+        recvd_msg(msg)
+        await asyncio.sleep(0.1)
+
+async def socket_main():
+  print('run socket')
+  async with websockets.serve(recvd_msg, "192.168.1.104", 5678):
+    await asyncio.Future()  # run forever
+
+Thread(target=asyncio.run(socket_main())).start()
 
 picam2 = Picamera2()
 picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
