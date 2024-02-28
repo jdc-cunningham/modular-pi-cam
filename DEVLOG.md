@@ -1,3 +1,66 @@
+02/28/2024
+
+10:39 AM
+
+Back on
+
+yesterday I did succeed in getting some form of mobile to pi bridge eg. the AP method vs. bluetooth
+
+I have started to see a basic interface, based around the mjpeg_server.py sample code (live stream of camera)
+
+That is a pro over bluetooth/BLE
+
+These are the goals right now
+
+- [ ] get pretty AP url to connect to
+- [ ] serve mjpeg_server.py with custom html and websocket control
+- [ ] integrate into existing camera software
+
+<img src="./devlog-images/basic-camera-ui.JPG"/>
+
+Yeah something like this
+
+Side note, I think I will eventually make a separate repo of the camera software
+
+Since the pi zero hq cam and this one use similar code
+
+I was trying to come up with names lmao
+
+<img src="./devlog-images/firm-pecan-logo.JPG"/>
+
+This one was like "pi cam firmware" but doesn't make sense, it's not firmware
+
+Too many syllables too for the name
+
+11:00 AM
+
+Ahhhh so annoying once you enter AP mode you can't get out have to turn the RPi off/on until I write the code to self toggle.
+
+11:04 AM
+
+oh... the most foolproof way would be to generate a QR code then it doesn't need a hostname
+
+Show it on the screen... maybe it's not good enough to scan
+
+change hostname
+
+- edit /etc/hostname
+- edit /etc/hosts
+
+This sucks, more steps for user
+
+Yeah this works though
+
+<img src="./devlog-images/hostname-ex.JPG"/>
+
+Okay anyway gotta go for MVP, video out today... got like 4.5 hours before I gotta donate plasma for cash because I'm poor and a dumbass (to become poor)
+
+so now I'll take apart the mjpeg_server.py example and modify it, add more to it then it's already in class form so it should be straightforward to add it to existing camera code
+
+
+
+---
+
 02/27/2024
 
 6:46 PM
