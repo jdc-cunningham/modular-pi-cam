@@ -110,12 +110,15 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     daemon_threads = True
 
 picam2 = None
+ExposureTime = int(0.004 * 1000000) # 1/250, microseconds
+AnalogueGain = 1.0 # ISO 100
 
 def start_video_stream():
-    global global_output
+    global picam2, global_output
 
     picam2 = Picamera2()
     picam2.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
+    picam2.set_controls({"ExposureTime": ExposureTime, "AnalogueGain": AnalogueGain})
     global_output = StreamingOutput()
     picam2.start_recording(JpegEncoder(), FileOutput(global_output))
 
@@ -127,5 +130,16 @@ def start_video_stream():
     finally:
         picam2.stop_recording()
 
-def stop(self):
+def stop():
     picam2.stop_recording()
+
+def update_camera_values(which, value):
+    global ExposureTime, AnalogueGain
+
+    if (which == "shutter"):
+        ExposureTime = int(float(value * 1000000))
+        picam2.set_controls({"ExposureTime": ExposureTime, "AnalogueGain": AnalogueGain})
+
+    if (which == "iso"):
+        AnalogueGain = int(value)
+        picam2.set_controls({"ExposureTime": ExposureTime, "AnalogueGain": AnalogueGain})

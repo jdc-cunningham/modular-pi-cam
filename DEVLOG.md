@@ -132,6 +132,32 @@ Gonna integrate the web ui into the camera stream now
 
 OMG... I figured out how to modify this server to host images too... files later I imagine damn
 
+<img src="./devlog-images/full.JPG"/>
+
+Here you can see the livestream and the styled interface with websocket, it's not bridged to the picamer2 yet but not bad
+
+I'm developing against the ml-hat-cam (pi 4b) since it's powered by usb
+
+2:23 PM
+
+Ahh damn... it's that stale variable thing
+
+picam2 is None when it's set due to the method bind damn
+
+2:24 PM
+
+Wait a minute, wait a minute (chess scene Independence Day)
+
+2:26 PM
+
+okay I have it working but the values aren't right
+
+lmao wtf is this
+
+<img src="./devlog-images/what.JPG"/>
+
+
+
 ---
 
 02/27/2024
