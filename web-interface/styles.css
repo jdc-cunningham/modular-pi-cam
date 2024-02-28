@@ -22,7 +22,7 @@ body * {
   width: 20%;
   height: 100%;
   border-right: 1px solid #282828;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .web-stream-ui__control-set {
@@ -62,7 +62,7 @@ body * {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 30%;
+  width: 20%;
 }
 
 .web-stream-ui__control-inputs button img {
@@ -75,7 +75,7 @@ body * {
 }
 
 .web-stream-ui__control-value {
-  width: 70%;
+  width: 80%;
   height: 100%;
   font-size: 2.25rem;
 }

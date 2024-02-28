@@ -120,6 +120,10 @@ Have under 2.5 hours left till I gotta go do the donation
 
 The camera is not dynamic yet, need to read up briefly on how to set that
 
+1:20 PM
+
+I have to make sure this works with localhost so ip does not need to be known
+
 ---
 
 02/27/2024

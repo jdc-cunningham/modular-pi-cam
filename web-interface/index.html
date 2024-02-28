@@ -15,12 +15,12 @@
         <div class="web-stream-ui__control-group">
           <p>ISO</p>
           <div class="web-stream-ui__control-input-wrapper">
-            <input type="number" min="100" step="100" class="web-stream-ui__control-value" value="200"/>
-            <div class="web-stream-ui__control-inputs">
-              <button type="button">
+            <input type="number" min="100" step="100" class="web-stream-ui__control-value" value="100"/>
+            <div class="web-stream-ui__control-inputs" data-control="iso">
+              <button class="control-btn" type="button" data-dir="inc">
                 <img src="./uxwing-line-angle-up-icon.svg"/>
               </button>
-              <button type="button">
+              <button class="control-btn" type="button" data-dir="dec">
                 <img src="./uxwing-line-angle-down-icon.svg"/>
               </button>
             </div>
@@ -29,12 +29,12 @@
         <div class="web-stream-ui__control-group">
           <p>SHUTTER SPEED</p>
           <div class="web-stream-ui__control-input-wrapper">
-            <input type="text" class="web-stream-ui__control-value" value="1/200"/>
-            <div class="web-stream-ui__control-inputs">
-              <button type="button">
+            <input type="text" class="web-stream-ui__control-value" value="1/250"/>
+            <div class="web-stream-ui__control-inputs" data-control="shutter speed">
+              <button class="control-btn" type="button" data-dir="inc">
                 <img src="./uxwing-line-angle-up-icon.svg"/>
               </button>
-              <button type="button">
+              <button class="control-btn" type="button" data-dir="dec">
                 <img src="./uxwing-line-angle-down-icon.svg"/>
               </button>
             </div>
