@@ -124,6 +124,14 @@ The camera is not dynamic yet, need to read up briefly on how to set that
 
 I have to make sure this works with localhost so ip does not need to be known
 
+1:34 PM
+
+Gonna integrate the web ui into the camera stream now
+
+1:55 PM
+
+OMG... I figured out how to modify this server to host images too... files later I imagine damn
+
 ---
 
 02/27/2024

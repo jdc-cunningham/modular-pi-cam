@@ -11,6 +11,7 @@ import logging
 import socketserver
 import os
 
+
 from http import server
 from threading import Condition, Thread
 from picamera2 import Picamera2
@@ -20,25 +21,25 @@ from pathlib import Path
 
 base_path = os.getcwd()
 
+# build html page from parts since no static server
+
+PAGE = ""
+
+page_header = Path(base_path + "/videostream/web-ui/ui-header.html").read_text()
+css_reset = Path(base_path + "/videostream/web-ui/css-reset.css").read_text()
+css_style = Path(base_path + "/videostream/web-ui/styles.css").read_text()
+page_header_2 = Path(base_path + "/videostream/web-ui/ui-header-2.html").read_text()
+page_body = Path(base_path + "/videostream/web-ui/ui.html").read_text()
 js_content = Path(base_path + "/videostream/web-ui/script.js").read_text()
+page_body_2 = Path(base_path + "/videostream/web-ui/ui-2.html").read_text()
 
-PAGE = """\
-<html>
-<head>
-<title>picamera2 MJPEG streaming demo</title>
-</head>
-<body>
-<img src="stream.mjpg" width="640" height="480" />
-<script>
-"""
-
+PAGE += page_header
+PAGE += css_reset
+PAGE += css_style
+PAGE += page_header_2
+PAGE += page_body
 PAGE += js_content
-
-PAGE += """\
-</script>
-</body>
-</html>
-"""
+PAGE += page_body_2
 
 global_output = None
 
@@ -58,6 +59,18 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             self.send_response(301)
             self.send_header('Location', '/index.html')
             self.end_headers()
+        elif self.path == "/uxwing-line-angle-down-icon.svg":
+            f = open(base_path + "/videostream/web-ui/uxwing-line-angle-down-icon.svg", 'rb')
+            self.send_response(200)
+            self.send_header('Content-Type', 'image/svg+xml')
+            self.end_headers()
+            self.wfile.write(f.read())
+        elif self.path == "/uxwing-line-angle-up-icon.svg":
+            f = open(base_path + "/videostream/web-ui/uxwing-line-angle-up-icon.svg", 'rb')
+            self.send_response(200)
+            self.send_header('Content-Type', 'image/svg+xml')
+            self.end_headers()
+            self.wfile.write(f.read())
         elif self.path == '/index.html':
             content = PAGE.encode('utf-8')
             self.send_response(200)
