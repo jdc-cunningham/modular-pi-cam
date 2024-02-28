@@ -6,7 +6,7 @@ const connectToPiZero2 = () => {
 
   // connection opened, send messages to robot
   piSocket.addEventListener('open', function (event) {
-    piSocketStatus.innerText = 'pi connected';
+    console.log('pi connected');
     piSocket.send('Hello robot!');
  
     // keep connection to esp01 alive
@@ -15,7 +15,7 @@ const connectToPiZero2 = () => {
     }, 1000);
   });
  
-// listen for messages from robot
+  // listen for messages from robot
   piSocket.addEventListener('message', function (event) {
     const robotMsg = event.data;
 

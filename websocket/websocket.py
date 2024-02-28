@@ -11,6 +11,7 @@ class WebSocket():
   async def socket_listener(self, socket):
     while True:
       msg = await socket.recv()
+      print('recvd msg' + msg)
       self.recvd_msg(msg)
       await asyncio.sleep(0.1)
 

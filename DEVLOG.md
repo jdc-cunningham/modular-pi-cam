@@ -81,6 +81,20 @@ I'm hoping localhost just works
 
 Oh yeah I should do an overlay on the video for the current values
 
+12:29 PM
+
+So right now I have a working socket, no video stream
+
+trying to run nested threads doesn't work I guess
+
+It sucks because by having classes it was cleaner, but the code also doesn't work... ha
+
+12:33 PM
+
+Okay this is all working now... the camera will just have to be coordinated when it is being used
+
+
+
 ---
 
 02/27/2024
