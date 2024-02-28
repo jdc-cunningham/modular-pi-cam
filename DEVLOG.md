@@ -110,7 +110,15 @@ Look at that... learning about photography by programming the UI of one ha
 
 Shutter speed in this case and how picamera2 uses thes values (microseconds) vs. fraction of seconds (camera brands)
 
+1:02 PM
 
+Right now I'm not sure of all the values to modify on the camera for manual shooting
+
+No electronic aperture so can't set that
+
+Have under 2.5 hours left till I gotta go do the donation
+
+The camera is not dynamic yet, need to read up briefly on how to set that
 
 ---
 
