@@ -15,15 +15,93 @@ body * {
 }
 
 .web-stream-ui__controls {
-  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 20%;
   height: 100%;
   border-right: 1px solid #282828;
+  padding: 0.5rem;
+}
+
+.web-stream-ui__control-set {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.web-stream-ui__control-group {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
+.web-stream-ui__control-input-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.web-stream-ui__control-group:not(:first-of-type) {
+  margin-top: 1rem;
+}
+
+.web-stream-ui__control-group p {
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.web-stream-ui__control-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 30%;
+}
+
+.web-stream-ui__control-inputs button img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.web-stream-ui__control-inputs button:last-of-type {
+  margin-top: 0.5rem;
+}
+
+.web-stream-ui__control-value {
+  width: 70%;
+  height: 100%;
+  font-size: 2.25rem;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.web-stream-ui__control-value::-webkit-outer-spin-button,
+.web-stream-ui__control-value::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.web-stream-ui__control-value[type=number] {
+  -moz-appearance: textfield;
+}
+
+.web-stream-ui__shutter button {
+  font-size: 2rem;
+  padding: 0.25rem 1rem;
+  cursor: pointer;
 }
 
 .web-stream-ui__video {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 85%;
+  width: 80%;
   height: 100%;
 }

@@ -12,9 +12,12 @@ That is a pro over bluetooth/BLE
 
 These are the goals right now
 
-- [ ] get pretty AP url to connect to
-- [ ] serve mjpeg_server.py with custom html and websocket control
+- [x] get pretty AP url to connect to
+  - needs hostname changes use qr code generation instead
+- [x] serve mjpeg_server.py with custom html and websocket control
+- [ ] build ui
 - [ ] integrate into existing camera software
+- [ ] qr code generation
 
 <img src="./devlog-images/basic-camera-ui.JPG"/>
 
@@ -92,6 +95,20 @@ It sucks because by having classes it was cleaner, but the code also doesn't wor
 12:33 PM
 
 Okay this is all working now... the camera will just have to be coordinated when it is being used
+
+Damn haven't heard Waax in a min
+
+12:42 PM
+
+I'm losing momentum dang
+
+Doubt I'll be able to integrate this into the camera software, just demo it working from SSH call
+
+12:46 PM
+
+Look at that... learning about photography by programming the UI of one ha
+
+Shutter speed in this case and how picamera2 uses thes values (microseconds) vs. fraction of seconds (camera brands)
 
 
 

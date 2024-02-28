@@ -11,7 +11,39 @@
   <!-- this file is used for local development, it is rebuilt in the mjpeg_server.py file -->
   <div class="web-stream-ui">
     <div class="web-stream-ui__controls">
-      <button type="button">capture</button>
+      <div class="web-stream-ui__control-set">
+        <div class="web-stream-ui__control-group">
+          <p>ISO</p>
+          <div class="web-stream-ui__control-input-wrapper">
+            <input type="number" min="100" step="100" class="web-stream-ui__control-value" value="100"/>
+            <div class="web-stream-ui__control-inputs">
+              <button type="button">
+                <img src="./uxwing-line-angle-up-icon.svg"/>
+              </button>
+              <button type="button">
+                <img src="./uxwing-line-angle-down-icon.svg"/>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="web-stream-ui__control-group">
+          <p>SHUTTER SPEED</p>
+          <div class="web-stream-ui__control-input-wrapper">
+            <input type="number" min="100" step="100" class="web-stream-ui__control-value" value="100"/>
+            <div class="web-stream-ui__control-inputs">
+              <button type="button">
+                <img src="./uxwing-line-angle-up-icon.svg"/>
+              </button>
+              <button type="button">
+                <img src="./uxwing-line-angle-down-icon.svg"/>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="web-stream-ui__shutter">
+        <button type="button">capture</button>
+      </div>
     </div>
     <div class="web-stream-ui__video">
       <img src="./camera-output.jpg" width="640" height="480"/>
