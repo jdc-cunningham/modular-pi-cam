@@ -156,7 +156,19 @@ lmao wtf is this
 
 <img src="./devlog-images/what.JPG"/>
 
+Seems to be from the await
 
+2:37 PM
+
+Ugh... this ISO to AnalogueGain thing is whack
+
+looks like 1-16 maybe, verify with metadata
+
+Damn it can go to 100 wtf...
+
+2:49 PM
+
+I need to test this against the v2 module
 
 ---
 

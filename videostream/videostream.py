@@ -143,3 +143,5 @@ def update_camera_values(which, value):
     if (which == "iso"):
         AnalogueGain = int(value)
         picam2.set_controls({"ExposureTime": ExposureTime, "AnalogueGain": AnalogueGain})
+
+    return True

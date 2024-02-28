@@ -34,6 +34,8 @@ connectToPiZero2();
 // buttons, camera state
 
 const isoVals = [100, 200, 400, 800, 1600, 3000];
+const isoValToAnalogueGain = [1, 2, 4, 6, 12, 16];
+
 const shutterSpeedVals = ["1", "1/2", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000"]; // second
 const shutterSpeedDecVals = [1, 1/2, 1/4, 1/8, 1/15, 1/30, 1/60, 1/125, 1/250, 1/500, 1/1000];
 
@@ -58,7 +60,7 @@ const updateControl = (whichControl, dir, dispTarget) => {
     }
 
     dispTarget.value = isoVals[isoPos];
-    piSocket.send(`iso,${isoVals[isoPos]}`);
+    piSocket.send(`iso,${isoValToAnalogueGain[isoPos]}`);
   }
 
   if (whichControl === 'shutter speed') {

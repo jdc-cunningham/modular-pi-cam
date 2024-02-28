@@ -6,7 +6,7 @@ class WebSocket():
     self.socket = None
     self.update_value = update_value
 
-  async def recvd_msg(self, msg):
+  async def recvd_msg(self, msg) -> bool:
     if ('iso' in msg):
       val = msg.split(',')[1]
       self.update_value('iso', val)
@@ -22,7 +22,6 @@ class WebSocket():
       await asyncio.sleep(0.1)
 
   async def socket_main(self):
-    print('run socket')
     async with websockets.serve(self.socket_listener, "192.168.1.104", 5678):
       await asyncio.Future()
 
