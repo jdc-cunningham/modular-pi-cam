@@ -27,3 +27,31 @@ This looks good since I want a pretty url to go to
 Damn... wasted a day sucks
 
 I'll probably do some variant/combination of the mjpeg_server.py output with controls on the sides/overlaid if too small
+
+7:21 PM
+
+While I do regret dumping so much time into the bluetooth approach, this AP way may be better anyways just because of the data throughput
+
+I can do livestream video for example, I will test that actually just to be sure
+
+7:38 PM
+
+I'll continue with this tomorrow... might be time to make an actual separate pi camera repo
+
+I'm just not a good code setter/trailblazer since I don't have any good practices/not a good architect
+
+8:01 PM
+
+Ugh... bookworm why... pip install now uses apt python3-pkgname
+
+- install git
+- sudo apt install python3-numpy
+- sudo raspi-config (interface options, enable spi)
+- sudo apt install python3-pillow
+- sudo apt install python3-picamera2
+
+This is so sus man the python3-pillow for example
+
+8:13 PM
+
+oh man... back to same state as before, working pi camera
