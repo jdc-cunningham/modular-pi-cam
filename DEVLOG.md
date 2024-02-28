@@ -170,6 +170,18 @@ Damn it can go to 100 wtf...
 
 I need to test this against the v2 module
 
+2:57 PM
+
+Dang... bout to be out of time
+
+Will be gone for like 2 hours
+
+3:14 PM
+
+Yeah right now the shutter does not work, causes a problem so I have to look into that
+
+ISO is working though
+
 ---
 
 02/27/2024
