@@ -62,6 +62,26 @@ The cool thing is... with the focus you can switch between far and macro in theo
 
 I know what I can do... I will make the wifi mjpeg_server interface with focus set and take photo... then I can dial it down in real time
 
+12:49 PM
+
+FUHHHHHHH I'll get the standard angle so I can personally compare them
+
+It's $25 anyway
+
+The main reason is with regard to landscape... I want to see if it's not as bad with distortion since it's not so extreme with regard to angle
+
+28mm sounds good too, I used to use 35mm quite often
+
+It is done... $40 lol... that's currently 2.3 hrs of my life, used to be less than 1
+
+Alright so yeah... I'll go out today, and then work on the wifi focusing stuff to get it down/understand this camera more
+
+Ahh man... this camera is not easily detachable though... I need a mechanical pin join thing which does exist but they're still two flip tabs... it's not like a slide/click deal
+
+I am thinking about another hat cam project that's simpler/you clip it to the front of your hat
+
+It has as touch screen interface (maybe the round one I already have) so I may end up re-using these cameras for that idk
+
 ---
 
 03/03/2024
