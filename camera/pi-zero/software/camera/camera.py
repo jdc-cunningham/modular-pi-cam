@@ -14,7 +14,8 @@ class Camera:
     self.img_base_path = os.getcwd() + "/captured-media/"
     self.picam2 = Picamera2()
     self.encoder = H264Encoder()
-    self.small_res_config = self.picam2.create_still_configuration(main={"size": (240, 240)}) # should not be a square
+    # dimensions based on 4608x2592 resolution, set for camera module v3
+    self.small_res_config = self.picam2.create_still_configuration(main={"size": (427, 240)}) # should not be a square
     self.full_res_config = self.picam2.create_still_configuration()
     self.last_mode = "small"
     self.live_preview_active = False
