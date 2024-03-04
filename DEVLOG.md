@@ -8,7 +8,59 @@ Mostly landscapea looking far way, I think I will need the phone to do macro
 
 Oh nice, 0 for manual, the other thing I have to look into is auto rectifying (distorted lines)
 
+11:58 AM
 
+I find myself trying to rationalize why the images are not great
+
+The answer is simple... it's not a real camera eg. 4/3, fullframe, etc... or a modern phone
+
+Also any kind of motion is not good with the automatic settings
+
+12:01 PM
+
+I am unfortunately starting to lose interest in this project, just because the reality of my life (I'm f'd/in poverty) is weighing down on me
+
+So... I have to start grinding on something that actually makes money since my applications are getting rejected or ignored
+
+It's my own fault really... I've been quite lucky with the jobs I've had... I just forgot about my debt for some reason and how all my life I've been poor
+
+12:18 PM
+
+It's interesting... far away stuff looks worse than close (sharpness)
+
+12:24 PM
+
+Damn... I can't help but feel disappointed lol... after all this time... ugh IT'S NOT A REAL CAMERA Jacob
+
+12:26 PM
+
+I have t leave again for a plasma donation... today the sun poked out could have been good
+
+I think I will try it anyway without a video/solid software
+
+I just want to see what it looks like outside
+
+The problem is vibration... idk I guess I'll take many shots
+
+But it is a small enough camera where I can just stick it in my hoodie pocket
+
+I'm tempted to get the standard to compare but idk if it's worth it
+
+12:32 PM
+
+Ha it's that thing... sunk cost
+
+12:35 PM
+
+Yeah... I'm gonna have to dump more time into this
+
+12:42 PM
+
+The cool thing is... with the focus you can switch between far and macro in theory
+
+12:47 PM
+
+I know what I can do... I will make the wifi mjpeg_server interface with focus set and take photo... then I can dial it down in real time
 
 ---
 
