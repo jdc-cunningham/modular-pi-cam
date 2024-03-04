@@ -1,3 +1,25 @@
+03/03/2024
+
+4:40 PM
+
+Finally... I'm free! PTO too my pitiful $17.50/hr current value for existing
+
+Before I fall into a coma from my weekend food binging let me design the front plate and print it, I have like 6 hours left today to print stuff
+
+5:00 PM
+
+Okay so the top of the v3 module camera is opposite of where the flat cable comes in
+
+The test shot I took wow, everything is clear... I'm really liking what I'm seeing so far
+
+The test will be to take it outside tomorrow
+
+6:10 PM
+
+It's printing now, hope it's right lol
+
+---
+
 02/28/2024
 
 10:39 AM
