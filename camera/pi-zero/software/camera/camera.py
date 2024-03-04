@@ -5,6 +5,7 @@ import os, time
 from threading import Thread
 from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder, Quality
+from libcamera import controls
 
 class Camera:
   def __init__(self, main):
@@ -24,6 +25,8 @@ class Camera:
 
   def start(self):
     self.picam2.start()
+    # 0 is infinity, 1 is 1 meter. 10 max is closest 1/10 meters or 10 cm
+    self.picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
 
   def change_mode(self, mode):
     if (mode == "full"):

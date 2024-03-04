@@ -1,3 +1,17 @@
+03/04/2024
+
+Okay... I'm gonna experiment with this camera's software settings
+
+I want to be able to take good photos/not have bad autofocus choices
+
+Mostly landscapea looking far way, I think I will need the phone to do macro
+
+Oh nice, 0 for manual, the other thing I have to look into is auto rectifying (distorted lines)
+
+
+
+---
+
 03/03/2024
 
 4:40 PM
