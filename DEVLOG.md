@@ -18,6 +18,12 @@ The test will be to take it outside tomorrow
 
 It's printing now, hope it's right lol
 
+11:51 PM
+
+I christen thee... orange slab
+
+<img src="./devlog-images/orange-slab.JPG"/>
+
 ---
 
 02/28/2024
