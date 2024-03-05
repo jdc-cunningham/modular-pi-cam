@@ -20,7 +20,6 @@ class Camera:
     self.last_mode = "small"
     self.live_preview_active = False
     self.live_preview_pause = False
-    self.live_preview_start = main.live_preview_start
     self.display = main.display
 
     self.picam2.configure(self.small_res_config)
@@ -84,7 +83,7 @@ class Camera:
         self.display.lcd.ShowImage(pil_img_r2)
 
       # after 1 min turn live preview off
-      if (time.time() > self.live_preview_start + 30 and not self.live_preview_pause):
+      if (time.time() > self.main.live_preview_start + 30 and not self.live_preview_pause):
         branch_hit = True
         self.main.live_passthrough = False
         self.live_preview_pause = True
