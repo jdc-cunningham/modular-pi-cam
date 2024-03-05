@@ -33,7 +33,7 @@ class Camera:
       self.picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
     else:
       # steps of 0.5 I guess, I'll use 1
-      self.picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
+      self.picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": self.main.focus_level})
 
   def change_mode(self, mode):
     if (mode == "full"):
@@ -45,7 +45,7 @@ class Camera:
   def take_photo(self):
     print('taking photo')
     time.sleep(0.25) # add delay for recoil of spring button
-    img_path = self.img_base_path + str(time.time()).split(".")[0] + ".jpg"
+    img_path = self.img_base_path + str(time.time()).split(".")[0] + "f" + str(self.main.focus_level) + ".jpg"
     self.change_mode("full")
     self.picam2.capture_file(img_path)
     self.change_mode(self.last_mode)
