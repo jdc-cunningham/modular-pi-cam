@@ -10,13 +10,13 @@ class Main:
   def __init__(self):
     self.on = True
     self.processing = False
+    self.live_preview_start = 0
     self.display = Display()
     self.buttons = Buttons(self)
     self.camera = Camera(self)
     self.menu_pos = 0 # hardcoded for first version, doesn't belong here
     self.live_passthrough = False
     self.focus_level = -1 # -1 is auto, 0 is infinite, 1 is 1-3m, up to 10 which is 1/10 or 10cm
-    self.live_preview_start = 0
 
     self.start_up()
 

@@ -58,7 +58,11 @@ Also I need to bump the live preview time (30 seconds) when pushing a button
 
 The boot time of bookworm is faster than bullseye
 
+12:49 PM
 
+Damn... I just wrote that code under 10 mins lol
+
+It's bad, now to see if it works
 
 ---
 
