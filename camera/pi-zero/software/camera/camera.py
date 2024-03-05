@@ -4,6 +4,7 @@ import os, time
 
 from threading import Thread
 from picamera2 import Picamera2
+from libcamera import controls
 from picamera2.encoders import H264Encoder, Quality
 
 class Camera:
@@ -23,6 +24,7 @@ class Camera:
     self.picam2.configure(self.small_res_config)
 
   def start(self):
+    self.picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 1})
     self.picam2.start()
 
   def change_mode(self, mode):
