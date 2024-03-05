@@ -1,3 +1,67 @@
+03/05/2024
+
+11:12 AM
+
+Ahh... I'm sad... the gift I bought for myself (a used Carbon X1 gen 5) is not being sent by the shipper... idk if it's a scam or what
+
+It's annoying because I can't cancel the order, the money is gone and it's just in limbo... idk when I'll get the laptop... which it doesn't matter it's not that much... just annoying
+
+In general I feel this discomfort that I will have to go back to the factory... I can't escape... this project is a waste of time I should be making money (trying to) somehow and getting out of my situation
+
+Oh well... time will pass regardless
+
+Yeah I'm gonna add in the dynamic focus feature overlaid on the live pass through
+
+I'm annoyed with the 5D rocker's middle button not working... may be worth revisiting it again adding some kind of filter
+
+11:58 AM
+
+Ugh... distracted dumb dumb dumb
+
+Idk why I keep having issues buying stuff on eBay wasn't like that before oh well
+
+12:05 PM
+
+I asked about the 5D joystick and maybe I need to setup pull up/down
+
+Will try it
+
+12:10 PM
+
+Alright it is time to call upon my Kornholio (playlist)
+
+Focus mode
+
+Nothing else matters... Metallica
+
+12:23 PM
+
+Nah... I'm already using software pull down
+
+Anyway I don't like this interface and will have to make another camera body ha
+
+I like the form factor/how small it is however I need the working center button... maybe I have to buy more... future thoughts
+
+12:27 PM
+
+Ugh... this code is so bad... I have to take it all in, refactor for Pelicam
+
+- store value of focus level
+- pass it into camera
+- camera receives this state which is set by menu and buttons and/or display
+
+I have to see how bad it is to overwrite on live preview
+
+Also I need to bump the live preview time (30 seconds) when pushing a button
+
+12:35 PM
+
+The boot time of bookworm is faster than bullseye
+
+
+
+---
+
 03/04/2024
 
 Okay... I'm gonna experiment with this camera's software settings

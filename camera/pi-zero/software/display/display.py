@@ -47,6 +47,13 @@ class Display:
   def clear_screen(self):
     self.clear()
 
+  def add_focus_level(self, live_preview_img, focus_level):
+    draw = ImageDraw.Draw(live_preview_img)
+
+    focus_text = 'AF' if focus_level == -1 else str('F ' + focus_level)
+
+    draw.text((79, 180), focus_text, fill = (255,255,255), font=Font3)
+
   # proportional resize
   def resize_img(self, img, width):
     wpercent = (width / float(img.size[0]))

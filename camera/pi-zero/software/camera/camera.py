@@ -20,14 +20,22 @@ class Camera:
     self.last_mode = "small"
     self.live_preview_active = False
     self.live_preview_pause = False
-    self.live_preview_start = 0
+    self.live_preview_start = main.live_preview_start
+    self.focus_level = main.focus_level
+    self.display = main.display
 
     self.picam2.configure(self.small_res_config)
 
   def start(self):
     self.picam2.start()
     # 0 is infinity, 1 is 1 meter. 10 max is closest 1/10 meters or 10 cm
-    self.picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
+
+  def check_focus(self):
+    if (self.focus_level == -1):
+      self.picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
+    else:
+      # steps of 0.5 I guess, I'll use 1
+      self.picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": 0.0})
 
   def change_mode(self, mode):
     if (mode == "full"):
@@ -57,11 +65,18 @@ class Camera:
       branch_hit = False # wtf is this
 
       if (not self.live_preview_pause):
+        # check focus
+        self.check_focus()
+
         branch_hit = True
         pil_img = self.picam2.capture_image()
         pil_img = self.check_mod(pil_img) # bad name
         pil_img_r = pil_img.rotate(270) # display is rotated left 90
-        self.display.lcd.ShowImage(pil_img_r)
+
+        # add focus info
+        img_stamped = self.display.add_focus_level(pil_img_r, self.focus_level)
+
+        self.display.lcd.ShowImage(img_stamped)
 
       # after 1 min turn live preview off
       if (time.time() > self.live_preview_start + 30 and not self.live_preview_pause):
