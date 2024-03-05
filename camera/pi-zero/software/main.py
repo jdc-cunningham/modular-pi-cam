@@ -38,10 +38,12 @@ class Main:
       if (button == "UP"):
         if (self.focus_level < 10):
           self.focus_level += 1
+          time.sleep(0.05) # slow down btn update speed
 
       if (button == "DOWN"):
         if (self.focus_level > -1):
-          self.focus_levle -= 1
+          self.focus_level -= 1
+          time.sleep(0.05)
 
     if (self.processing or self.live_passthrough):
       if (button == "SHUTTER"):
