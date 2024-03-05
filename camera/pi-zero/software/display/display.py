@@ -54,6 +54,8 @@ class Display:
 
     draw.text((79, 180), focus_text, fill = (255,255,255), font=Font3)
 
+    return draw
+
   # proportional resize
   def resize_img(self, img, width):
     wpercent = (width / float(img.size[0]))
