@@ -72,6 +72,16 @@ I was supposed to design/print a holder for the ND filter... maybe I still can
 
 It's an overcast day too sucks
 
+2:17 PM
+
+eating, charging, will head out soon
+
+I did have a thought, I will put the focus setting in the file name so I can tell what was used later
+
+2:41 PM
+
+Ooh man... I almost left again with the dynamic autofocus actually working, except for infinity
+
 ---
 
 03/04/2024
