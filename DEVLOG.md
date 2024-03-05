@@ -82,6 +82,18 @@ I am thinking about another hat cam project that's simpler/you clip it to the fr
 
 It has as touch screen interface (maybe the round one I already have) so I may end up re-using these cameras for that idk
 
+8:21 PM
+
+ugh... was a fail... I left the hardcoded focus 1
+
+I'm thinking of a lazy temporary interface/way to change the focus
+
+when you're in the camera live preview mode, you just push up/down on the stick and that'll change the focus distance, it starts at infinity... although it would be more intuitive to start a nearest
+
+I also realise the HQ camera is literally better... so I'll use them both tomorrow to compare
+
+I'll go out again tomorrow
+
 ---
 
 03/03/2024
