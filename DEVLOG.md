@@ -64,6 +64,14 @@ Damn... I just wrote that code under 10 mins lol
 
 It's bad, now to see if it works
 
+1:22 PM
+
+Alright I have a working dynamic focus
+
+I was supposed to design/print a holder for the ND filter... maybe I still can
+
+It's an overcast day too sucks
+
 ---
 
 03/04/2024
