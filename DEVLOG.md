@@ -103,3 +103,50 @@ Ehh... I don't feel great with this locking system, kind of lazy
 Gonna just start printing and testing physically
 
 This is such a small piece of what I have to do, so much to do
+
+4:37 PM
+
+Oh yeah today I'll fire up the display with the Pelicam logo, sell myself the vision
+
+4:45 PM
+
+print started
+
+man my sleep pattern is gonna be mega f'd but my day job I can just take a 5hr energy and it's pretty much a paid workout, I hit 230 lbs today, in my remote days my highest weight I think was like 269 lbs or something crazy like that
+
+Alright let's keep moving... NOS opened...
+
+Modeling the display, I'm removing the brass stand offs
+
+OMG this display is so nice... a legit display, not a tiny one
+
+Hmm looking it up says bright mode is better in daylight... I'll try it
+
+All of my menus so far have been dark mode
+
+Why does my cat feel compelled to chew on things, he's chewing on an anti-static discharge bag
+
+4:53 PM
+
+Omg... ytf is VCC purple
+
+4:55 PM
+
+I forgot about the list of things to do
+
+- [ ] design lock mechanism
+- [ ] model 2.4" LCD screen
+- [ ] design new body
+- [ ] solder electronics/measure against body before printing
+- [ ] print body/assemble
+- [ ] design and print lens wrappers for 16mm 10MP lens
+- [ ] consolidate/update camera software as Pelicam
+
+Sadly wednesday is a rainy day... may still go out
+
+Going to skip the plasma donos, sucks but the price goes down, got a 3mo since started bonus, not much but can make up that lost money, it's dumb like I spent that much anyway on all these random parts
+
+I have 2 HQ modules now they're `$50` each, the 16MP lens is `$50`
+
+Oh well... so it goes
+
