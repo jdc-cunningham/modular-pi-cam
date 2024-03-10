@@ -57,3 +57,7 @@ Damn this is long
 <img src="./devlog-images/long.JPG"/>
 
 Quick break
+
+3:28 PM
+
+Back on
