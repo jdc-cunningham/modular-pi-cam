@@ -150,3 +150,31 @@ I have 2 HQ modules now they're `$50` each, the 16MP lens is `$50`
 
 Oh well... so it goes
 
+5:16 PM
+
+Alright model done, basic for major dimensions
+
+<img src="./devlog-images/2.4-lcd-display.JPG"/>
+
+5:17 PM
+
+Guess I'll do some soldering, need to get a 40 pin header on the RPi zero 2
+
+5:34 PM
+
+Damn... I just soldered the wrong thing on (female header on RPi)... great
+
+I can test the display on a Pi Zero 1
+
+I say "wrong" because the 2.4" LCD has female pins so needs male header... oh well
+
+5:52 PM
+
+Huh... looks like it's portrait? hmm, the test image is portrait anyway
+
+yeah the dimensions lead with 240 vs. 320 for the 240x320 resolution hmm
+
+Well it looks good
+
+<img src="./devlog-images/portrait.JPG"/>
+
