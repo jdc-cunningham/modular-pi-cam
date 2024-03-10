@@ -178,3 +178,17 @@ Well it looks good
 
 <img src="./devlog-images/portrait.JPG"/>
 
+6:04 PM
+
+Whoops... this is completely wrong ha... the 15pin area is nice and snug, slides right in
+
+Forgot about the gap for the sliding bit
+
+<img src="./devlog-images/gap.JPG"/>
+
+At least I only have to print the top part
+
+6:18 PM
+
+Print #2...
+
