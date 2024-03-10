@@ -61,3 +61,45 @@ Quick break
 3:28 PM
 
 Back on
+
+3:54 PM
+
+oh man! I just realized something... the RPi HQ cam comes with a tripod mount... duh...
+
+So you can use that instead of the bolts...
+
+I'll do that because I think most people if anybody reproduces this project will go with an RPi HQ cam vs. the modules/other subpar cameras resolution wise
+
+At some point will include an alternate design for the nut
+
+The nut is 1/4-20 inch
+
+<img src="./devlog-images/tripod-mount.JPG"/>
+
+3:57 PM
+
+I'm designing the sliding plates now
+
+3:59 PM
+
+My man... I forgot I modeled the RPi HQ Cam for the pi zero hq cam project
+
+Yeah... the boards are definitely not the same size lmao (v2 vs. hq)
+
+4:12 PM
+
+I'm struggling with this lock mechanism
+
+<img src="./devlog-images/lock.JPG"/>
+
+The cable goes into the pi body at the top, bottom one is folded into an S shape and compressed
+
+The camera is attached to a staple shaped thing eg. n which slides over this and locks against the base plate (height)
+
+4:30 PM
+
+Ehh... I don't feel great with this locking system, kind of lazy
+
+Gonna just start printing and testing physically
+
+This is such a small piece of what I have to do, so much to do
