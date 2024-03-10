@@ -192,3 +192,11 @@ At least I only have to print the top part
 
 Print #2...
 
+6:29 PM
+
+Lol... I'm tracing this tripod mount thing from RPi
+
+<img src="./devlog-images/trace.JPG"/>
+
+It's not exact but as long as I can mount it to the camera body... another test print
+
