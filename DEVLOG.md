@@ -235,3 +235,15 @@ The side profile is possible with how tall the sliding mount is
 Next month will be rough, I'll be short on money again damn
 
 Applying to jobs has not been going well so far, no responses
+
+7:16 PM
+
+Damn... I'm running out of steam
+
+Need to get more done today, something from the list
+
+I may not get the printing done for the new lens since that takes a while, each part is like 3-5 hrs
+
+7:22 PM
+
+Gonna take a break, damn... lost momentum ugh...
