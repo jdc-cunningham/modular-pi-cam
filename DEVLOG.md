@@ -251,3 +251,13 @@ Gonna take a break, damn... lost momentum ugh...
 9:07 PM
 
 This is looking good, this is how the camera would sit, custom plates per camera but yeah
+
+<img src="./devlog-images/locking-mechanism-sample.png"/>
+
+9:41 PM
+
+Oh no... I think I am coming down with something... whyyyyyyy
+
+WHYYYYYYY?!!!!
+
+I will finish this project
