@@ -53,6 +53,32 @@ Now to design a camera around these parts
 
 <img src="./devlog-images/parts.JPG"/>
 
+3:03 PM
+
+The design is already deviating, the display is not as high aspect ratio as my design
+
+<img src="./devlog-images/cry.JPG"/>
+
+These are not the same! (cries)
+
+Compared to sketch below
+
+3:17 PM
+
+Can see how the physical parts dictate the design
+
+<img src="./devlog-images/back.JPG"/>
+
+<img src="./devlog-images/camera-slide.JPG"/>
+
+3:38 PM
+
+Oh god it's ugly af...
+
+<img src="./devlog-images/ugly-af.JPG"/>
+
+
+
 ---
 
 ### 03/10/2024
