@@ -41,7 +41,17 @@ First print is too tight, trying again, it should be tightish but can be taken o
 
 Alright design time, I have like up to 5 hours before I gotta leave
 
+2:36 PM
 
+No more orange filament... back to black (AC/DC)
+
+The dpad matches the drawing more so
+
+2:39 PM
+
+Now to design a camera around these parts
+
+<img src="./devlog-images/parts.JPG"/>
 
 ---
 
