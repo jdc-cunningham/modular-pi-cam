@@ -231,3 +231,7 @@ I'm losing momentum, I'm holding the parts in hand against existing and trying t
 The side profile is possible with how tall the sliding mount is
 
 <img src="./devlog-images/imagine-design.JPG"/>
+
+Next month will be rough, I'll be short on money again damn
+
+Applying to jobs has not been going well so far, no responses
