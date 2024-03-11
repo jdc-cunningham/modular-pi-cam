@@ -1,10 +1,29 @@
 - [x] design lock mechanism
 - [x] model 2.4" LCD screen
+- [ ] verify tripod mount
 - [ ] design new body
 - [ ] solder electronics/measure against body before printing
 - [ ] print body/assemble
 - [ ] design and print lens wrappers for 16mm 10MP lens
 - [ ] consolidate/update camera software as Pelicam
+
+### 03/11/2024
+
+10:59 AM
+
+Yeap... definitely came down with something, thinking a cold
+
+Sucks... WHYYYYYY on my days off to do a project
+
+I can still power through, I just had miserable sleep last night
+
+It's actually good that it's on my days off because I am low on UPT it's called and I'll get fired if I take any days off damn.
+
+Can apply for medical leave but need a legit doctors note and whatever
+
+That's the brutal thing, this is the 3rd time I've gotten sick now from work... so many people, shared spaces
+
+
 
 ---
 
