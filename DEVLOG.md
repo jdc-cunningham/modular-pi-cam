@@ -23,6 +23,24 @@ Can apply for medical leave but need a legit doctors note and whatever
 
 That's the brutal thing, this is the 3rd time I've gotten sick now from work... so many people, shared spaces
 
+12:27 PM
+
+Slow start today
+
+The biggest thing I need to get done is design the camera so I can print then do other work in the background
+
+12:43 PM
+
+Still distracted, starting to print the tripod insert/surrounding material though
+
+12:59 PM
+
+First print is too tight, trying again, it should be tightish but can be taken out, glue seals it in place
+
+1:55 PM
+
+Alright design time, I have like up to 5 hours before I gotta leave
+
 
 
 ---
