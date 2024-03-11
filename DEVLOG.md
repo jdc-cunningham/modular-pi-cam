@@ -77,6 +77,28 @@ Oh god it's ugly af...
 
 <img src="./devlog-images/ugly-af.JPG"/>
 
+4:23 PM
+
+yeah... this is ugly af but as a modular camera well you can redesign the front and back face plates
+
+5:07 PM
+
+On a break
+
+6:38 PM
+
+The snap camera mount turned out really well... I will have to waste some plastic and print it with supports to have a smoother front finish
+
+How much worse is it? 2 hrs vs. 2 hrs 44 mins dang... it's worth
+
+Man... it's almost 3 hours though... ehh whatever
+
+6:53 PM
+
+I've been binge eating... definitely slowed down, not even close to finished camera design
+
+I'll put down more time though, it's less unknowns now and just fitting things, have stuff to base on from previous builds
+
 
 
 ---
