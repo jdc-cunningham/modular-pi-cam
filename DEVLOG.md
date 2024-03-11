@@ -223,3 +223,11 @@ THe sliding camera lock screws up this design too (the battery bump) since it is
 I'll start the dimensions/design around the display and then use the volume of things to make the general size of the camera
 
 Still need to lock in the lock design
+
+7:09 PM
+
+I'm losing momentum, I'm holding the parts in hand against existing and trying to come up with a design
+
+The side profile is possible with how tall the sliding mount is
+
+<img src="./devlog-images/imagine-design.JPG"/>
