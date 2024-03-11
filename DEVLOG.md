@@ -247,3 +247,7 @@ I may not get the printing done for the new lens since that takes a while, each 
 7:22 PM
 
 Gonna take a break, damn... lost momentum ugh...
+
+9:07 PM
+
+This is looking good, this is how the camera would sit, custom plates per camera but yeah
