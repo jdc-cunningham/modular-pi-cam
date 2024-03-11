@@ -135,7 +135,7 @@ Omg... ytf is VCC purple
 I forgot about the list of things to do
 
 - [ ] design lock mechanism
-- [ ] model 2.4" LCD screen
+- [x] model 2.4" LCD screen
 - [ ] design new body
 - [ ] solder electronics/measure against body before printing
 - [ ] print body/assemble
@@ -200,3 +200,26 @@ Lol... I'm tracing this tripod mount thing from RPi
 
 It's not exact but as long as I can mount it to the camera body... another test print
 
+6:36 PM
+
+Not sure if I'm making good progress or what...
+
+There is still a lot to do, tomorrow I gotta run around and pick things up/ship something so that's some distraction
+
+6:53 PM
+
+It kinda sucks the buttons are set in place by the proto board but it's nice regarding that it already exists/easy to solder onto
+
+The pi zero hq cam's d-pad board may be good enough for the design... may adjust the back button position
+
+6:58 PM
+
+<img src="./devlog-images/move-up.JPG"/>
+
+I'm trying to move the back button up/match the design
+
+THe sliding camera lock screws up this design too (the battery bump) since it is tall... was envisioning it to be sideways but that would rotate the images which are not square/intended to be landscape
+
+I'll start the dimensions/design around the display and then use the volume of things to make the general size of the camera
+
+Still need to lock in the lock design
