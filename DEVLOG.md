@@ -1,3 +1,13 @@
+- [x] design lock mechanism
+- [x] model 2.4" LCD screen
+- [ ] design new body
+- [ ] solder electronics/measure against body before printing
+- [ ] print body/assemble
+- [ ] design and print lens wrappers for 16mm 10MP lens
+- [ ] consolidate/update camera software as Pelicam
+
+---
+
 ### 03/10/2024
 
 2:29 PM
@@ -261,3 +271,7 @@ Oh no... I think I am coming down with something... whyyyyyyy
 WHYYYYYYY?!!!!
 
 I will finish this project
+
+9:51 PM
+
+time marches on... soon the exciting thing will be the past
