@@ -33,6 +33,12 @@ The other one I have to design is one for the V3 module
 
 I'm distracted by waiting for this package
 
+2:18 PM
+
+OMG... I printed the wrong thing... ugh since the names are the same/can't see the long string
+
+
+
 ---
 
 ### 03/11/2024
