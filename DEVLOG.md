@@ -107,7 +107,33 @@ I have 2 days left... 3 big parts to print, other parts to print too, need to sk
 
 Engage the Kornholio
 
+7:45 PM
 
+Damn my eyes are burning and nose won't stop running
+
+7:55 PM
+
+Choosing to re-use the rpi hq cam's tripod mount is a waste of plastic since it's much larger than basic nuts
+
+<img src="./devlog-images/mount.JPG"/>
+
+Yuck
+
+Anyway just positioning stuff, need to put screw holes again
+
+I'm going to put more this time because the orange one (round display) was a little loose, also will tighten the seam
+
+Already battling sketchup with regard to lag or just not responding
+
+9:33 PM
+
+Dang... I can't print them that way because the supports block the sliding rails... oof
+
+I'll just put the lettering on the sides
+
+I have to design and print the HQ mount because is the most important one
+
+Can't print anymore tonight
 
 ---
 
