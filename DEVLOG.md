@@ -37,7 +37,37 @@ I'm distracted by waiting for this package
 
 OMG... I printed the wrong thing... ugh since the names are the same/can't see the long string
 
+2:38 PM
 
+distracted, also a huge PITA to place these screw holders for the body
+
+2:43 PM
+
+Ugh... where is my lens man
+
+<img src="./devlog-images/clippy.JPG"/>
+
+2:50 PM
+
+Ooh this looks good
+
+<img src="./devlog-images/back-plate.JPG"/>
+
+What sucks is if I print it the other way around it takes way longer, but better finish
+
+Yeah f that goes from 4 hrs to 7 lmao
+
+3:03 PM
+
+Ugh... I keep mixing stuff in the wrong folder because windows opens a different path
+
+Or it could be SketchUp
+
+3:06 PM
+
+Oof... the front plate will take the longest to print 9 hrs damn, rotating it is a little less but still near 9 hrs
+
+I would rather have the nice front finish
 
 ---
 
