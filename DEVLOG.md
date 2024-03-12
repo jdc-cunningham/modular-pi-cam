@@ -75,6 +75,12 @@ This looks pretty good
 
 <img src="./devlog-images/all-black.JPG"/>
 
+4:51 PM
+
+WHERE IS MY LENS?!!! REEEEE
+
+mail didn't come today I guess, was supposed to arrive yesterday ahh well...
+
 ---
 
 ### 03/11/2024

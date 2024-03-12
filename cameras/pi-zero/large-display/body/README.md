@@ -3,8 +3,8 @@
 PLA 1.75mm 20% infill with supports, 50 mm/s
 
 - camera body
-  - 9hrs 37 min front plate
-  - middle plate
+  - 9hrs 37min - front plate
+  - 3hrs 5min - middle plate
   - back plate
 
 - camera module mounts
