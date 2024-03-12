@@ -99,6 +99,14 @@ I've been binge eating... definitely slowed down, not even close to finished cam
 
 I'll put down more time though, it's less unknowns now and just fitting things, have stuff to base on from previous builds
 
+7:17 PM
+
+Alright let's go, pump mode
+
+I have 2 days left... 3 big parts to print, other parts to print too, need to skip some probably
+
+Engage the Kornholio
+
 
 
 ---
