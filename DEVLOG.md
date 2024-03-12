@@ -1,7 +1,7 @@
 - [x] design lock mechanism
 - [x] model 2.4" LCD screen
-- [ ] verify tripod mount
-- [ ] design new body
+- [x] verify tripod mount
+- [x] design new body
 - [ ] solder electronics/measure against body before printing
 - [ ] print body/assemble
 - [ ] design and print lens wrappers for 16mm 10MP lens
@@ -139,7 +139,27 @@ Can't print anymore tonight
 
 Ahh man the lettering completely screwed up the skin... nice
 
+10:10 PM
 
+It does look camera-ish...
+
+<img src="./devlog-images/camera-ish.JPG"/>
+
+Oh now this looks good
+
+<img src="./devlog-images/hot.png"/>
+
+10:22 PM
+
+Alright I think this is a good place to stop for now.
+
+The rest is tedious work eg. adding screw holes, the lip-interlock between the front, middle and back face plate.
+
+10:29 PM
+
+I kind of wish it was grey now instead of black ha
+
+That would be a weird looking camera but less toy than a bright orange one
 
 ---
 
