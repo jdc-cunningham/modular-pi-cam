@@ -25,6 +25,10 @@ I had thought about printing the top plate as an aesthetic design on the camera 
 
 Yeah I just did it... sucks mine is ugly, don't want to reprint right now
 
+11:43 AM
+
+The other one I have to design is one for the V3 module
+
 ---
 
 ### 03/11/2024
