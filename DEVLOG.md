@@ -69,6 +69,12 @@ Oof... the front plate will take the longest to print 9 hrs damn, rotating it is
 
 I would rather have the nice front finish
 
+3:26 PM
+
+This looks pretty good
+
+<img src="./devlog-images/all-black.JPG"/>
+
 ---
 
 ### 03/11/2024
