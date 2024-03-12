@@ -29,6 +29,10 @@ Yeah I just did it... sucks mine is ugly, don't want to reprint right now
 
 The other one I have to design is one for the V3 module
 
+12:07 PM
+
+I'm distracted by waiting for this package
+
 ---
 
 ### 03/11/2024
