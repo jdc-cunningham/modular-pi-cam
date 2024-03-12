@@ -135,6 +135,12 @@ I have to design and print the HQ mount because is the most important one
 
 Can't print anymore tonight
 
+9:52 PM
+
+Ahh man the lettering completely screwed up the skin... nice
+
+
+
 ---
 
 ### 03/10/2024
