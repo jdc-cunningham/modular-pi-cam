@@ -7,6 +7,26 @@
 - [ ] design and print lens wrappers for 16mm 10MP lens
 - [ ] consolidate/update camera software as Pelicam
 
+### 03/12/2024
+
+11:19 AM
+
+Back on... while I feel like it's a waste of time, I am going to go to the park when I get the lens from my mailbox
+
+I want to see (with my own eyes, Vader) the 10MP resolving power
+
+11:35 PM
+
+Printing the HQ cam mount
+
+I had thought about printing the top plate as an aesthetic design on the camera plates vs. having to do supporst which makes it look uglier
+
+11:40 AM
+
+Yeah I just did it... sucks mine is ugly, don't want to reprint right now
+
+---
+
 ### 03/11/2024
 
 10:59 AM
