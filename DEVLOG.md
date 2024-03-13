@@ -107,6 +107,8 @@ It does look bad, something you're gonna stare at a lot
 
 It's not super terrible but...
 
+The pi zero hq cam has the same finish on the back but I was not bothered by it like I am here
+
 ---
 
 ### 03/11/2024
