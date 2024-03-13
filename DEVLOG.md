@@ -89,6 +89,12 @@ My used laptop's battery is dead so I had to get another one... great
 
 I'm kind of mentally done at this point not sure what else I'll do today I'm printing
 
+8:50 PM
+
+Hmm... first tests of the 16mm 10MP lens not great... I feel like it's a low light situation though... also I'm using auto settings on the RPi
+
+Need to take it outside to really test it
+
 ---
 
 ### 03/11/2024
