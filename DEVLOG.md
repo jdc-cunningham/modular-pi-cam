@@ -95,6 +95,14 @@ Hmm... first tests of the 16mm 10MP lens not great... I feel like it's a low lig
 
 Need to take it outside to really test it
 
+11:32 PM
+
+It's funny this support structure finish on the back is bugging me... I want to reprint it despite it taking almost 2x as long...
+
+I will still assemble it but I will reprint it next time I'm free
+
+It does look bad, something you're gonna stare at a lot
+
 ---
 
 ### 03/11/2024
