@@ -81,6 +81,14 @@ WHERE IS MY LENS?!!! REEEEE
 
 mail didn't come today I guess, was supposed to arrive yesterday ahh well...
 
+7:00 PM
+
+OMG it got delivered now... I'll go to the park tomorrow... I'm printing the back plate now... the middle plate is very weak oof
+
+My used laptop's battery is dead so I had to get another one... great
+
+I'm kind of mentally done at this point not sure what else I'll do today I'm printing
+
 ---
 
 ### 03/11/2024
