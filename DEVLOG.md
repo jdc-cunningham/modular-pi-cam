@@ -103,6 +103,10 @@ I will still assemble it but I will reprint it next time I'm free
 
 It does look bad, something you're gonna stare at a lot
 
+<img src="./devlog-images/back-plate-printed.JPG"/>
+
+It's not super terrible but...
+
 ---
 
 ### 03/11/2024
