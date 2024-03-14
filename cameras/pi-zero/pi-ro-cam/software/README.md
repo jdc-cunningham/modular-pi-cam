@@ -1,5 +1,9 @@
 ### Deps
-* need SPI enabled (raspi-config)
+* need SPI enabled (raspi-config, interface options, SPI)
+
+### Python deps (bookworm)
+* `sudo apt install python3-numpy`
+* `sudo apt install python3-pil`
 
 ### Please note
 

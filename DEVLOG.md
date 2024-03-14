@@ -7,6 +7,52 @@
 - [ ] design and print lens wrappers for 16mm 10MP lens
 - [ ] consolidate/update camera software as Pelicam
 
+### 03/13/2024
+
+10:38 AM
+
+9hr 37min print dang...
+
+I also broke my screen on my phone that's great, was dumb just fell over
+
+I'll solder the parts together today and assemble the camera
+
+Get some basic programming goin
+
+12:37 PM
+
+Alright, starting to solder
+
+1:14 PM
+
+Man... I just dumped a box of tiny screws on the ground like 1000 screws or whatever in carpet oof
+
+Not a good day
+
+1:22 PM
+
+At least they're magnetic (ferous)
+
+2:06 PM
+
+Starting on the daughter board now, bridges the buttons and display
+
+3:15 PM
+
+Done soldering so yeah almost 2 hours but could say 2.5 hrs
+
+3:19 PM
+
+tested buttons they work
+
+8:26 PM
+
+Finally it's done printing, unfortunately it was not simple to remove the support material
+
+I damaged one screw mount
+
+---
+
 ### 03/12/2024
 
 11:19 AM
