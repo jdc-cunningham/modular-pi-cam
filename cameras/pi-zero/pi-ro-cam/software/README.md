@@ -4,6 +4,7 @@
 ### Python deps (bookworm)
 * `sudo apt install python3-numpy`
 * `sudo apt install python3-pil`
+* `sudo apt install python3-picamera2`
 
 ### Please note
 

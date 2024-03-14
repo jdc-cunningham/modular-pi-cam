@@ -51,6 +51,13 @@ Finally it's done printing, unfortunately it was not simple to remove the suppor
 
 I damaged one screw mount
 
+10:28 PM
+
+update design
+
+- make screw mount things bigger
+- tripod mount flush
+
 ---
 
 ### 03/12/2024
