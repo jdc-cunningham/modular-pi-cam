@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Web UI</title>
+  <link rel="stylesheet" href="./css-reset.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- this file is used for local development, it is rebuilt in the mjpeg_server.py file -->
+  <div class="web-stream-ui">
+    <div class="web-stream-ui__controls">
+      <div class="web-stream-ui__control-set">
+        <div class="web-stream-ui__control-group">
+          <p>ISO</p>
+          <div class="web-stream-ui__control-input-wrapper">
+            <input type="number" min="100" step="100" class="web-stream-ui__control-value" value="100"/>
+            <div class="web-stream-ui__control-inputs" data-control="iso">
+              <button class="control-btn" type="button" data-dir="inc">
+                <img src="./uxwing-line-angle-up-icon.svg"/>
+              </button>
+              <button class="control-btn" type="button" data-dir="dec">
+                <img src="./uxwing-line-angle-down-icon.svg"/>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="web-stream-ui__control-group">
+          <p>SHUTTER SPEED</p>
+          <div class="web-stream-ui__control-input-wrapper">
+            <input type="text" class="web-stream-ui__control-value" value="1/250"/>
+            <div class="web-stream-ui__control-inputs" data-control="shutter speed">
+              <button class="control-btn" type="button" data-dir="inc">
+                <img src="./uxwing-line-angle-up-icon.svg"/>
+              </button>
+              <button class="control-btn" type="button" data-dir="dec">
+                <img src="./uxwing-line-angle-down-icon.svg"/>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="web-stream-ui__shutter">
+        <button type="button">capture</button>
+      </div>
+    </div>
+    <div class="web-stream-ui__video">
+      <img src="./camera-output.jpg" width="640" height="480"/>
+      <p id="video-overlay"></p>
+    </div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>

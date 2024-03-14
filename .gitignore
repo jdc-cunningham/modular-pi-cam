@@ -1,0 +1,8 @@
+# files
+.env
+.pyc
+.swp
+
+# folders
+__pycache__/
+captured-media/
