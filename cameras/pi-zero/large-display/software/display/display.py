@@ -1,10 +1,12 @@
 import os
-import sys 
+import sys
 import time
-import logging
 import spidev as SPI
+import math
 
-sys.path.append("..")
+base_path = os.getcwd()
+
+sys.path.append(base_path + "/display/")
 
 from lib import LCD_2inch4
 from PIL import Image,ImageDraw,ImageFont
@@ -16,14 +18,12 @@ BL = 18
 bus = 0
 device = 0
 
-base_path = os.getcwd() # root of repo eg. /software/ since main.py calls process
-
 battery_sprite_path = base_path + "/menu/menu-sprites/battery_25_15.jpg"
 folder_sprite_path = base_path + "/menu/menu-sprites/folder_21_18.jpg"
 gear_sprite_path = base_path + "/menu/menu-sprites/gear_23_20.jpg"
 
 small_font = ImageFont.truetype(base_path + "/display/Font/Font00.ttf", 13)
-large_font = ImageFont.truetype(base_path + "/display/Font/Font01.ttf", 16)
+large_font = ImageFont.truetype(base_path + "/display/Font/Font02.ttf", 16)
 
 class Display:
   def __init__(self, main):
@@ -41,8 +41,22 @@ class Display:
     self. disp.Init()
     self.disp.clear()
 
+  def match_lcd(self, image, camera_frame = False):
+    if (camera_frame):
+      r_img = image.rotate(-90)
+      c_img = r_img.crop((0, 0, 240, 320))
+      f_img = c_img
+    else:
+      base_image = Image.new("RGB", (240, 320), "BLACK")
+      c_img = image
+      r_img = c_img.rotate(-90)
+      base_image.paste(r_img, (-80, 0))
+      f_img = base_image
+
+    return f_img
+
   def render_menu_base(self, center_text = "Camera on", photo_text = "photo"):
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
     draw.text((7, 3), photo_text, fill = "WHITE", font = small_font)
@@ -67,20 +81,20 @@ class Display:
   def start_menu(self):
     menu_base = self.render_menu_base()
 
-    self.disp.ShowImage(menu_base)
+    self.disp.ShowImage(self.match_lcd(menu_base))
 
   def display_image(self, img_path):
     image = Image.open(img_path)
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
-  # def display_buffer(self, buffer):
-  #   Display_Buffer(buffer)
+  def show_image(self, img, camera_type = False):
+    self.disp.ShowImage(self.match_lcd(img, camera_type))
 
   def clear_screen(self):
     self.disp.clear()
 
   def show_boot_scene(self):
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
     # look right
@@ -95,11 +109,11 @@ class Display:
     draw.line([(40, 95), (35, 93)], fill = "WHITE", width = 1)  # mouth left
     draw.line([(40, 95), (90, 95)], fill = "WHITE", width = 1)  # mouth
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
     time.sleep(1)
 
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
     # wink
@@ -112,11 +126,11 @@ class Display:
     draw.line([(40, 95), (35, 93)], fill = "WHITE", width = 1)  # mouth left
     draw.line([(40, 95), (90, 95)], fill = "WHITE", width = 1)  # mouth
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
     time.sleep(0.5)
 
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
     # look right
@@ -131,17 +145,17 @@ class Display:
     draw.line([(40, 95), (35, 93)], fill = "WHITE", width = 1)  # mouth left
     draw.line([(40, 95), (90, 95)], fill = "WHITE", width = 1)  # mouth
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
     time.sleep(1)
 
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
     draw.text((20, 55), "Pi Zero Cam", fill = "WHITE", font = large_font)
     draw.text((20, 70), "v 1.1.0", fill = "WHITE", font = small_font)
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
     time.sleep(3)
 
@@ -170,7 +184,7 @@ class Display:
       draw.line([(101, 122), (124, 122)], fill = "MAGENTA", width = 2)
       self.set_menu_center_text(draw, "Settings")
     
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
   
   def toggle_text(self, mode):
     if (mode == "video"):
@@ -178,22 +192,22 @@ class Display:
     else:
       image = self.render_menu_base("Toggle Mode", "photo")
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
   def draw_text(self, text):
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
     font = large_font
 
     draw.text((0, 96), text, fill = "WHITE", font = font)
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
   def get_settings_img(self):
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
-    draw.line([(0, 0), (128, 0)], fill = "WHITE", width = 40)
+    draw.line([(0, 0), (320, 0)], fill = "WHITE", width = 40)
     draw.text((5, 0), "Settings", fill = "BLACK", font = large_font)
     draw.text((5, 26), "Telemetry", fill = "WHITE", font = large_font)
     draw.text((5, 52), "Battery Profiler", fill = "WHITE", font = large_font)
@@ -204,35 +218,35 @@ class Display:
   def render_settings(self):
     image = self.get_settings_img()
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
   def render_battery_profiler(self):
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
     draw.text((0, 48), "Profiling battery", fill = "WHITE", font = large_font)
     draw.text((0, 72), "Press back to cancel", fill = "WHITE", font = small_font)
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
   def render_timelapse(self):
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
     draw.text((0, 48), "5 min timelapse", fill = "WHITE", font = large_font)
     draw.text((0, 72), "Press back to cancel", fill = "WHITE", font = small_font)
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
   def render_battery_charged(self, is_charged = False):
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
 
     draw.text((22, 48), "Battery Charged?", fill = "WHITE", font = small_font)
     draw.text((22, 72), "Yes", fill = "CYAN" if is_charged else "WHITE", font = small_font)
     draw.text((60, 72), "No", fill = "WHITE" if is_charged else "CYAN", font = small_font) # default option
 
-    self.disp.ShowImage(image)
+    self.self.ShowImage(self.match_lcd(image))
 
   def draw_active_telemetry(self):
     image = self.get_settings_img()
@@ -240,7 +254,7 @@ class Display:
 
     draw.line([(0, 26), (0, 42)], fill = "MAGENTA", width = 2)
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
   def draw_active_battery_profiler(self):
     image = self.get_settings_img()
@@ -248,7 +262,7 @@ class Display:
 
     draw.line([(0, 52), (0, 68)], fill = "MAGENTA", width = 2)
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
   def draw_active_timelapse(self):
     image = self.get_settings_img()
@@ -256,17 +270,17 @@ class Display:
 
     draw.line([(0, 78), (0, 94)], fill = "MAGENTA", width = 2)
 
-    self.disp.ShowImage(image)
+    self.disp.ShowImage(self.match_lcd(image))
 
   def render_live_telemetry(self):
     while (self.main.menu.active_menu_item == "Telemetry"):
-      image = Image.new("RGB", (128, 128), "BLACK")
+      image = Image.new("RGB", (320, 320), "BLACK")
       draw = ImageDraw.Draw(image)
 
       accel = self.main.imu.accel
       gyro = self.main.imu.gyro
 
-      draw.line([(0, 0), (128, 0)], fill = "WHITE", width = 40)
+      draw.line([(0, 0), (320, 0)], fill = "WHITE", width = 40)
       draw.text((5, 0), "Raw Telemetry", fill = "BLACK", font = large_font)
       draw.text((5, 26), "accel x: " + str(accel[0])[0:8], fill = "WHITE", font = small_font)
       draw.text((5, 36), "accel y: " + str(accel[1])[0:8], fill = "WHITE", font = small_font)
@@ -275,7 +289,7 @@ class Display:
       draw.text((5, 66), "gyro y: " + str(gyro[1])[0:8], fill = "WHITE", font = small_font)
       draw.text((5, 76), "gyro z: " + str(gyro[2])[0:8], fill = "WHITE", font = small_font)
 
-      self.disp.ShowImage(image)
+      self.self.ShowImage(self.match_lcd(image))
     
   # special page, it is not static
   # has active loop to display data
@@ -292,7 +306,7 @@ class Display:
   # yeah this is hard, need offsets
   # https://stackoverflow.com/a/451580
   def get_files_scene(self, file_paths, page, pages):
-    image = Image.new("RGB", (128, 128), "BLACK")
+    image = Image.new("RGB", (320, 320), "BLACK")
     draw = ImageDraw.Draw(image)
     base_img_path = base_path + "/captured-media/"
 
@@ -341,4 +355,4 @@ class Display:
     else:
       self.main.active_menu = "Files"
       files_scene = self.get_files_scene(files, self.main.menu.files_page, self.main.menu.files_pages)
-      self.disp.ShowImage(files_scene)
+      self.disp.ShowImage(self.match_lcd(files_scene))
