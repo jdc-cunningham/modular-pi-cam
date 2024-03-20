@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import spidev as SPI
+import math
 
 base_path = os.getcwd()
 
