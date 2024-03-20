@@ -14,9 +14,9 @@ class Buttons():
 
     GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # UP
     GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # LEFT
-    GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # CENTER
+    GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # CENTER
     GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # RIGHT
-    GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # DOWN
+    GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # DOWN
     GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # BACK
     GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # SHUTTER
 
@@ -32,11 +32,11 @@ class Buttons():
         self.callback("UP")
       if GPIO.input(21) == GPIO.HIGH:
         self.callback("LEFT")
-      if GPIO.input(18) == GPIO.HIGH:
+      if GPIO.input(14) == GPIO.HIGH:
         self.callback("CENTER")
       if GPIO.input(23) == GPIO.HIGH:
         self.callback("RIGHT")
-      if GPIO.input(24) == GPIO.HIGH:
+      if GPIO.input(20) == GPIO.HIGH:
         self.callback("DOWN")
       if GPIO.input(26) == GPIO.HIGH:
         self.callback("BACK")
