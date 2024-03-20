@@ -3,7 +3,6 @@
   - ask if charged (battery)
   - idle
     (click center button or shutter) show camera pass through, wait for buttons, maybe overlay telemetry/horizon,
-    sample imu in separate thread
   - shutter (photo)
   - non-center d-pad button (show/navigate menu)
   - CRON sqlite db counter for battery consumption
@@ -17,7 +16,6 @@ from camera.camera import Camera
 from menu.menu import Menu
 from display.display import Display
 from utils.utils import Utils
-from imu.imu import Imu # 6050 or GY-91
 
 class Main:
   def __init__(self):
@@ -60,9 +58,7 @@ class Main:
     self.menu = Menu(self)
     self.display.show_boot_scene()
     self.controls = Buttons(self)
-    self.imu = Imu()
 
-    self.imu.start()
     self.camera.start()
     self.controls.start()
     self.check_battery()

@@ -15,3 +15,9 @@ I'll also add the overlay in MP based on camera
 Oh dang... right the LCD drivers are different
 
 Those will need wrappers
+
+12:25 PM
+
+Brief break
+
+Also thought about how the LCD dimensions out to be from outside in if the icons are near the edges of the screen
