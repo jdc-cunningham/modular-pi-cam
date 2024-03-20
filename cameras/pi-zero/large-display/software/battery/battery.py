@@ -1,13 +1,13 @@
 # https://github.com/jdc-cunningham/ml-hat-cam/blob/main/code/batt_db/batt_db.py
 
+import os
 import sqlite3
 import traceback
 import time
 
 from threading import Thread
 
-# this is hardcoded since depending on what calls this file, the os.getcwd() output changes
-base_path = "/home/pi/pi-zero-hq-cam/camera/software/"
+base_path = os.getcwd()
 
 class Battery:
   def __init__(self, main = None):

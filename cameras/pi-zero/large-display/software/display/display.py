@@ -1,10 +1,11 @@
 import os
-import sys 
+import sys
 import time
-import logging
 import spidev as SPI
 
-sys.path.append("..")
+base_path = os.getcwd()
+
+sys.path.append(base_path + "/display/")
 
 from lib import LCD_2inch4
 from PIL import Image,ImageDraw,ImageFont
@@ -15,8 +16,6 @@ DC = 25
 BL = 18
 bus = 0
 device = 0
-
-base_path = os.getcwd() # root of repo eg. /software/ since main.py calls process
 
 battery_sprite_path = base_path + "/menu/menu-sprites/battery_25_15.jpg"
 folder_sprite_path = base_path + "/menu/menu-sprites/folder_21_18.jpg"
