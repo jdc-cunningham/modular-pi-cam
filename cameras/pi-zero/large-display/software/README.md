@@ -17,9 +17,9 @@ After=multi-user.target
 
 [Service]
 Type=idle
-WorkingDirectory=/home/pi/modular-pi-cam/camera/software
+WorkingDirectory=/home/pi/modular-pi-cam/cameras/pi-zero/large-display/software
 User=pi
-ExecStart=/usr/bin/python3 /home/pi/modular-pi-cam/camera/software/main.py
+ExecStart=/usr/bin/python3 /home/pi/modular-pi-cam/cameras/pi-zero/large-display/software/main.py
 Restart=no
 
 [Install]
@@ -48,7 +48,7 @@ I am using SFTP to edit files on the pi and then run the code via ssh session
 
 ### Battery profiling
 
-`*/5 * * * * /usr/bin/python /home/pi/modular-pi-cam/camera/software/cron_battery_ticker.py >> /home/pi/cron-battery-ticker.log 2>&1`
+`*/5 * * * * /usr/bin/python /home/pi/modular-pi-cam/cameras/pi-zero/large-display/software/cron_battery_ticker.py >> /home/pi/cron-battery-ticker.log 2>&1`
 
 Verify python binary location via `$which python`
 
