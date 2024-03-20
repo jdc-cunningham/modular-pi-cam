@@ -28,3 +28,14 @@ Distracted
 
 - [ ] swap display library, update resolution
 - [ ] try a blind run
+
+1:44 PM
+
+Distracted
+
+Still trying to get the display running
+
+I'm waiting for a UPS package that may or may not get delivered to me sucks, apt complex life
+
+I gotta sell more plasma later, thankfully arm has low bruising, been icing that boy
+

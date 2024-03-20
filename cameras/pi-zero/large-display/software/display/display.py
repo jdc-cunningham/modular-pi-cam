@@ -22,8 +22,8 @@ battery_sprite_path = base_path + "/menu/menu-sprites/battery_25_15.jpg"
 folder_sprite_path = base_path + "/menu/menu-sprites/folder_21_18.jpg"
 gear_sprite_path = base_path + "/menu/menu-sprites/gear_23_20.jpg"
 
-small_font = ImageFont.truetype(base_path + "/display/Font00.ttf", 13)
-large_font = ImageFont.truetype(base_path + "/display/Font01.ttf", 16)
+small_font = ImageFont.truetype(base_path + "/display/Font/Font00.ttf", 13)
+large_font = ImageFont.truetype(base_path + "/display/Font/Font01.ttf", 16)
 
 class Display:
   def __init__(self, main):
