@@ -21,3 +21,10 @@ Those will need wrappers
 Brief break
 
 Also thought about how the LCD dimensions out to be from outside in if the icons are near the edges of the screen
+
+12:44 PM
+
+Distracted
+
+- [ ] swap display library, update resolution
+- [ ] try a blind run

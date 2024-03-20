@@ -1,29 +1,29 @@
 import os
-import sys 
 import time
-import logging
-import spidev as SPI
+import math
 
-sys.path.append("..")
+#--------------Driver Library-----------------#
+import RPi.GPIO as GPIO
+from .OLED_Driver import Device_Init, Display_Image, Clear_Screen, Display_Buffer
 
-from lib import LCD_2inch4
-from PIL import Image,ImageDraw,ImageFont
+#--------------Image Library------------------#
+from PIL  import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+from PIL import ImageColor
+
+# temporary (lol)
 from threading import Thread
 
-RST = 27
-DC = 25
-BL = 18
-bus = 0
-device = 0
-
+#--------------Assets------------------#
 base_path = os.getcwd() # root of repo eg. /software/ since main.py calls process
 
 battery_sprite_path = base_path + "/menu/menu-sprites/battery_25_15.jpg"
 folder_sprite_path = base_path + "/menu/menu-sprites/folder_21_18.jpg"
 gear_sprite_path = base_path + "/menu/menu-sprites/gear_23_20.jpg"
 
-small_font = ImageFont.truetype(base_path + "/display/Font00.ttf", 13)
-large_font = ImageFont.truetype(base_path + "/display/Font01.ttf", 16)
+small_font = ImageFont.truetype(base_path + "/display/alt-font.ttc", 13)
+large_font = ImageFont.truetype(base_path + "/display/alt-font.ttc", 16)
 
 class Display:
   def __init__(self, main):
@@ -32,15 +32,10 @@ class Display:
     self.active_icon = None
     self.utils = main.utils
     self.file_count = self.utils.get_file_count() # maybe shouldn't be here
-    self.disp = None
 
-    self.setup_lcd()
-
-  def setup_lcd(self):
-    self.disp = LCD_2inch4.LCD_2inch4()
-    self. disp.Init()
-    self.disp.clear()
-
+    # setup OLED
+    Device_Init(main.utils.pi_ver)
+  
   def render_menu_base(self, center_text = "Camera on", photo_text = "photo"):
     image = Image.new("RGB", (128, 128), "BLACK")
     draw = ImageDraw.Draw(image)
@@ -67,17 +62,17 @@ class Display:
   def start_menu(self):
     menu_base = self.render_menu_base()
 
-    self.disp.ShowImage(menu_base)
+    Display_Image(menu_base)
 
   def display_image(self, img_path):
     image = Image.open(img_path)
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
-  # def display_buffer(self, buffer):
-  #   Display_Buffer(buffer)
+  def display_buffer(self, buffer):
+    Display_Buffer(buffer)
 
   def clear_screen(self):
-    self.disp.clear()
+    Clear_Screen()
 
   def show_boot_scene(self):
     image = Image.new("RGB", (128, 128), "BLACK")
@@ -95,7 +90,7 @@ class Display:
     draw.line([(40, 95), (35, 93)], fill = "WHITE", width = 1)  # mouth left
     draw.line([(40, 95), (90, 95)], fill = "WHITE", width = 1)  # mouth
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
     time.sleep(1)
 
@@ -112,7 +107,7 @@ class Display:
     draw.line([(40, 95), (35, 93)], fill = "WHITE", width = 1)  # mouth left
     draw.line([(40, 95), (90, 95)], fill = "WHITE", width = 1)  # mouth
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
     time.sleep(0.5)
 
@@ -131,7 +126,7 @@ class Display:
     draw.line([(40, 95), (35, 93)], fill = "WHITE", width = 1)  # mouth left
     draw.line([(40, 95), (90, 95)], fill = "WHITE", width = 1)  # mouth
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
     time.sleep(1)
 
@@ -141,7 +136,7 @@ class Display:
     draw.text((20, 55), "Pi Zero Cam", fill = "WHITE", font = large_font)
     draw.text((20, 70), "v 1.1.0", fill = "WHITE", font = small_font)
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
     time.sleep(3)
 
@@ -170,7 +165,7 @@ class Display:
       draw.line([(101, 122), (124, 122)], fill = "MAGENTA", width = 2)
       self.set_menu_center_text(draw, "Settings")
     
-    self.disp.ShowImage(image)
+    Display_Image(image)
   
   def toggle_text(self, mode):
     if (mode == "video"):
@@ -178,7 +173,7 @@ class Display:
     else:
       image = self.render_menu_base("Toggle Mode", "photo")
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def draw_text(self, text):
     image = Image.new("RGB", (128, 128), "BLACK")
@@ -187,7 +182,7 @@ class Display:
 
     draw.text((0, 96), text, fill = "WHITE", font = font)
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def get_settings_img(self):
     image = Image.new("RGB", (128, 128), "BLACK")
@@ -204,7 +199,7 @@ class Display:
   def render_settings(self):
     image = self.get_settings_img()
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def render_battery_profiler(self):
     image = Image.new("RGB", (128, 128), "BLACK")
@@ -213,7 +208,7 @@ class Display:
     draw.text((0, 48), "Profiling battery", fill = "WHITE", font = large_font)
     draw.text((0, 72), "Press back to cancel", fill = "WHITE", font = small_font)
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def render_timelapse(self):
     image = Image.new("RGB", (128, 128), "BLACK")
@@ -222,7 +217,7 @@ class Display:
     draw.text((0, 48), "5 min timelapse", fill = "WHITE", font = large_font)
     draw.text((0, 72), "Press back to cancel", fill = "WHITE", font = small_font)
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def render_battery_charged(self, is_charged = False):
     image = Image.new("RGB", (128, 128), "BLACK")
@@ -232,7 +227,7 @@ class Display:
     draw.text((22, 72), "Yes", fill = "CYAN" if is_charged else "WHITE", font = small_font)
     draw.text((60, 72), "No", fill = "WHITE" if is_charged else "CYAN", font = small_font) # default option
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def draw_active_telemetry(self):
     image = self.get_settings_img()
@@ -240,7 +235,7 @@ class Display:
 
     draw.line([(0, 26), (0, 42)], fill = "MAGENTA", width = 2)
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def draw_active_battery_profiler(self):
     image = self.get_settings_img()
@@ -248,7 +243,7 @@ class Display:
 
     draw.line([(0, 52), (0, 68)], fill = "MAGENTA", width = 2)
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def draw_active_timelapse(self):
     image = self.get_settings_img()
@@ -256,7 +251,7 @@ class Display:
 
     draw.line([(0, 78), (0, 94)], fill = "MAGENTA", width = 2)
 
-    self.disp.ShowImage(image)
+    Display_Image(image)
 
   def render_live_telemetry(self):
     while (self.main.menu.active_menu_item == "Telemetry"):
@@ -275,7 +270,7 @@ class Display:
       draw.text((5, 66), "gyro y: " + str(gyro[1])[0:8], fill = "WHITE", font = small_font)
       draw.text((5, 76), "gyro z: " + str(gyro[2])[0:8], fill = "WHITE", font = small_font)
 
-      self.disp.ShowImage(image)
+      Display_Image(image)
     
   # special page, it is not static
   # has active loop to display data
@@ -341,4 +336,4 @@ class Display:
     else:
       self.main.active_menu = "Files"
       files_scene = self.get_files_scene(files, self.main.menu.files_page, self.main.menu.files_pages)
-      self.disp.ShowImage(files_scene)
+      Display_Image(files_scene)
