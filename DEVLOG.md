@@ -1,3 +1,25 @@
+### 03/24/2024
+
+5:12 PM
+
+My weekend has finally started and I'm fighting this headache feeling/want to pass out
+
+Going to design/probably start printing the lens wrapper rings around the 16mm
+
+5:52 PM
+
+Damn I'm struggling
+
+I want to go for a flared out look and inverted grip lines plus a bevelled front
+
+Something like this
+
+<img src="./16mm-lens-wrapper.JPG"/>
+
+Ugh... can't... tomorrow, like the code refactor
+
+---
+
 ### 03/23/2024
 
 9:43 PM
