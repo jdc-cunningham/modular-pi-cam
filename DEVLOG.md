@@ -1,3 +1,27 @@
+### 03/23/2024
+
+9:43 PM
+
+Gonna put some time into the zoom
+
+Tomorrow I'll design and print the lens wrappers for the 16mm lens
+
+It does suck that the design is lazy, it won't have visible f-stop numbers
+
+I did have a thought about putting an RFID thing or some ID on the lenses so when they get attached to the RPi you know which one was used
+
+9:46 PM
+
+Damn... I'm looking at this code that I wrote and I don't remember how it works lmao
+
+1014 what is this number, 4056x3040 / 4
+
+I need a picture, I'll have to do this on Monday morning
+
+Other issue is it has to be based on the camera's resolution too when they swap
+
+---
+
 ### 03/20/2024
 
 11:47 AM

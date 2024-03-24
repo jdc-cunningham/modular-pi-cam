@@ -21,7 +21,7 @@ class Camera:
     self.video_config = self.picam2.create_video_configuration()
     self.zoom_level = 1 # 1, 4 capped to 4 because 16x would be way too much (OLED refresh rate and vibration of hand)
     self.pan_offset = [0, 0] # depends on zoom level, should be at center crop
-    self.crop = [320, 240]
+    self.crop = [320, 320]
     self.last_mode = "small"
     self.timelapse_active = False
 
