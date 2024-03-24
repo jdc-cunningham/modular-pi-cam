@@ -34,6 +34,8 @@ No... it's soldered right, that's weird
 
 Switch is between battery and BMS input... but the charger outputs power while charging... how is the Pi Zero HQ cam not turning on while charging... hmm
 
+it is wrong, okay... the BMS is supposed to cut power to the rest of the system so it does not use a physical switch, uses internal chip yeah
+
 ---
 
 ### 03/20/2024
