@@ -28,6 +28,12 @@ The switch is in the wrong spot so it doesn't completely turn it off, the BMS st
 
 not great
 
+10:10 PM
+
+No... it's soldered right, that's weird
+
+Switch is between battery and BMS input... but the charger outputs power while charging... how is the Pi Zero HQ cam not turning on while charging... hmm
+
 ---
 
 ### 03/20/2024
