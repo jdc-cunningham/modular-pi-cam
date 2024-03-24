@@ -20,6 +20,14 @@ I need a picture, I'll have to do this on Monday morning
 
 Other issue is it has to be based on the camera's resolution too when they swap
 
+10:02 PM
+
+Man... I soldered the switch in the wrong place on the modular pi cam v2 as well like ml clip cam... seems I carried this mistake around... so dumb I didn't do it on the other two cameras
+
+The switch is in the wrong spot so it doesn't completely turn it off, the BMS still runs, quiescent current, also turns on camera when charging
+
+not great
+
 ---
 
 ### 03/20/2024
