@@ -26,7 +26,29 @@ Wish it was cleaner the output
 
 This will work, I need a way to set the camera dimensions/crop max boundaries
 
+11:40 AM
 
+I feel kinda stuck here waiting for the camera to charge, I want to write the code against it
+
+I have the pi zero hq cam but that has its own code already, camera can't change
+
+12:53 PM
+
+Ugh... I am dumb to keep using SketchUp it's like a simple task takes 30 minutes vs. 1 minute eg. extrude a hole through something, it f's up a bunch of surfaces I have to fix to have a continuous mesh
+
+I designed and started printing the aperture ring for the 16mm, I'm doing the front focus ring now which is more complex/includes a front flat face
+
+12:58 PM
+
+I did not go fancy on the wrapper, it does have sunken grips vs. extruded
+
+1:03 PM
+
+I am feeling down today, kinda just working through it
+
+Might have to do the refactor tomorrow since I'm spent now
+
+It's only been like 3 hours since I got up but spending most of my time designing this lens wrapper... ehh
 
 ### 03/24/2024
 
