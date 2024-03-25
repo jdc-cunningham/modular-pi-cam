@@ -52,6 +52,10 @@ It's only been like 3 hours since I got up but spending most of my time designin
 
 I need a lens cap too but that is simpler to design
 
+3:14 PM
+
+looks like the v3 camera modules use less power than hq cam hmm... life time is 8 hrs
+
 ### 03/24/2024
 
 5:12 PM
