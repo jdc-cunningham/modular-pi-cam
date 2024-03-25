@@ -50,6 +50,8 @@ Might have to do the refactor tomorrow since I'm spent now
 
 It's only been like 3 hours since I got up but spending most of my time designing this lens wrapper... ehh
 
+I need a lens cap too but that is simpler to design
+
 ### 03/24/2024
 
 5:12 PM
