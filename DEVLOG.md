@@ -1,3 +1,33 @@
+### 03/25/2024
+
+Distracted
+
+I'm thinking about how I have to make money/freelance but I'm working on this
+
+11:17 AM
+
+Starting to write code, I slept in today, I got up after 10:00 AM
+
+Gotta donate plasma in 6 hours ugh... oh well that's near end of day and need the cash
+
+Ugh... I have too many of these pi cameras, have to remeber which is the ip
+
+I could set the hostname ehh
+
+182 is pz hq cam, modular pi cam is charging, I did a battery profile on it over night
+
+11:25 AM
+
+This can work, `libcamera-hello --list-cameras`
+
+https://forums.raspberrypi.com/viewtopic.php?t=325259
+
+Wish it was cleaner the output
+
+This will work, I need a way to set the camera dimensions/crop max boundaries
+
+
+
 ### 03/24/2024
 
 5:12 PM

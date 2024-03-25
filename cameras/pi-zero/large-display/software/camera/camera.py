@@ -1,4 +1,5 @@
 import os, time
+import subprocess
 
 from threading import Thread
 from picamera2 import Picamera2
@@ -24,8 +25,13 @@ class Camera:
     self.crop = [320, 320]
     self.last_mode = "small"
     self.timelapse_active = False
+    self.has_autofocus = False # v3 modules have it
+    self.max_resolution = [0, 0]
 
     self.picam2.configure(self.small_res_config)
+
+  def which_camera(self):
+    cam_info = subprocess.check_output("libcamera-hello --list-cameras", shell=True)
 
   def start(self):
     self.picam2.start()
