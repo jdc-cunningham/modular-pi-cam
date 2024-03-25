@@ -18,3 +18,4 @@ PLA 1.75mm 20% infill with supports, 50 mm/s
 - 16mm telephoto lens wrappers
   - 5hr 32min - focus ring
   - 3hr 8min - aperture ring
+  - 48min - lens cap
