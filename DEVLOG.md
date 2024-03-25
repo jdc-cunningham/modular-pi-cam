@@ -56,6 +56,10 @@ I need a lens cap too but that is simpler to design
 
 looks like the v3 camera modules use less power than hq cam hmm... life time is 8 hrs
 
+3:23 PM
+
+Oh man I like how this lens wrapper feels... it's slippery but pleasant lol
+
 ### 03/24/2024
 
 5:12 PM
