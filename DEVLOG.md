@@ -103,7 +103,45 @@ And get this code done
 
 This is a case of too much existing code/fighting yourself
 
+3:29 PM
 
+Damn... scaling is ultra slow lol
+
+3:41 PM
+
+Wow... haven't seen OSX in years Yosemite lol
+
+Yo's might
+
+3:59 PM
+
+I'm still stuck on this scale issue... it seems like it's not possible, specifying size in create_still_configuration translates to crop
+
+I tried setting ScalerCrop no effect
+
+4:04 PM
+
+This is kind of a fatal flaw to realize... the display was showing a small portion of the image
+
+I mean that is more usable than a scaled version eg. 4056 to 320
+
+4:34 PM
+
+I'm sidetracked by the macbook pro, it's stuck in yosemite because I can't login to get monterey lol
+
+4:38 PM
+
+Looks like this 2FA append trick posted on reddit is working whew
+
+4:47 PM
+
+Ugh... I gotta get this done... I'll just go with the crop way for now until I get an answer on a question I posted on a forum
+
+The code is written differently unfortunately
+
+4:59 PM
+
+Only positive is the 320x320 is a nice number, it will fit in all cameras at least 1600px resolution wrt 16x zoom
 
 ---
 

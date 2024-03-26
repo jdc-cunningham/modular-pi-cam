@@ -16,18 +16,14 @@ class Camera:
     self.live_preview_active = False
     self.live_preview_start = 0
     self.live_preview_pause = False
-    self.zoom_level = 1 # 1, 4 capped to 4 because 16x would be way too much (OLED refresh rate and vibration of hand)
-    self.pan_offset_x = 0 # depends on zoom level, should be at center crop
-    self.pan_offset_y = 0 # these are -2, -1, 0, 1, 2
+    self.zoom_level = 1
+    self.pan_offset_x = 0 # based on block multiples eg. 3x = 3 blocks [0, 1, 2]
+    self.pan_offset_y = 0
     self.crop = [320, 320]
     self.last_mode = "small"
     self.timelapse_active = False
     self.has_autofocus = False # v3 modules have it
     self.max_resolution = [0, 0]
-    self.scale_width = self.display_dimensions[0] # determined by display width and active zoom factor
-    self.pan_offset_size = self.scale_width
-    self.scale_width_4x = self.scale_width * 3
-    self.scale_width_16x = self.scale_width * 5
 
     self.which_camera()
 
@@ -83,9 +79,11 @@ class Camera:
     # writing this down here while fresh
     # depending on the display style, you may have to use a square image instead of rectangle and crop it
     # adds to dificulty of dynamic software
-    self.config = self.picam2.create_still_configuration() # also same as 16x
+    self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)})
+    self.config_3x = self.picam2.create_still_configuration(main={"size": (960, 960)}) # x3 so a step in either direction
+    self.config_7x = self.picam2.create_still_configuration(main={"size": (2240, 2240)}) # x7
     self.video_config = self.picam2.create_video_configuration()
-    self.picam2.configure(self.config)
+    self.picam2.configure(self.config_1x)
     self.start()
 
   def start(self):
@@ -103,21 +101,17 @@ class Camera:
 
   def change_mode(self, mode):
     if (mode == "full"):
-      print('full')
-      self.scale_width = self.display_dimensions[0]
-    elif (mode == "zoom 4x"):
-      print('zoom 4x')
-      self.scale_width = self.scale_width_4x
-    elif (mode == "16x"):
-      print('zoom 16x')
-      self.scale_width = self.scale_width_16x
+      self.picam2.switch_mode(self.config_1x)
+    elif (mode == "zoom 3x"):
+      self.picam2.switch_mode(self.config_3x)
+    elif (mode == "zoom 7x"):
+      self.picam2.switch_mode(self.config_7x)
     elif (mode == "video"):
       self.picam2.switch_mode(self.video_config)
     else:
-      self.picam2.switch_mode(self.config)
+      self.picam2.switch_mode(self.config_1x)
     
     self.last_mode = mode
-    self.crop = [self.scale_width, self.scale_width] # square
 
   # https://stackoverflow.com/a/451580/2710227
   def scale_image(self, img, new_width):
@@ -128,11 +122,15 @@ class Camera:
     return img
 
   # here you can crop/pan the image before it is displayed on the OLED
-  def check_mod(self, pil_img_param):
-    pil_img = self.scale_image(pil_img_param, self.scale_width)
-
+  def check_mod(self, pil_img):
     if (self.zoom_level > 1):
-      return pil_img.crop((self.pan_offset[0], self.pan_offset[1], self.pan_offset[0] + self.crop[0], self.pan_offset[1] + self.crop[1]))
+      tlx_offset = self.pan_offset_x * self.crop[0]
+      tly_offset = self.pan_offset_y * self.crop[1]
+      brx_offset = tlx_offset + self.crop[0]
+      bry_offset = tly_offset + self.crop[1]
+      # print('zoom lvl' + str(self.zoom_level))
+      # print(str(tlx_offset), str(tly_offset), str(brx_offset), str(bry_offset))
+      return pil_img.crop((tlx_offset, tly_offset, brx_offset, bry_offset))
     else:
       return pil_img
 
@@ -154,7 +152,8 @@ class Camera:
         self.live_preview_pause = True
         self.zoom_level = 1
         self.pan_offset = [0, 0]
-        self.scale_width = self.display_dimensions[0]
+        self.pan_offset_x = 0
+        self.pan_offset_y = 0
         self.display.clear_screen()
         self.change_mode("small")
         self.display.start_menu()
@@ -233,29 +232,39 @@ class Camera:
   def zoom_in(self):
     self.main.zoom_active = True
 
-    if (self.zoom_level == 4):
-      self.zoom_level = 16
-      self.change_mode("zoom 16x")
-
     if (self.zoom_level == 1):
-      self.zoom_level = 4
-      self.change_mode("zoom 4x")
+      self.zoom_level = 3
+      self.pan_offset_x = 1
+      self.pan_offset_y = 1
+      self.change_mode("zoom 3x")
+      return
+
+    if (self.zoom_level == 3):
+      self.zoom_level = 7
+      self.pan_offset_x = 3
+      self.pan_offset_y = 3
+      self.change_mode("zoom 7x")
+      return
 
   def zoom_out(self):
-    if (self.zoom_level == 4):
+    if (self.zoom_level == 7):
+      self.zoom_level = 3
+      self.pan_offset_x = 1
+      self.pan_offset_y = 1
+      self.change_mode("zoom 3x")
+      return
+
+    if (self.zoom_level == 3):
       self.zoom_level = 1
+      self.pan_offset_x = 0
+      self.pan_offset_y = 0
       self.change_mode("full")
-      self.zoom_active = False
       self.main.zoom_active = False
-    
-    if (self.zoom_level == 16):
-      self.zoom_level = 4
-      self.change_mode("zoom 4x")
 
   def handle_zoom(self, button):
     self.reset_preview_time()
 
-    if (button == "CENTER"):
+    if (button == "CENTER" and self.zoom_level < 7):
       self.zoom_in()
     else:
       self.zoom_out()
@@ -269,32 +278,32 @@ class Camera:
 
     # this may not be perfectly covering all surface area of the image
     if (button == "UP"):
-      if (self.zoom_level == 4):
-        if (self.pan_offset_y > -1):
+      if (self.zoom_level == 3):
+        if (self.pan_offset_y > 0):
           self.pan_offset_y -= 1
-      if (self.zoom_level == 16):
-        if (self.pan_offset_y > -2):
+      if (self.zoom_level == 7):
+        if (self.pan_offset_y > 0):
           self.pan_offset_y -= 1
     if (button == "DOWN"):
-      if (self.zoom_level == 4):
-        if (self.pan_offset_y < 1):
-          self.pan_offset_y += 1
-      if (self.zoom_level == 16):
+      if (self.zoom_level == 3):
         if (self.pan_offset_y < 2):
+          self.pan_offset_y += 1
+      if (self.zoom_level == 7):
+        if (self.pan_offset_y < 6):
           self.pan_offset_y += 1
     if (button == "LEFT"):
-      if (self.zoom_level == 4):
-        if (self.pan_offset_x > -1):
+      if (self.zoom_level == 3):
+        if (self.pan_offset_x > 0):
           self.pan_offset_x -= 1
-      if (self.zoom_level == 16):
-        if (self.pan_offset_x > -2):
+      if (self.zoom_level == 7):
+        if (self.pan_offset_x > 0):
           self.pan_offset_x -= 1
     if (button == "RIGHT"):
-      if (self.zoom_level == 4):
-        if (self.pan_offset_x < 1):
-          self.pan_offset_y += 1
-      if (self.zoom_level == 16):
-        if (self.pan_offset_y < 2):
-          self.pan_offset_y += 1
+      if (self.zoom_level == 3):
+        if (self.pan_offset_x < 2):
+          self.pan_offset_x += 1
+      if (self.zoom_level == 7):
+        if (self.pan_offset_x < 6):
+          self.pan_offset_x += 1
     
     self.main.processing = False
