@@ -27,6 +27,7 @@ large_font = ImageFont.truetype(base_path + "/display/Font/Font02.ttf", 16)
 
 class Display:
   def __init__(self, main):
+    self.dimensions = [240, 320] # should be dynamically generated from library
     self.main = main
     self.active_img = None
     self.active_icon = None

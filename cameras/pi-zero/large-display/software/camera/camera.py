@@ -9,24 +9,29 @@ class Camera:
   def __init__(self, main):
     self.main = main
     self.display = main.display
+    self.display_dimensions = self.display.dimensions
     self.manual_mode = False
     self.img_base_path = os.getcwd() + "/captured-media/"
     self.live_preview_active = False
     self.live_preview_start = 0
     self.live_preview_pause = False
     self.zoom_level = 1 # 1, 4 capped to 4 because 16x would be way too much (OLED refresh rate and vibration of hand)
-    self.pan_offset = [0, 0] # depends on zoom level, should be at center crop
+    self.pan_offset_x = 0 # depends on zoom level, should be at center crop
+    self.pan_offset_y = 0
     self.crop = [320, 320]
     self.last_mode = "small"
     self.timelapse_active = False
     self.has_autofocus = False # v3 modules have it
     self.max_resolution = [0, 0]
+    self.scale_width = self.display_dimensions[0] # determined by display width and active zoom factor
+    self.pan_offset_size = self.scale_width
+    self.scale_width_4x = self.scale_width * 2
+    self.scale_width_16x = self.scale_width * 4
 
     self.which_camera()
 
   def which_camera(self):
     cam_info = subprocess.check_output("libcamera-hello --list-cameras", shell=True)
-    print(cam_info)
 
     # ex
     '''
@@ -42,18 +47,31 @@ class Camera:
     # HQ cam
     # https://stackoverflow.com/a/33054552/2710227
     if (b'imx477' in cam_info):
+      self.resolution = '12.3 MP'
+      self.name = 'HQ Cam'
       self.max_resolution = [4056, 3040]
 
     # v3 modules
-    if (b'imx708_wide' in cam_info or b'imx708' in cam_info):
+    if (b'imx708_wide' in cam_info):
+      self.resolution = '11.9 MP'
+      self.camera_name = 'V3 Module Wide'
+      self.max_resolution = [4608, 2592]
+
+    if (b'imx708' in cam_info):
+      self.resolution = '11.9 MP'
+      self.name = 'V3 Module Standard'
       self.max_resolution = [4608, 2592]
 
     # v2
     if (b'imx219' in cam_info):
+      self.resolution = '8 MP'
+      self.name = 'V2 Module'
       self.max_resolution = [3280, 2464]
 
     # v1
     if (b'ov5647' in cam_info):
+      self.resolution = '5 MP'
+      self.name = 'V1 Module'
       self.max_resolution = [2592, 1944]
 
     self.setup()
@@ -61,11 +79,12 @@ class Camera:
   def setup(self):
     self.encoder = H264Encoder()
     self.picam2 = Picamera2()
-    self.small_res_config = self.picam2.create_still_configuration(main={"size": (320, 320)}) # should not be a square
-    self.zoom_4x_config = self.picam2.create_still_configuration(main={"size": (1014, 760)})
-    self.full_res_config = self.picam2.create_still_configuration() # also same as 16x
+    # writing this down here while fresh
+    # depending on the display style, you may have to use a square image instead of rectangle and crop it
+    # adds to dificulty of dynamic software
+    self.config = self.picam2.create_still_configuration() # also same as 16x
     self.video_config = self.picam2.create_video_configuration()
-    self.picam2.configure(self.small_res_config)
+    self.picam2.configure(self.config)
     self.start()
 
   def start(self):
@@ -82,16 +101,21 @@ class Camera:
     self.picam2.stop_recording()
 
   def change_mode(self, mode):
-    if (mode == "full" or mode == "zoom 16x"):
-      self.picam2.switch_mode(self.full_res_config)
+    if (mode == "full"):
+      print('full')
+      self.scale_width = self.display_dimensions[0]
     elif (mode == "zoom 4x"):
-      self.picam2.switch_mode(self.zoom_4x_config)
-      self.last_mode = mode
+      print('zoom 4x')
+      self.scale_width = self.scale_width_4x
+    elif (mode == "16x"):
+      print('zoom 16x')
+      self.scale_width = self.scale_width_16x
     elif (mode == "video"):
       self.picam2.switch_mode(self.video_config)
     else:
-      self.picam2.switch_mode(self.small_res_config)
-      self.last_mode = mode
+      self.picam2.switch_mode(self.config)
+    
+    self.last_mode = mode
 
   # here you can crop/pan the image before it is displayed on the OLED
   def check_mod(self, pil_img):
@@ -119,6 +143,7 @@ class Camera:
         self.live_preview_pause = True
         self.zoom_level = 1
         self.pan_offset = [0, 0]
+        self.scale_width = self.display_dimensions[0]
         self.display.clear_screen()
         self.change_mode("small")
         self.display.start_menu()
@@ -219,30 +244,31 @@ class Camera:
 
     self.main.processing = False
 
-  # the panning is based on 128x128 divisions eg. 128/1014
+  # the panning is based on the display dimension which is the result of full sensor size scaled down by PIL
+  # cropped if necessary
   def handle_pan(self, button):
     self.reset_preview_time()
 
     # this may not be perfectly covering all surface area of the image
     if (button == "UP"):
-      if (self.pan_offset[1] > 128):
-        self.pan_offset[1] -= 128
-      else:
-        self.pan_offset[1] = 0
+      # if (self.pan_offset[1] > self.pan_offset_size):
+      #   self.pan_offset[1] -= self.pan_offset_size
+      # else:
+      #   self.pan_offset[1] = 0
     if (button == "DOWN"):
-      if (self.pan_offset[1] < 632):
-        self.pan_offset[1] += 128
-      else:
-        self.pan_offset[1] = 632
+      # if (self.pan_offset[1] < 632):
+      #   self.pan_offset[1] += self.pan_offset_size
+      # else:
+      #   self.pan_offset[1] = 632
     if (button == "LEFT"):
-      if (self.pan_offset[0] > 128):
-        self.pan_offset[0] -= 128
-      else:
-        self.pan_offset[0] = 128
+      # if (self.pan_offset[0] > self.pan_offset_size):
+      #   self.pan_offset[0] -= self.pan_offset_size
+      # else:
+      #   self.pan_offset[0] = self.pan_offset_size
     if (button == "RIGHT"):
-      if (self.pan_offset[0] < 886):
-        self.pan_offset[0] += 128
-      else:
-        self.pan_offset[0] = 886
+      # if (self.pan_offset[0] < 886):
+      #   self.pan_offset[0] += self.pan_offset_size
+      # else:
+      #   self.pan_offset[0] = 886
     
     self.main.processing = False

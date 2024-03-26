@@ -40,6 +40,55 @@ Hmm... seems calling this libcamera and running picamera2 at the same time cause
 
 As I write this code I'm worried about not being able to pay my bills so I'm not really thinking about writing good code, I want to get it done, have a temporary distraction from my reality and then get back to my reality
 
+12:44 PM
+
+So the small image is a portion/crop of the larger image which is not what I want... I want to resize the image
+
+Maybe I'll have to do it with PIL
+
+12:53 PM
+
+yeah... it'll work but not sure how much it'll slow down the preview which is already slow
+
+12:59 PM
+
+Oof rejected from another job app... yeah looks like I have to make my own path
+
+1:06 PM
+
+I'm losing track of what I'm trying to do, sad news too
+
+- [ ] change small mode to full and resize
+- [ ] write formatting code based on sensor max resolution
+
+1:18 PM
+
+I'm changing so many things at once, will surely f this up
+
+Dynamic hardware/auto detect is hard who knew
+
+1:21 PM
+
+Ugh... I'll make this work for the hq cam and v3 modules, those are the ones I'd actually use out in the field
+
+Okay, tracing the code that I wrote months back
+
+- handle_zoom
+  - zoom in/out
+- handle_pan
+  - sets offset
+  - PIL crop used with these values
+
+damn, the display dimensions may be hard to get
+
+for the 2.4 in lcd for example it's in the LCD-2inch4 class eg. self.width
+
+but how many are like that
+
+1:38 PM
+
+Food break
+
 ---
 
 ### 03/25/2024
