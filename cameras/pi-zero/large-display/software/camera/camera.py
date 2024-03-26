@@ -14,12 +14,6 @@ class Camera:
     self.live_preview_active = False
     self.live_preview_start = 0
     self.live_preview_pause = False
-    self.picam2 = Picamera2()
-    self.encoder = H264Encoder()
-    self.small_res_config = self.picam2.create_still_configuration(main={"size": (320, 320)}) # should not be a square
-    self.zoom_4x_config = self.picam2.create_still_configuration(main={"size": (1014, 760)})
-    self.full_res_config = self.picam2.create_still_configuration() # also same as 16x
-    self.video_config = self.picam2.create_video_configuration()
     self.zoom_level = 1 # 1, 4 capped to 4 because 16x would be way too much (OLED refresh rate and vibration of hand)
     self.pan_offset = [0, 0] # depends on zoom level, should be at center crop
     self.crop = [320, 320]
@@ -28,10 +22,38 @@ class Camera:
     self.has_autofocus = False # v3 modules have it
     self.max_resolution = [0, 0]
 
-    self.picam2.configure(self.small_res_config)
+    self.which_camera()
 
   def which_camera(self):
     cam_info = subprocess.check_output("libcamera-hello --list-cameras", shell=True)
+    print(cam_info)
+
+    # ex
+    '''
+    Available cameras
+    -----------------
+    0 : imx477 [4056x3040 12-bit RGGB] (/base/soc/i2c0mux/i2c@1/imx477@1a)
+            Modes: 'SRGGB10_CSI2P' : 1332990 [120.05 fps - (696, 528)/2664x1980 crop]
+                   'SRGGB12_CSI2P' : 2028x1080 [50.03 fps - (0, 440)/4056x2160 crop]
+                                     2028x1520 [40.01 fps - (0, 0)/4056x3040 crop]
+                                     4056x3040 [10.00 fps - (0, 0)/4056x3040 crop]
+    '''
+
+    # HQ cam
+    if ('imx477' in cam_info):
+      self.max_resolution = [4056, 3040]
+
+    self.setup()
+
+  def setup(self):
+    self.encoder = H264Encoder()
+    self.picam2 = Picamera2()
+    self.small_res_config = self.picam2.create_still_configuration(main={"size": (320, 320)}) # should not be a square
+    self.zoom_4x_config = self.picam2.create_still_configuration(main={"size": (1014, 760)})
+    self.full_res_config = self.picam2.create_still_configuration() # also same as 16x
+    self.video_config = self.picam2.create_video_configuration()
+    self.picam2.configure(self.small_res_config)
+    self.start()
 
   def start(self):
     self.picam2.start()

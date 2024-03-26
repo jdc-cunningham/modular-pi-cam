@@ -59,7 +59,7 @@ class Main:
     self.display.show_boot_scene()
     self.controls = Buttons(self)
 
-    self.camera.start()
+    # self.camera.start() # moved to post camera check
     self.controls.start()
     self.check_battery()
 
