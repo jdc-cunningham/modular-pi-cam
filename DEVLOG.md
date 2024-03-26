@@ -60,6 +60,12 @@ looks like the v3 camera modules use less power than hq cam hmm... life time is 
 
 Oh man I like how this lens wrapper feels... it's slippery but pleasant lol
 
+9:49 PM
+
+The whole lens wrapper and cap is printed for 16mm
+
+I need to design/print some caps for the v3 modules
+
 ### 03/24/2024
 
 5:12 PM
