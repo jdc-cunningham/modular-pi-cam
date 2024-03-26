@@ -40,8 +40,21 @@ class Camera:
     '''
 
     # HQ cam
-    if ('imx477' in cam_info):
+    # https://stackoverflow.com/a/33054552/2710227
+    if (b'imx477' in cam_info):
       self.max_resolution = [4056, 3040]
+
+    # v3 modules
+    if (b'imx708_wide' in cam_info or b'imx708' in cam_info):
+      self.max_resolution = [4608, 2592]
+
+    # v2
+    if (b'imx219' in cam_info):
+      self.max_resolution = [3280, 2464]
+
+    # v1
+    if (b'ov5647' in cam_info):
+      self.max_resolution = [2592, 1944]
 
     self.setup()
 
