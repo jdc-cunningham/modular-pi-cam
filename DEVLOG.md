@@ -1,3 +1,33 @@
+### 03/26/2024
+
+10:55 AM
+
+Slept in again, resetting my 2015 i7 mbp after moving its files to the carbon x1 gen 6
+
+Gonna do some quick 3D print related stuff, touch up the focus ring lens and print some caps for the v3 modules so I don't feel so bad throwing them in my backpack
+
+11:09 AM
+
+So I'm gonna dump the values from the camera read and map them... ideally this process would be dynamic
+
+It can be useful for Arducam support for example, I'm talking about getting the max resolution
+
+11:13 AM
+
+Yeah I can't dump too much time into this project right now.
+
+I want to start working on the ESP32 LCD for the ml clip cam
+
+this looks like a good link one day when I really get down to quality
+
+https://github.com/raspberrypi/picamera2/discussions/157
+
+11:21 AM
+
+I guess I already fixed the lens
+
+---
+
 ### 03/25/2024
 
 Distracted
