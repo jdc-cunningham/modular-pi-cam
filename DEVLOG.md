@@ -89,6 +89,22 @@ but how many are like that
 
 Food break
 
+2:34 PM
+
+Damn I completely nuked my mac, deleted the drive lol
+
+3:07 PM
+
+It is time... to engage the Kornholio (Spotify playlist)
+
+And get this code done
+
+3:11 PM
+
+This is a case of too much existing code/fighting yourself
+
+
+
 ---
 
 ### 03/25/2024

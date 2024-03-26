@@ -4,6 +4,7 @@ import subprocess
 from threading import Thread
 from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder, Quality
+from PIL import Image
 
 class Camera:
   def __init__(self, main):
@@ -17,7 +18,7 @@ class Camera:
     self.live_preview_pause = False
     self.zoom_level = 1 # 1, 4 capped to 4 because 16x would be way too much (OLED refresh rate and vibration of hand)
     self.pan_offset_x = 0 # depends on zoom level, should be at center crop
-    self.pan_offset_y = 0
+    self.pan_offset_y = 0 # these are -2, -1, 0, 1, 2
     self.crop = [320, 320]
     self.last_mode = "small"
     self.timelapse_active = False
@@ -25,8 +26,8 @@ class Camera:
     self.max_resolution = [0, 0]
     self.scale_width = self.display_dimensions[0] # determined by display width and active zoom factor
     self.pan_offset_size = self.scale_width
-    self.scale_width_4x = self.scale_width * 2
-    self.scale_width_16x = self.scale_width * 4
+    self.scale_width_4x = self.scale_width * 3
+    self.scale_width_16x = self.scale_width * 5
 
     self.which_camera()
 
@@ -116,12 +117,22 @@ class Camera:
       self.picam2.switch_mode(self.config)
     
     self.last_mode = mode
+    self.crop = [self.scale_width, self.scale_width] # square
+
+  # https://stackoverflow.com/a/451580/2710227
+  def scale_image(self, img, new_width):
+    base_width= new_width
+    wpercent = (base_width / float(img.size[0]))
+    hsize = int((float(img.size[1]) * float(wpercent)))
+    img = img.resize((base_width, hsize), Image.Resampling.LANCZOS)
+    return img
 
   # here you can crop/pan the image before it is displayed on the OLED
-  def check_mod(self, pil_img):
+  def check_mod(self, pil_img_param):
+    pil_img = self.scale_image(pil_img_param, self.scale_width)
+
     if (self.zoom_level > 1):
-      if (self.zoom_level == 4):
-        return pil_img.crop((self.pan_offset[0], self.pan_offset[1], self.pan_offset[0] + self.crop[0], self.pan_offset[1] + self.crop[1]))
+      return pil_img.crop((self.pan_offset[0], self.pan_offset[1], self.pan_offset[0] + self.crop[0], self.pan_offset[1] + self.crop[1]))
     else:
       return pil_img
 
@@ -222,17 +233,24 @@ class Camera:
   def zoom_in(self):
     self.main.zoom_active = True
 
+    if (self.zoom_level == 4):
+      self.zoom_level = 16
+      self.change_mode("zoom 16x")
+
     if (self.zoom_level == 1):
       self.zoom_level = 4
-      self.pan_offset = [443, 316] # based on (1014/2) - (128/2)
       self.change_mode("zoom 4x")
 
   def zoom_out(self):
     if (self.zoom_level == 4):
       self.zoom_level = 1
-      self.change_mode("small")
+      self.change_mode("full")
       self.zoom_active = False
       self.main.zoom_active = False
+    
+    if (self.zoom_level == 16):
+      self.zoom_level = 4
+      self.change_mode("zoom 4x")
 
   def handle_zoom(self, button):
     self.reset_preview_time()
@@ -251,24 +269,32 @@ class Camera:
 
     # this may not be perfectly covering all surface area of the image
     if (button == "UP"):
-      # if (self.pan_offset[1] > self.pan_offset_size):
-      #   self.pan_offset[1] -= self.pan_offset_size
-      # else:
-      #   self.pan_offset[1] = 0
+      if (self.zoom_level == 4):
+        if (self.pan_offset_y > -1):
+          self.pan_offset_y -= 1
+      if (self.zoom_level == 16):
+        if (self.pan_offset_y > -2):
+          self.pan_offset_y -= 1
     if (button == "DOWN"):
-      # if (self.pan_offset[1] < 632):
-      #   self.pan_offset[1] += self.pan_offset_size
-      # else:
-      #   self.pan_offset[1] = 632
+      if (self.zoom_level == 4):
+        if (self.pan_offset_y < 1):
+          self.pan_offset_y += 1
+      if (self.zoom_level == 16):
+        if (self.pan_offset_y < 2):
+          self.pan_offset_y += 1
     if (button == "LEFT"):
-      # if (self.pan_offset[0] > self.pan_offset_size):
-      #   self.pan_offset[0] -= self.pan_offset_size
-      # else:
-      #   self.pan_offset[0] = self.pan_offset_size
+      if (self.zoom_level == 4):
+        if (self.pan_offset_x > -1):
+          self.pan_offset_x -= 1
+      if (self.zoom_level == 16):
+        if (self.pan_offset_x > -2):
+          self.pan_offset_x -= 1
     if (button == "RIGHT"):
-      # if (self.pan_offset[0] < 886):
-      #   self.pan_offset[0] += self.pan_offset_size
-      # else:
-      #   self.pan_offset[0] = 886
+      if (self.zoom_level == 4):
+        if (self.pan_offset_x < 1):
+          self.pan_offset_y += 1
+      if (self.zoom_level == 16):
+        if (self.pan_offset_y < 2):
+          self.pan_offset_y += 1
     
     self.main.processing = False
