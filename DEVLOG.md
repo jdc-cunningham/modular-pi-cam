@@ -26,6 +26,20 @@ https://github.com/raspberrypi/picamera2/discussions/157
 
 I guess I already fixed the lens
 
+11:27 AM
+
+Why kill the fever, whatever happened to sweat?
+
+Damn I remember listening to this song while mowing a lawn like 16 years ago
+
+11:38 AM
+
+Hmm... seems calling this libcamera and running picamera2 at the same time causes problems so I had to reorder the code
+
+11:41 AM
+
+As I write this code I'm worried about not being able to pay my bills so I'm not really thinking about writing good code, I want to get it done, have a temporary distraction from my reality and then get back to my reality
+
 ---
 
 ### 03/25/2024
