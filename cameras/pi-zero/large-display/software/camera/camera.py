@@ -21,7 +21,7 @@ class Camera:
     self.pan_offset_x = 0 # based on block multiples eg. 3x = 3 blocks [0, 1, 2]
     self.pan_offset_y = 0
     self.crop = [320, 320]
-    self.last_mode = "small"
+    self.last_mode = "zoom 1x"
     self.timelapse_active = False
     self.has_autofocus = False # v3 modules have it
     self.max_resolution = [0, 0]
@@ -82,6 +82,7 @@ class Camera:
     # writing this down here while fresh
     # depending on the display style, you may have to use a square image instead of rectangle and crop it
     # adds to dificulty of dynamic software
+    self.config = self.picam2.create_still_configuration()
     self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)})
     self.config_3x = self.picam2.create_still_configuration(main={"size": (960, 960)}) # x3 so a step in either direction
     self.config_7x = self.picam2.create_still_configuration(main={"size": (2240, 2240)}) # x7
@@ -103,7 +104,7 @@ class Camera:
     self.picam2.stop_recording()
 
   def change_mode(self, mode):
-    if (mode == "full"):
+    if (mode == "zoom 1x"):
       self.picam2.switch_mode(self.config_1x)
     elif (mode == "zoom 3x"):
       self.picam2.switch_mode(self.config_3x)
@@ -112,7 +113,7 @@ class Camera:
     elif (mode == "video"):
       self.picam2.switch_mode(self.video_config)
     else:
-      self.picam2.switch_mode(self.config_1x)
+      self.picam2.switch_mode(self.config)
     
     self.last_mode = mode
 
@@ -162,7 +163,7 @@ class Camera:
         self.pan_offset_x = 0
         self.pan_offset_y = 0
         self.display.clear_screen()
-        self.change_mode("small")
+        self.change_mode("zoom 1x")
         self.display.start_menu()
 
       if (not branch_hit):
@@ -192,7 +193,7 @@ class Camera:
 
   def stop_timelapse(self):
     self.timelapse_active = False
-    self.change_mode("small")
+    self.change_mode("zoom 1x")
 
   def reset_preview_time(self):
     self.live_preview_start = time.time()
@@ -265,7 +266,7 @@ class Camera:
       self.zoom_level = 1
       self.pan_offset_x = 0
       self.pan_offset_y = 0
-      self.change_mode("full")
+      self.change_mode("zoom 1x")
       self.main.zoom_active = False
 
   def handle_zoom(self, button):
