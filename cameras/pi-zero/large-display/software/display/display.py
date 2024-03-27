@@ -24,6 +24,7 @@ gear_sprite_path = base_path + "/menu/menu-sprites/gear_23_20.jpg"
 
 small_font = ImageFont.truetype(base_path + "/display/Font/Font00.ttf", 13)
 large_font = ImageFont.truetype(base_path + "/display/Font/Font02.ttf", 16)
+larger_font = ImageFont.truetype(base_path + "/display/Font/Font02.ttf", 24)
 
 class Display:
   def __init__(self, main):
@@ -41,6 +42,15 @@ class Display:
     self.disp = LCD_2inch4.LCD_2inch4()
     self. disp.Init()
     self.disp.clear()
+
+  def stamp_img(self, pil_img):
+    img = ImageDraw.Draw(pil_img)
+
+    focus_text = 'AF' if self.main.focus_level == -1 else 'F ' + str(self.main.focus_level)
+
+    img.text((270, 280), focus_text, fill = (255,255,255), font=larger_font)
+
+    return pil_img
 
   def match_lcd(self, image, camera_frame = False):
     if (camera_frame):

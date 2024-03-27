@@ -32,6 +32,8 @@ class Main:
     self.battery = None
     self.battery_needs_charge = False
     self.battery_profiler_active = False
+    self.v3_cam = False
+    self.focus_level = -1 # -1 is auto, 0 is infinite, 1 is 1-3m up to 10 which is 1/10 or 10cm 
 
     self.startup()
 
@@ -85,6 +87,8 @@ class Main:
           time.sleep(0.15)
           self.display.start_menu()
         self.processing = False
+      elif (self.live_preview_active and not self.zoom_active and self.v3_cam):
+        self.camera.handle_aperture(button)
       elif (self.live_preview_active and (button == "CENTER" or button == "BACK")):
         self.camera.handle_zoom(button)
       elif (self.zoom_active and (button != "CENTER")):

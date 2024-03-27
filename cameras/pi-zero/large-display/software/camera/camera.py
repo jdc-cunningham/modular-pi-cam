@@ -5,6 +5,7 @@ from threading import Thread
 from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder, Quality
 from PIL import Image
+from libcamera import controls
 
 class Camera:
   def __init__(self, main):
@@ -53,11 +54,13 @@ class Camera:
       self.resolution = '11.9 MP'
       self.camera_name = 'V3 Module Wide'
       self.max_resolution = [4608, 2592]
+      self.main.v3_cam = True
 
     if (b'imx708' in cam_info):
       self.resolution = '11.9 MP'
       self.name = 'V3 Module Standard'
       self.max_resolution = [4608, 2592]
+      self.main.v3_cam = True
 
     # v2
     if (b'imx219' in cam_info):
@@ -144,6 +147,10 @@ class Camera:
         branch_hit = True
         pil_img = self.picam2.capture_image()
         pil_img = self.check_mod(pil_img) # bad name
+
+        if (self.main.v3_cam):
+          pil_img = self.display.stamp_img(pil_img)
+
         self.display.show_image(pil_img, True)
 
       # after 1 min turn live preview off
@@ -284,6 +291,7 @@ class Camera:
       if (self.zoom_level == 7):
         if (self.pan_offset_y > 0):
           self.pan_offset_y -= 1
+
     if (button == "DOWN"):
       if (self.zoom_level == 3):
         if (self.pan_offset_y < 2):
@@ -291,6 +299,7 @@ class Camera:
       if (self.zoom_level == 7):
         if (self.pan_offset_y < 6):
           self.pan_offset_y += 1
+
     if (button == "LEFT"):
       if (self.zoom_level == 3):
         if (self.pan_offset_x > 0):
@@ -298,6 +307,7 @@ class Camera:
       if (self.zoom_level == 7):
         if (self.pan_offset_x > 0):
           self.pan_offset_x -= 1
+
     if (button == "RIGHT"):
       if (self.zoom_level == 3):
         if (self.pan_offset_x < 2):
@@ -307,3 +317,25 @@ class Camera:
           self.pan_offset_x += 1
     
     self.main.processing = False
+
+  def update_aperture(self):
+    if (self.main.focus_level == -1):
+      self.picam2.set_controls({"AfMode": controls.AfModeEnum.Continuous})
+    else:
+      # steps of 0.5 I guess, I'll use 1
+      self.picam2.set_controls({"AfMode": controls.AfModeEnum.Manual, "LensPosition": self.main.focus_level})
+
+    self.main.processing = False
+
+  def handle_aperture(self, button):
+    if (button == "UP"):
+      if (self.main.focus_level < 10):
+        self.main.focus_level += 1
+
+    if (button == "DOWN"):
+      if (self.main.focus_level > -1):
+        self.main.focus_level -= 1
+
+    self.update_aperture()
+
+    
