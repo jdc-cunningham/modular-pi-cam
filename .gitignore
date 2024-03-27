@@ -2,6 +2,7 @@
 .env
 .pyc
 .swp
+battery.db
 
 # folders
 __pycache__/
