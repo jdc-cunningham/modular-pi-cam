@@ -11,8 +11,6 @@ base_path = '/home/pi/modular-pi-cam/cameras/pi-zero/large-display/software' # o
 
 class Battery:
   def __init__(self, main = None):
-    print('path')
-    print(base_path + "/battery/battery.db")
     self.con = sqlite3.connect(base_path + "/battery/battery.db", check_same_thread=False)
     self.init_batt_table()
     self.main = main

@@ -187,7 +187,7 @@ class Camera:
     img_path = self.img_base_path + str(time.time()).split(".")[0] + ".jpg"
     self.change_mode("full")
     self.picam2.capture_file(img_path)
-    time.sleep(0.1) # delay may help to save?
+    time.sleep(0.15) # delay may help to save?
     self.change_mode(self.last_mode)
 
   def timelapse(self):
