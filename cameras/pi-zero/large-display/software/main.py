@@ -83,6 +83,7 @@ class Main:
           self.camera.zoom_out()
         else:
           self.camera.toggle_live_preview(False)
+          self.camera.live_preview_active = False
           self.live_preview_active = False
           time.sleep(0.15)
           self.display.start_menu()

@@ -104,18 +104,29 @@ class Camera:
     self.picam2.stop_recording()
 
   def change_mode(self, mode):
+    self.last_mode = mode
+
     if (mode == "zoom 1x"):
+      self.zoom_level = 1
+      self.pan_offset_x = 0
+      self.pan_offset_y = 0
       self.picam2.switch_mode(self.config_1x)
+      self.main.zoom_active = False
     elif (mode == "zoom 3x"):
+      self.zoom_level = 3
+      self.pan_offset_x = 1
+      self.pan_offset_y = 1
       self.picam2.switch_mode(self.config_3x)
     elif (mode == "zoom 7x"):
+      self.zoom_level = 7
+      self.pan_offset_x = 3
+      self.pan_offset_y = 3
       self.picam2.switch_mode(self.config_7x)
     elif (mode == "video"):
       self.picam2.switch_mode(self.video_config)
     else:
       self.picam2.switch_mode(self.config)
-    
-    self.last_mode = mode
+      self.last_mode = "zoom 1x" # reset
 
   # https://stackoverflow.com/a/451580/2710227
   def scale_image(self, img, new_width):
@@ -158,10 +169,6 @@ class Camera:
       if (time.time() > self.live_preview_start + 60 and not self.live_preview_pause):
         branch_hit = True
         self.live_preview_pause = True
-        self.zoom_level = 1
-        self.pan_offset = [0, 0]
-        self.pan_offset_x = 0
-        self.pan_offset_y = 0
         self.display.clear_screen()
         self.change_mode("zoom 1x")
         self.display.start_menu()
@@ -176,9 +183,11 @@ class Camera:
     self.main.processing = False # this is everywhere... sucks
 
   def take_photo(self):
+    self.reset_preview_time()
     img_path = self.img_base_path + str(time.time()).split(".")[0] + ".jpg"
     self.change_mode("full")
     self.picam2.capture_file(img_path)
+    time.sleep(0.1) # delay may help to save?
     self.change_mode(self.last_mode)
 
   def timelapse(self):
@@ -234,6 +243,7 @@ class Camera:
       self.display.clear_screen()
       self.display.draw_text("Photo captured")
       self.toggle_live_preview(True)
+      time.sleep(0.3)
     
     self.main.processing = False
 
@@ -241,33 +251,20 @@ class Camera:
     self.main.zoom_active = True
 
     if (self.zoom_level == 1):
-      self.zoom_level = 3
-      self.pan_offset_x = 1
-      self.pan_offset_y = 1
       self.change_mode("zoom 3x")
       return
 
     if (self.zoom_level == 3):
-      self.zoom_level = 7
-      self.pan_offset_x = 3
-      self.pan_offset_y = 3
       self.change_mode("zoom 7x")
       return
 
   def zoom_out(self):
     if (self.zoom_level == 7):
-      self.zoom_level = 3
-      self.pan_offset_x = 1
-      self.pan_offset_y = 1
       self.change_mode("zoom 3x")
       return
 
     if (self.zoom_level == 3):
-      self.zoom_level = 1
-      self.pan_offset_x = 0
-      self.pan_offset_y = 0
       self.change_mode("zoom 1x")
-      self.main.zoom_active = False
 
   def handle_zoom(self, button):
     self.reset_preview_time()
