@@ -7,7 +7,7 @@ import time
 
 from threading import Thread
 
-base_path = os.getcwd()
+base_path = '/home/pi/modular-pi-cam/cameras/pi-zero/large-display/software' # os.getcwd() # cron gets this wrong
 
 class Battery:
   def __init__(self, main = None):
