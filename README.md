@@ -2,7 +2,7 @@
 
 ### Ver 2 (2.4in rectangle display)
 
-<img src="front-iso.JPG"/>
+<img src="modular-pi-cam.JPG"/>
 
 ### Ver 1 (1.28 round display)
 
