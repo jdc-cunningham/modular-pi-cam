@@ -257,7 +257,7 @@ class Display:
     draw.text((22, 72), "Yes", fill = "BLUE" if is_charged else "BLACK", font = small_font)
     draw.text((60, 72), "No", fill = "BLACK" if is_charged else "BLUE", font = small_font) # default option
 
-    self.self.ShowImage(self.match_lcd(image))
+    self.disp.ShowImage(self.match_lcd(image))
 
   def draw_active_telemetry(self):
     image = self.get_settings_img()
@@ -300,7 +300,7 @@ class Display:
       draw.text((5, 66), "gyro y: " + str(gyro[1])[0:8], fill = "BLACK", font = small_font)
       draw.text((5, 76), "gyro z: " + str(gyro[2])[0:8], fill = "BLACK", font = small_font)
 
-      self.self.ShowImage(self.match_lcd(image))
+      self.disp.ShowImage(self.match_lcd(image))
     
   # special page, it is not static
   # has active loop to display data
