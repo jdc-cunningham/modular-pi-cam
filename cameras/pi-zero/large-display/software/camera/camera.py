@@ -182,6 +182,11 @@ class Camera:
     Thread(target=self.live_preview).start()
     self.main.processing = False # this is everywhere... sucks
 
+  def photo_saved(path):
+    file_info = os.stat(path)
+
+    return file_info.st_size > 0
+
   def take_photo(self):
     self.reset_preview_time()
     img_path = self.img_base_path + str(time.time()).split(".")[0] + ".jpg"
@@ -189,6 +194,8 @@ class Camera:
     self.picam2.capture_file(img_path)
     time.sleep(0.15) # delay may help to save?
     self.change_mode(self.last_mode)
+
+    return img_path
 
   def timelapse(self):
     while (self.timelapse_active):
@@ -239,9 +246,14 @@ class Camera:
       time.sleep(0.3) # allow live_preview thread to pick this up/stop painting oled
       self.display.clear_screen()
       self.display.draw_text("Taking photo...")
-      self.take_photo()
+      photo_path = self.take_photo()
       self.display.clear_screen()
-      self.display.draw_text("Photo captured")
+
+      if (self.photo_saved(photo_path)):
+        self.display.draw_text("Photo captured")
+      else:
+        self.display.draw_text("Photo failed") # lol get rekt
+
       self.toggle_live_preview(True)
       time.sleep(0.3)
     
