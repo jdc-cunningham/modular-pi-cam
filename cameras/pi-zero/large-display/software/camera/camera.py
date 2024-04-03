@@ -182,7 +182,7 @@ class Camera:
     Thread(target=self.live_preview).start()
     self.main.processing = False # this is everywhere... sucks
 
-  def photo_saved(path):
+  def photo_saved(self, path):
     file_info = os.stat(path)
 
     return file_info.st_size > 0
