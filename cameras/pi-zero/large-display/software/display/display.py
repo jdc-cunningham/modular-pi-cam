@@ -52,9 +52,15 @@ class Display:
 
     return pil_img
   
+  def check_leading_zero(num):
+    if (num < 10):
+      return "0" + str(num)
+    else:
+      return str(num)
+  
   def format_time(self, seconds):
     if (seconds > 60):
-      return str(math.floor(seconds / 60)) + ":" + str(seconds % 60) 
+      return self.check_leading_zero(math.floor(seconds / 60)) + ":" + self.check_leading_zero(seconds % 60)
     else:
       return "0:" + str(seconds)
 
