@@ -93,7 +93,7 @@ class Camera:
     self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)}) # 320 is based on display size
     self.config_3x = self.picam2.create_still_configuration(main={"size": (960, 960)}) # x3 so a step in either direction
     self.config_7x = self.picam2.create_still_configuration(main={"size": (2240, 2240)}) # x7
-    self.video_config = self.picam2.create_video_configuration(main={"size": (1920, 1080), "format":"RGB888"}, lores={"size": (320, 320), "format": "YUV420"})
+    self.video_config = self.picam2.create_video_configuration(main={"size": (1920, 1080), "format":"RGB888"}, lores={"size": (400, 400), "format": "YUV420"})
     self.picam2.configure(self.config_1x)
     self.start()
 

@@ -51,18 +51,33 @@ class Display:
     img.text((270, 280), focus_text, fill = (255,255,255), font=larger_font)
 
     return pil_img
+  
+  def format_time(self, seconds):
+    if (seconds > 60):
+      return str(math.floor(seconds / 60)) + ":" + str(seconds % 60) 
+    else:
+      return "0:" + str(seconds)
 
   def match_lcd(self, image, camera_frame = False):
     if (camera_frame == "video"):
       c_img = image.crop((0, 0, 320, 320))
-      r_img = c_img.rotate(-90)
-      base_image = Image.new("RGB", (240, 320), "WHITE")
 
       # draw elapsed time and pulsing red dot
       # lol access camera from main
-      elapsed_time = self.main.camera.recording_time
+      video_start_time = self.main.camera.recording_time
+      elapsed_time = time.time() - video_start_time
+      formatted_time = self.format_time(math.floor(elapsed_time))
+      
+      draw = ImageDraw.Draw(c_img)
+      draw.ellipse((10, 300, 20, 310), fill=(255,0,0,0))
+      x_pos = 30 if len(formatted_time) > 4 else 25
+      draw.text((x_pos, 295), formatted_time, fill = "white", font = large_font)
 
+      r_img = c_img.rotate(-90)
+
+      base_image = Image.new("RGB", (240, 320), "WHITE")
       base_image.paste(r_img, (0, 0))
+
       f_img = base_image
     elif (camera_frame):
       r_img = image.rotate(-90)
