@@ -136,6 +136,9 @@ class Camera:
     self.encoder.output.stop()
     self.picam2.stop_encoder()
     self.change_mode("zoom 1x")
+    # this does block the menu from rendering immediately
+    # depends how long the video is
+    # can set it as another thread or don't do it
     cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
     cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
     os.system(cmd)

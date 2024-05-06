@@ -189,8 +189,8 @@ class Display:
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
 
-    draw.text((20, 55), "Pi Zero Cam", fill = "BLACK", font = large_font)
-    draw.text((20, 70), "v 1.1.0", fill = "BLACK", font = small_font)
+    draw.text((20, 55), "Modular Pi Cam", fill = "BLACK", font = large_font)
+    draw.text((20, 70), "", fill = "BLACK", font = small_font)
 
     self.disp.ShowImage(self.match_lcd(image))
 
