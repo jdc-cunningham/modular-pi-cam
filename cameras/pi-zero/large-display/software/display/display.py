@@ -52,7 +52,7 @@ class Display:
 
     return pil_img
   
-  def check_leading_zero(num):
+  def check_leading_zero(self, num):
     if (num < 10):
       return "0" + str(num)
     else:
@@ -62,7 +62,7 @@ class Display:
     if (seconds > 60):
       return self.check_leading_zero(math.floor(seconds / 60)) + ":" + self.check_leading_zero(seconds % 60)
     else:
-      return "0:" + str(seconds)
+      return "0:" + self.check_leading_zero(seconds)
 
   def match_lcd(self, image, camera_frame = False):
     if (camera_frame == "video"):
