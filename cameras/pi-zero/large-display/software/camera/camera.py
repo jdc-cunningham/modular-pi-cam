@@ -1,5 +1,6 @@
 import os, time
 import subprocess
+import numpy as np
 
 from threading import Thread
 from picamera2 import Picamera2
@@ -25,6 +26,7 @@ class Camera:
     self.timelapse_active = False
     self.has_autofocus = False # v3 modules have it
     self.max_resolution = [0, 0]
+    self.recording_video = False
 
     self.which_camera()
 
@@ -82,8 +84,8 @@ class Camera:
     # writing this down here while fresh
     # depending on the display style, you may have to use a square image instead of rectangle and crop it
     # adds to dificulty of dynamic software
-    self.config = self.picam2.create_still_configuration()
-    self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)})
+    self.config = self.picam2.create_still_configuration(main={"size": self.picam2.sensor_resolution}, lores={"size": (320, 320)})
+    self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)}) # 320 is based on display size
     self.config_3x = self.picam2.create_still_configuration(main={"size": (960, 960)}) # x3 so a step in either direction
     self.config_7x = self.picam2.create_still_configuration(main={"size": (2240, 2240)}) # x7
     self.video_config = self.picam2.create_video_configuration()
@@ -95,12 +97,31 @@ class Camera:
 
   def stop(self):
     self.picam2.stop()
-  
-  def start_video_recording(self):
+
+  # https://forums.raspberrypi.com/viewtopic.php?t=358014#p2146725 (stream lores not defined)
+  def sample_video(self):
+    request = self.picam2.capture_request()
+    self.change_mode("zoom 1x")
+    np_arr = request.make_array("lores")
+    pil_img = Image.fromarray(np.uint8(np_arr))
+    self.change_mode(self.video_config)
+    request.release()
+    self.display.show_image(pil_img)
+
+  def record_video(self):
     video_filename =  self.img_base_path + str(time.time()).split(".")[0] + ".h264"
     self.picam2.start_recording(self.encoder, video_filename, quality=Quality.HIGH)
 
+    while (self.recording_video):
+      self.sample_video()
+      time.sleep(0.03)
+
+  def start_video_recording(self):
+    self.recording_video = True
+    Thread(target=self.record_video).start()
+
   def stop_video_recording(self):
+    self.recording_video = False
     self.picam2.stop_recording()
 
   def change_mode(self, mode):

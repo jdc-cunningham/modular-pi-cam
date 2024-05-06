@@ -1,3 +1,37 @@
+### 05/06/2024
+
+10:21 AM
+
+I want to make sure along with the live preview I also fix the broken back state from video to photography
+
+So far that has required a restart
+
+10:31 AM
+
+Ahh man... I'm already thinking about rewriting what I'm currently writing
+
+The video mode should have a live preview, then you can dial in your shot before you start recording
+
+Right now it records immediately
+
+My life is in the process of imploding right now, I did it to myself but yeah
+
+Hard to concentrate when you have multiple robocalls (debt collection) hitting your phone everyday
+
+I do not intend to default on my stuff, I built it up again/had a good credit score but yeah I'm just f'd at the moment
+
+10:50 AM
+
+break
+
+11:19 AM
+
+Back on
+
+
+
+---
+
 ### 05/05/2024
 
 6:52 PM
