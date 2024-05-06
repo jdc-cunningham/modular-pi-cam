@@ -53,7 +53,13 @@ class Display:
     return pil_img
 
   def match_lcd(self, image, camera_frame = False):
-    if (camera_frame):
+    if (camera_frame == "video"):
+      c_img = image.crop((0, 0, 320, 320))
+      r_img = c_img.rotate(-90)
+      base_image = Image.new("RGB", (240, 320), "WHITE")
+      base_image.paste(r_img, (0, 0))
+      f_img = base_image
+    elif (camera_frame):
       r_img = image.rotate(-90)
       c_img = r_img.crop((0, 0, 240, 320))
       f_img = c_img

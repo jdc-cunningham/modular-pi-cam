@@ -1,3 +1,4 @@
+import io
 import os, time
 import subprocess
 import numpy as np
@@ -99,14 +100,13 @@ class Camera:
     self.picam2.stop()
 
   # https://forums.raspberrypi.com/viewtopic.php?t=358014#p2146725 (stream lores not defined)
+  # https://stackoverflow.com/a/74605781/2710227
+  # https://forums.raspberrypi.com/viewtopic.php?t=172257
   def sample_video(self):
-    request = self.picam2.capture_request()
-    self.change_mode("zoom 1x")
-    np_arr = request.make_array("lores")
+    np_arr = self.picam2.capture_array()
     pil_img = Image.fromarray(np.uint8(np_arr))
-    self.change_mode(self.video_config)
-    request.release()
-    self.display.show_image(pil_img)
+    s_img = self.scale_image(pil_img, 569) # based on 720p
+    self.display.show_image(s_img, "video")
 
   def record_video(self):
     video_filename =  self.img_base_path + str(time.time()).split(".")[0] + ".h264"
