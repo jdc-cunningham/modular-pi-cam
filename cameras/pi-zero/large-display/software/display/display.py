@@ -57,6 +57,11 @@ class Display:
       c_img = image.crop((0, 0, 320, 320))
       r_img = c_img.rotate(-90)
       base_image = Image.new("RGB", (240, 320), "WHITE")
+
+      # draw elapsed time and pulsing red dot
+      # lol access camera from main
+      elapsed_time = self.main.camera.recording_time
+
       base_image.paste(r_img, (0, 0))
       f_img = base_image
     elif (camera_frame):

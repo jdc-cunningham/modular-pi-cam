@@ -28,6 +28,14 @@ break
 
 Back on
 
+1:03 PM
+
+Break, at this point I have a functioning recording preview, adding the timestamp overlay
+
+1:14 PM
+
+I'm gonna try the two streams (high and low) to produce the preview, current approach is slow
+
 
 
 ---
