@@ -51,9 +51,41 @@ class Display:
     img.text((270, 280), focus_text, fill = (255,255,255), font=larger_font)
 
     return pil_img
+  
+  def check_leading_zero(self, num):
+    if (num < 10):
+      return "0" + str(num)
+    else:
+      return str(num)
+  
+  def format_time(self, seconds):
+    if (seconds > 60):
+      return self.check_leading_zero(math.floor(seconds / 60)) + ":" + self.check_leading_zero(seconds % 60)
+    else:
+      return "0:" + self.check_leading_zero(seconds)
 
   def match_lcd(self, image, camera_frame = False):
-    if (camera_frame):
+    if (camera_frame == "video"):
+      c_img = image.crop((0, 0, 320, 320))
+
+      # draw elapsed time and pulsing red dot
+      # lol access camera from main
+      video_start_time = self.main.camera.recording_time
+      elapsed_time = time.time() - video_start_time
+      formatted_time = self.format_time(math.floor(elapsed_time))
+      
+      draw = ImageDraw.Draw(c_img)
+      draw.ellipse((10, 300, 20, 310), fill=(255,0,0,0))
+      x_pos = 30 if len(formatted_time) > 4 else 25
+      draw.text((x_pos, 295), formatted_time, fill = "white", font = large_font)
+
+      r_img = c_img.rotate(-90)
+
+      base_image = Image.new("RGB", (240, 320), "WHITE")
+      base_image.paste(r_img, (0, 0))
+
+      f_img = base_image
+    elif (camera_frame):
       r_img = image.rotate(-90)
       c_img = r_img.crop((0, 0, 240, 320))
       f_img = c_img
@@ -163,8 +195,8 @@ class Display:
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
 
-    draw.text((20, 55), "Pi Zero Cam", fill = "BLACK", font = large_font)
-    draw.text((20, 70), "v 1.1.0", fill = "BLACK", font = small_font)
+    draw.text((20, 55), "Modular Pi Cam", fill = "BLACK", font = large_font)
+    draw.text((20, 70), "", fill = "BLACK", font = small_font)
 
     self.disp.ShowImage(self.match_lcd(image))
 

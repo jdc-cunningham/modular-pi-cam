@@ -1,9 +1,12 @@
+import cv2
 import os, time
 import subprocess
+import numpy as np
 
 from threading import Thread
 from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder, Quality
+from picamera2.outputs import CircularOutput
 from PIL import Image
 from libcamera import controls
 
@@ -25,6 +28,11 @@ class Camera:
     self.timelapse_active = False
     self.has_autofocus = False # v3 modules have it
     self.max_resolution = [0, 0]
+    self.recording_video = False
+    self.recording_start = 0
+    self.encoder = H264Encoder(30000000, repeat=True)
+    self.encoder.output = CircularOutput(buffersize = 150)
+    self.video_filename = ""
 
     self.which_camera()
 
@@ -77,16 +85,15 @@ class Camera:
     self.setup()
 
   def setup(self):
-    self.encoder = H264Encoder()
     self.picam2 = Picamera2()
     # writing this down here while fresh
     # depending on the display style, you may have to use a square image instead of rectangle and crop it
     # adds to dificulty of dynamic software
-    self.config = self.picam2.create_still_configuration()
-    self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)})
+    self.config = self.picam2.create_still_configuration(main={"size": self.picam2.sensor_resolution}, lores={"size": (320, 320)})
+    self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)}) # 320 is based on display size
     self.config_3x = self.picam2.create_still_configuration(main={"size": (960, 960)}) # x3 so a step in either direction
     self.config_7x = self.picam2.create_still_configuration(main={"size": (2240, 2240)}) # x7
-    self.video_config = self.picam2.create_video_configuration()
+    self.video_config = self.picam2.create_video_configuration(main={"size": (1920, 1080), "format":"RGB888"}, lores={"size": (400, 400), "format": "YUV420"})
     self.picam2.configure(self.config_1x)
     self.start()
 
@@ -95,13 +102,46 @@ class Camera:
 
   def stop(self):
     self.picam2.stop()
-  
+
+  # https://forums.raspberrypi.com/viewtopic.php?t=366084#p2197540
+  # https://github.com/raspberrypi/picamera2/blob/main/examples/yuv_to_rgb.py
+  def sample_video(self, np_arr):
+    rgb_img = cv2.cvtColor(np_arr, cv2.COLOR_YUV420p2RGB)
+    rgb_img2 = cv2.cvtColor(rgb_img, cv2.COLOR_BGR2RGB)
+    pil_img = Image.fromarray(np.uint8(rgb_img2))
+    self.display.show_image(pil_img, "video")
+
+  def record_video(self):
+    self.video_filename = str(time.time()).split(".")[0] + ".h264"
+    video_file_path =  self.img_base_path + self.video_filename
+    self.encoder.output.fileoutput = video_file_path
+    self.encoder.output.start()
+
+    while (self.recording_video):
+      cap = self.picam2.capture_array("lores")
+      self.sample_video(cap)
+      time.sleep(0.03)
+
   def start_video_recording(self):
-    video_filename =  self.img_base_path + str(time.time()).split(".")[0] + ".h264"
-    self.picam2.start_recording(self.encoder, video_filename, quality=Quality.HIGH)
+    self.recording_video = True
+    self.change_mode("video")
+    self.recording_time = time.time()
+    self.picam2.start_encoder(self.encoder)
+    self.picam2.set_controls({"FrameRate": 30})
+    Thread(target=self.record_video).start()
 
   def stop_video_recording(self):
-    self.picam2.stop_recording()
+    self.recording_video = False
+    self.recording_time = 0
+    self.encoder.output.stop()
+    self.picam2.stop_encoder()
+    self.change_mode("zoom 1x")
+    # this does block the menu from rendering immediately
+    # depends how long the video is
+    # can set it as another thread or don't do it
+    cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
+    cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
+    os.system(cmd)
 
   def change_mode(self, mode):
     self.last_mode = mode

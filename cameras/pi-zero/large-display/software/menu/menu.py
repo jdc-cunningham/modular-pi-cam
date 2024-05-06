@@ -133,14 +133,14 @@ class Menu:
     if (self.main.active_menu == "Video"):
       if (button == "SHUTTER"):
         if (not self.recording_video):
-          self.display.draw_text("Recording video...")
+          self.display.clear_screen()
           self.camera.start_video_recording()
           self.recording_video = True
         else:
           self.camera.stop_video_recording()
           self.recording_video = False
           self.display.draw_text("Recording saved")
-          time.sleep(0.3)
+          time.sleep(1)
           self.main.active_menu = "Home"
           self.display.start_menu()
 
