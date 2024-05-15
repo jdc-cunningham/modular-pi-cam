@@ -32,7 +32,7 @@ class Menu:
         self.menu_y += 1
 
     if (self.main.active_menu == "Settings"):
-      if (button_pressed == "DOWN" and self.menu_settings_y < 3):
+      if (button_pressed == "DOWN" and self.menu_settings_y < 4):
         self.menu_settings_y += 1
       
       if (button_pressed == "UP" and self.menu_settings_y > 1):
@@ -50,22 +50,21 @@ class Menu:
       if (button_pressed == "CENTER"):
         if (self.active_menu_item == "Telemetry"):
           self.display.render_telemetry_page()
-          self.main.processing = False
-          return
     
         if (self.active_menu_item == "Battery Profiler"):
           self.display.render_battery_profiler()
           self.main.battery.start_profiler()
           self.main.battery_profiler_active = True
-          self.main.processing = False
-          return
+        
+        if (self.active_menu_item == "Reset Battery"):
+          self.main.battery.reset_uptime()
       
         if (self.active_menu_item == "Timelapse"):
           self.main.active_menu = "Timelapse"
           self.display.render_timelapse()
           self.main.camera.start_timelapse()
-          self.main.processing = False
-          return
+
+        self.main.processing = False
 
     self.update_menu(button_pressed)
 
@@ -116,6 +115,11 @@ class Menu:
 
       if (self.menu_settings_y == 3):
         self.display.render_settings()
+        self.display.draw_active_reset_battery()
+        self.active_menu_item = "Reset Battery"
+
+      if (self.menu_settings_y == 4):
+        self.display.render_settings()
         self.display.draw_active_timelapse()
         self.active_menu_item = "Timelapse"
 
@@ -149,6 +153,11 @@ class Menu:
         self.main.battery.stop_profiler()
         self.main.active_menu = "Home"
         self.main.battery_profiler_active = False
+        self.display.start_menu()
+    
+    if (self.main.active_menu == "Reset Battery"):
+      if (button == "BACK"):
+        self.main.active_menu = "Home"
         self.display.start_menu()
 
     if (self.main.active_menu == "Timelapse"):
