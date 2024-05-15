@@ -254,7 +254,8 @@ class Display:
     draw.text((5, 0), "Settings", fill = "WHITE", font = large_font)
     draw.text((5, 26), "Telemetry", fill = "BLACK", font = large_font)
     draw.text((5, 52), "Battery Profiler", fill = "BLACK", font = large_font)
-    draw.text((5, 78), "Timelapse", fill = "BLACK", font = large_font)
+    draw.text((5, 78), "Reset Battery", fill = "BLACK", font = large_font)
+    draw.text((5, 104), "Timelapse", fill = "BLACK", font = large_font)
 
     return image
   
@@ -295,7 +296,7 @@ class Display:
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
 
-    draw.line([(0, 26), (0, 42)], fill = "BLUE", width = 2)
+    draw.line([(0, 26), (0, 42)], fill = "BLUE", width = 2) # 16 tall, 10 y apart
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -307,11 +308,19 @@ class Display:
 
     self.disp.ShowImage(self.match_lcd(image))
 
-  def draw_active_timelapse(self):
+  def draw_active_reset_battery(self):
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
 
     draw.line([(0, 78), (0, 94)], fill = "BLUE", width = 2)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  def draw_active_timelapse(self):
+    image = self.get_settings_img()
+    draw = ImageDraw.Draw(image)
+
+    draw.line([(0, 104), (0, 120)], fill = "BLUE", width = 2)
 
     self.disp.ShowImage(self.match_lcd(image))
 
