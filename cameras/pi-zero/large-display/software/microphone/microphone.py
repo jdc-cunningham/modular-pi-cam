@@ -50,6 +50,8 @@ class Microphone:
         markers += "[" + str(marker) + ":0]"
         marker += 1
 
+    audio_files.sort()
+
     return dict(
       files = audio_files,
       markers = markers

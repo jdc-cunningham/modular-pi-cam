@@ -128,12 +128,13 @@ class Camera:
     self.recording_time = time.time()
     self.picam2.start_encoder(self.encoder)
     self.picam2.set_controls({"FrameRate": 30})
-    Thread(target=self.record_video).start()
 
     # the mic is assumed to always be plugged in or not
     # since plugging it back in turns off the pi
     if (self.main.usb.mic_available):
       self.main.mic.record(self.img_base_path + self.video_filename)
+
+    Thread(target=self.record_video).start()
 
   def stop_video_recording(self):
     if (self.main.mic != None):
