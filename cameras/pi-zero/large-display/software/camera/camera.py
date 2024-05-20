@@ -136,7 +136,9 @@ class Camera:
       self.main.mic.record(self.img_base_path + self.video_filename)
 
   def stop_video_recording(self):
-    self.main.mic.recording = False
+    if (self.main.mic != None):
+      self.main.mic.recording = False
+
     self.recording_video = False
     self.recording_time = 0
     self.encoder.output.stop()
