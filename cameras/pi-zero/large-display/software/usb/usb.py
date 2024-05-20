@@ -27,7 +27,21 @@ class Usb:
                 devices.append(dinfo)
 
     return devices
+  
+  def update_mic_storage_availability(self, devices):
+    # scan for mic/mass storage
+    self.mic_available = False
+    self.storage_available = False
 
+    # likely device specific strings, verify
+    for device in devices:
+      if (b'mic' in device['tag']):
+        self.mic_available = True # assumption no proof/test
+
+      if (b'Flash Drive' in device['tag']):
+          self.storage_available = True
+
+  # could improve this via listening to plug/unplug usb event
   def scan_for_devices(self):
     while True:
       devices = self.get_usb_devices()
@@ -35,15 +49,15 @@ class Usb:
       if (self.device_count == 0):
          self.device_count = len(devices)
          self.devices = devices
-      else:
-        # change eg. mass storage plugged in
-        # mic has to be plugged in before system starts due to power draw restarting GPU
-        # https://forums.raspberrypi.com/viewtopic.php?t=237554
-        if (self.device_count != len(devices)):
-           print('new device')
-           print(devices)
-           self.device_count = len(devices)
-           self.devices = devices
+         self.update_mic_storage_availability(devices)
+
+      # change eg. mass storage plugged in
+      # mic has to be plugged in before system starts due to power draw restarting GPU
+      # https://forums.raspberrypi.com/viewtopic.php?t=237554
+      if (self.device_count != len(devices)):
+          self.device_count = len(devices)
+          self.devices = devices
+          self.update_mic_storage_availability(devices)
 
       time.sleep(0.5)
 
