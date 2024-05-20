@@ -35,6 +35,7 @@ class Display:
     self.utils = main.utils
     self.file_count = self.utils.get_file_count() # maybe shouldn't be here
     self.disp = None
+    self.formatted_time = 0
 
     self.setup_lcd()
 
@@ -72,12 +73,15 @@ class Display:
       # lol access camera from main
       video_start_time = self.main.camera.recording_time
       elapsed_time = time.time() - video_start_time
-      formatted_time = self.format_time(math.floor(elapsed_time))
+
+      # when video ends, can show super long number
+      if (video_start_time > 0):
+        self.formatted_time = self.format_time(math.floor(elapsed_time))
       
       draw = ImageDraw.Draw(c_img)
       draw.ellipse((10, 300, 20, 310), fill=(255,0,0,0))
-      x_pos = 30 if len(formatted_time) > 4 else 25
-      draw.text((x_pos, 295), formatted_time, fill = "white", font = large_font)
+      x_pos = 30 if len(self.formatted_time) > 4 else 25
+      draw.text((x_pos, 295), self.formatted_time, fill = "white", font = large_font)
 
       r_img = c_img.rotate(-90)
 

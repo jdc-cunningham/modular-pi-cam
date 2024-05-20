@@ -16,6 +16,8 @@ from camera.camera import Camera
 from menu.menu import Menu
 from display.display import Display
 from utils.utils import Utils
+from usb.usb import Usb
+from microphone.microphone import Microphone
 
 class Main:
   def __init__(self):
@@ -34,6 +36,8 @@ class Main:
     self.battery_profiler_active = False
     self.v3_cam = False
     self.focus_level = -1 # -1 is auto, 0 is infinite, 1 is 1-3m up to 10 which is 1/10 or 10cm 
+    self.usb = None
+    self.mic = None
 
     self.startup()
 
@@ -43,6 +47,9 @@ class Main:
       if (self.active_menu == "Home"):
         self.display.start_menu()
       time.sleep(300)
+
+  def start_mic(self):
+    self.mic = Microphone(self)
 
   # maybe shouldn't be here
   def check_battery(self):
@@ -60,6 +67,10 @@ class Main:
     self.menu = Menu(self)
     self.display.show_boot_scene()
     self.controls = Buttons(self)
+    self.usb = Usb(self)
+
+    if (self.usb.mic_available):
+      self.mic = Microphone(self)
 
     # self.camera.start() # moved to post camera check
     self.controls.start()

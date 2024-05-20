@@ -112,7 +112,6 @@ class Camera:
     self.display.show_image(pil_img, "video")
 
   def record_video(self):
-    self.video_filename = str(time.time()).split(".")[0] + ".h264"
     video_file_path =  self.img_base_path + self.video_filename
     self.encoder.output.fileoutput = video_file_path
     self.encoder.output.start()
@@ -123,14 +122,24 @@ class Camera:
       time.sleep(0.03)
 
   def start_video_recording(self):
+    self.video_filename = str(time.time()).split(".")[0] + ".h264"
     self.recording_video = True
     self.change_mode("video")
     self.recording_time = time.time()
     self.picam2.start_encoder(self.encoder)
     self.picam2.set_controls({"FrameRate": 30})
+
+    # the mic is assumed to always be plugged in or not
+    # since plugging it back in turns off the pi
+    if (self.main.usb.mic_available):
+      self.main.mic.record(self.img_base_path + self.video_filename)
+
     Thread(target=self.record_video).start()
 
   def stop_video_recording(self):
+    if (self.main.mic != None):
+      self.main.mic.recording = False
+
     self.recording_video = False
     self.recording_time = 0
     self.encoder.output.stop()
@@ -139,9 +148,11 @@ class Camera:
     # this does block the menu from rendering immediately
     # depends how long the video is
     # can set it as another thread or don't do it
-    cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
-    cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
-    os.system(cmd)
+
+    if (self.main.mic == None):
+      cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
+      cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
+      os.system(cmd)
 
   def change_mode(self, mode):
     self.last_mode = mode

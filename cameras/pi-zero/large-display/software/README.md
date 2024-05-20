@@ -46,6 +46,16 @@ As of this time I have not found a way to mount/develop against the Pi. I also h
 
 I am using SFTP to edit files on the pi and then run the code via ssh session
 
+#### Microphone support
+
+You will need to install `pyaudio` on bookworm that's done with `sudo apt install python3-pyaudio`
+
+The microphone is also currently hardcoded/assumed so check the name that your device appears as with `test-usb-mic-recording.py` and put that in or the first non-default option is assumed
+
+#### Mic dislcaimer:
+
+The USB mic in my case would turn the pi zero 2 off when plugging it in... so the mic should be plugged in BEFORE starting the pi
+
 ### Battery profiling
 
 `*/5 * * * * /usr/bin/python /home/pi/modular-pi-cam/cameras/pi-zero/large-display/software/cron_battery_ticker.py >> /home/pi/cron-battery-ticker.log 2>&1`
