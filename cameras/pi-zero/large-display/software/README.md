@@ -48,7 +48,7 @@ I am using SFTP to edit files on the pi and then run the code via ssh session
 
 #### Microphone support
 
-You will need to install `pyaudio` on bookworm that's done with `sudo apt instally python3-pyaudio`
+You will need to install `pyaudio` on bookworm that's done with `sudo apt install python3-pyaudio`
 
 The microphone is also currently hardcoded/assumed so check the name that your device appears as with `test-usb-mic-recording.py` and put that in or the first non-default option is assumed
 
