@@ -53,10 +53,6 @@ class Usb:
         self.devices = devices
         self.update_mic_storage_availability(devices)
 
-        print('avail')
-        print(self.mic_available)
-        print(self.main.mic)
-
         if (self.mic_available and self.main.mic == None):
           self.main.start_mic()
 
