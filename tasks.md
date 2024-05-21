@@ -1,7 +1,7 @@
 file transfer
 - [x] find code that lists USB devices (poll) (1:19 PM)
-- [ ] mount flash drive
-- [ ] check available space
+- [x] mount flash drive (4:05 PM)
+- [x] check available space (4:05 PM)
 - [ ] move files into flash drive
 - [ ] add menu option in settings "transfer files"
 - [ ] add transfer files menu
@@ -25,4 +25,4 @@ mic recording feature (from ml-hat-cam)
 
 05/21/2024
 
-10:39 AM star time
+10:39 AM start time

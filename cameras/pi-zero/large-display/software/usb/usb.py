@@ -1,4 +1,4 @@
-import re, time, subprocess
+import os, re, time, subprocess
 
 from threading import Thread
 
@@ -19,12 +19,13 @@ class Usb:
     devices = []
 
     for i in df.split(b'\n'):
-        if i:
-            info = device_re.match(i)
-            if info:
-                dinfo = info.groupdict()
-                dinfo['device'] = '/dev/bus/usb/%s/%s' % (dinfo.pop('bus'), dinfo.pop('device'))
-                devices.append(dinfo)
+      if i:
+        info = device_re.match(i)
+        
+        if info:
+          dinfo = info.groupdict()
+          dinfo['device'] = '/dev/bus/usb/%s/%s' % (dinfo.pop('bus'), dinfo.pop('device'))
+          devices.append(dinfo)
 
     return devices
   
@@ -42,6 +43,9 @@ class Usb:
 
       if ('flash drive' in tag or 'storage' in tag):
         self.storage_available = True
+
+    if (not self.storage_available):
+      os.system('umount /mnt/mpi-usb')
 
   # could improve this via listening to plug/unplug usb event
   def scan_for_devices(self):

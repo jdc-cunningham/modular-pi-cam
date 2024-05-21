@@ -89,7 +89,7 @@ class Utils:
       if (self.usb_path != None):
         if (not os.path.exists("/mnt/mpi-usb")):
           os.system("mkdir /mnt/mpi-usb")
-          os.system("mount " + self.usb_path + " /home/pi/tmp")
+          os.system("mount " + self.usb_path + " /mnt/mpi-usb")
     except Exception as e:
       print('failed to mount USB')
       return False
@@ -159,6 +159,17 @@ class Utils:
         ))
 
     return files
+  
+  def str_to_bytes(self, str_bytes):
+    if ('m' in str_bytes):
+      size = str_bytes.split('m')[0]
+      return int(size) * 1000000
+
+    # most likely
+    if ('g' in str_bytes):
+      size = str_bytes.split('g')[0]
+
+    return int(size) * 1000000000
 
   def transfer_to_usb(self):
     if (self.mount_usb()):
@@ -166,6 +177,23 @@ class Utils:
 
       if (len(files) != 0):
         usb_info = self.get_usb_details()
+        usb_avail = self.str_to_bytes(usb_info['avail'].lower())
+        txfr_incr = 1
+
+        for file in files:
+          if (file['size_bytes'] < usb_avail):
+            self.main.display.render_usb_transfer('Transferring ' + str(txfr_incr) + '/' + str(len(files)))
+            os.system('cp ' + file['file'] + ' /mnt/mpi-usb/' + file['filename'])
+            usb_avail = self.str_to_bytes(self.get_usb_details()['avail'].lower())
+          else:
+            self.main.display.render_usb_transfer('Not enough space')
+            break
+
+          txfr_incr += 1
+
+        self.main.display.render_usb_transfer('Transfer complete')
+        time.sleep(2)
+        self.main.menu.update_state("BACK")
       else:
         self.main.display.render_usb_transfer('No files')
         
