@@ -50,7 +50,6 @@ class Utils:
       file_path = os.path.join(self.capture_path, filename)
 
       try:
-        print(file_path)
         if ((os.path.isfile(file_path) or os.path.islink(file_path)) and '.gitkeep' not in file_path):
             os.unlink(file_path)
       except Exception as e:

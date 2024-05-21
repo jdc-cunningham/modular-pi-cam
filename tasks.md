@@ -10,7 +10,7 @@ file transfer
 - [ ] show transfer status with ability to cancel
 
 bonus
-- [ ] add delete all files feature
+- [x] add delete all files feature (1:23 PM)
 - [ ] add some kind of status indicating processing
   - need to increase refresh rate of home display to show the message
 
