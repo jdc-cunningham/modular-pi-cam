@@ -19,7 +19,10 @@ mic recording feature (from ml-hat-cam)
 - [x] merge all files into 1 and combine with mp4 generation (4:16 PM)
 - [x] make mp4 generation process a separate thread (not block UI) (4:16 PM)
 
-12:20 PM
+05/20/2024
 
-start time
+12:20 PM start time
 
+05/21/2024
+
+10:39 AM star time
