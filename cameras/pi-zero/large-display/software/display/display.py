@@ -288,6 +288,16 @@ class Display:
 
     self.disp.ShowImage(self.match_lcd(image))
 
+  def render_delete_all_files(self, active_yes = False):
+    image = Image.new("RGB", (320, 320), "WHITE")
+    draw = ImageDraw.Draw(image)
+
+    draw.text((22, 48), "Delete All Files?", fill = "BLACK", font = large_font)
+    draw.text((22, 72), "Yes", fill = "BLUE" if (active_yes) else "BLACK", font = small_font)
+    draw.text((60, 72), "No", fill = "BLACK" if (active_yes) else "BLUE", font = small_font)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
   def render_battery_charged(self, is_charged = False):
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
@@ -343,6 +353,14 @@ class Display:
     draw = ImageDraw.Draw(image)
 
     draw.line([(0, 156), (0, 172)], fill = "BLUE", width = 2)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  def render_deleting_files(self, msg = ""):
+    image = Image.new("RGB", (320, 320), "WHITE")
+    draw = ImageDraw.Draw(image)
+
+    draw.text((22, 48), msg if (msg) else "Deleting Files...", fill = "BLACK", font = small_font)
 
     self.disp.ShowImage(self.match_lcd(image))
 
