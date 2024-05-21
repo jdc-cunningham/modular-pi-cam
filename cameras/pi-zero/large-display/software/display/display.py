@@ -298,6 +298,14 @@ class Display:
 
     self.disp.ShowImage(self.match_lcd(image))
 
+  def render_usb_transfer(self, msg = ""):
+    image = Image.new("RGB", (320, 320), "WHITE")
+    draw = ImageDraw.Draw(image)
+
+    draw.text((22, 48), msg, fill = "BLACK", font = small_font)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
   def render_battery_charged(self, is_charged = False):
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
@@ -353,6 +361,17 @@ class Display:
     draw = ImageDraw.Draw(image)
 
     draw.line([(0, 156), (0, 172)], fill = "BLUE", width = 2)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  # this is not advanced eg. a thread where it can detect USB plugged in here
+  def render_transfer_to_usb(self, transfer = False):
+    image = Image.new("RGB", (320, 320), "WHITE")
+    draw = ImageDraw.Draw(image)
+
+    draw.text((22, 48), "UBS Not Detected" if self.main.usb == None else "USB Detected", fill = "BLACK", font = small_font)
+    draw.text((22, 72), "Transfer", fill = "BLUE" if (transfer) else "BLACK", font = small_font)
+    draw.text((80, 72), "Cancel", fill = "BLACK" if (transfer) else "BLUE", font = small_font)
 
     self.disp.ShowImage(self.match_lcd(image))
 

@@ -2,7 +2,9 @@
 
 - need SPI enabled (raspi-config)
 
-### Boot script
+### Boot script (ROOT)
+
+Disclaimer: you can disable root user here by not having USB or dealing with non-sudo user usb mount support
 
 There is a boot script that runs `main.py` in the `software` folder
 
@@ -18,7 +20,7 @@ After=multi-user.target
 [Service]
 Type=idle
 WorkingDirectory=/home/pi/modular-pi-cam/cameras/pi-zero/large-display/software
-User=pi
+User=root
 ExecStart=/usr/bin/python3 /home/pi/modular-pi-cam/cameras/pi-zero/large-display/software/main.py
 Restart=no
 
@@ -51,6 +53,20 @@ I am using SFTP to edit files on the pi and then run the code via ssh session
 You will need to install `pyaudio` on bookworm that's done with `sudo apt install python3-pyaudio`
 
 The microphone is also currently hardcoded/assumed so check the name that your device appears as with `test-usb-mic-recording.py` and put that in or the first non-default option is assumed
+
+#### USB support (running as root)
+
+In order to do auto mounting of a flash drive you have to be root using `/mnt` and the `mount` command.
+
+The `modular-pi-cam.service` above is set to be root user
+
+Alternative is to use something like `udisk2` or `udiskctl`
+
+`udisk2` should already be available or added by `sudo apt install udisks2`
+
+`udiskctl` also requires sudo unless some [permissions are not met]('https://unix.stackexchange.com/a/738504/133821')...
+
+This service will run as root for now
 
 #### Mic dislcaimer:
 
