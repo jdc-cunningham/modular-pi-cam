@@ -260,6 +260,8 @@ class Display:
     draw.text((5, 52), "Battery Profiler", fill = "BLACK", font = large_font)
     draw.text((5, 78), "Reset Battery", fill = "BLACK", font = large_font)
     draw.text((5, 104), "Timelapse", fill = "BLACK", font = large_font)
+    draw.text((5, 130), "Transfer To USB", fill = "BLACK", font = large_font)
+    draw.text((5, 156), "Delete All Files", fill = "BLACK", font = large_font)
 
     return image
   
@@ -325,6 +327,22 @@ class Display:
     draw = ImageDraw.Draw(image)
 
     draw.line([(0, 104), (0, 120)], fill = "BLUE", width = 2)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  def draw_active_transfer_to_usb(self):
+    image = self.get_settings_img()
+    draw = ImageDraw.Draw(image)
+
+    draw.line([(0, 130), (0, 146)], fill = "BLUE", width = 2)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  def draw_active_delete_all_files(self):
+    image = self.get_settings_img()
+    draw = ImageDraw.Draw(image)
+
+    draw.line([(0, 156), (0, 172)], fill = "BLUE", width = 2)
 
     self.disp.ShowImage(self.match_lcd(image))
 

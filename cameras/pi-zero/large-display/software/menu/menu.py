@@ -32,7 +32,7 @@ class Menu:
         self.menu_y += 1
 
     if (self.main.active_menu == "Settings"):
-      if (button_pressed == "DOWN" and self.menu_settings_y < 4):
+      if (button_pressed == "DOWN" and self.menu_settings_y < 6):
         self.menu_settings_y += 1
       
       if (button_pressed == "UP" and self.menu_settings_y > 1):
@@ -122,6 +122,16 @@ class Menu:
         self.display.render_settings()
         self.display.draw_active_timelapse()
         self.active_menu_item = "Timelapse"
+
+      if (self.menu_settings_y == 5):
+        self.display.render_settings()
+        self.display.draw_active_transfer_to_usb()
+        self.active_menu_item = "Transfer To USB"
+      
+      if (self.menu_settings_y == 6):
+        self.display.render_settings()
+        self.display.draw_active_delete_all_files()
+        self.active_menu_item = "Delete All Files"
 
     if (self.main.active_menu == "Files"):
       if (button == "BACK"):
