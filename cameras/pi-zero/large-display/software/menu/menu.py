@@ -15,7 +15,8 @@ class Menu:
     self.files_y = 0 # footer or files
     self.recording_video = False
     self.battery_charged = False # yes, no question
-    self.menu_daf_x = 1 # delete all files
+    self.menu_daf_x = 1 # delete all files (no)
+    self.menu_txfer_x = 1 # transfer usb (cancel)
 
   def update_state(self, button_pressed):
     if (self.main.active_menu == "Home"):
@@ -66,6 +67,10 @@ class Menu:
           self.display.render_timelapse()
           self.main.camera.start_timelapse()
 
+        if (self.active_menu_item == "Transfer To USB"):
+          self.main.active_menu = "Transfer To USB"
+          self.display.render_transfer_to_usb()
+
         if (self.active_menu_item == "Delete All Files"):
           self.main.active_menu = "Delete All Files"
           self.display.render_delete_all_files()
@@ -90,6 +95,29 @@ class Menu:
           # utils will control deleting files progress page
 
         if (self.menu_daf_x == 1):
+          self.main.active_menu = "Settings"
+    elif (self.main.active_menu == "Transfer To USB"):
+      if (button_pressed == "BACK"):
+        self.menu_txfer_x = 1
+        self.main.active_menu = "Settings"
+        self.display.render_settings()
+
+      if (button_pressed == "LEFT"):
+        if (self.menu_txfer_x == 1):
+          self.menu_txfer_x = 0
+          self.display.render_transfer_to_usb(True)
+      
+      if (button_pressed == "RIGHT"):
+        if (self.menu_txfer_x == 0):
+          self.menu_txfer_x = 1
+          self.display.render_transfer_to_usb()
+
+      if (button_pressed == "CENTER"):
+        if (self.menu_txfer_x == 0):
+          self.main.utils.transfer_to_usb()
+          # utils will control transfer to usb progress page
+
+        if (self.menu_txfer_x == 1):
           self.main.active_menu = "Settings"
       
     self.main.processing = False

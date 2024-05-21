@@ -1,4 +1,4 @@
-import os, os.path, time
+import os, os.path, time, subprocess
 
 from subprocess import run
 
@@ -8,6 +8,7 @@ class Utils:
     self.pi_ver = 1 # or 2 determine
     self.base_path = os.getcwd()
     self.capture_path = self.base_path + "/captured-media/"
+    self.usb_path = None # maybe weird to be here
 
     self.get_pi_ver()
 
@@ -63,3 +64,108 @@ class Utils:
     self.main.display.render_deleting_files(msg)
     time.sleep(2)
     self.main.menu.update_state("BACK") # simulate back button event
+
+  def get_usb_path(self):
+    ignore_patterns = ['NAME', 'mmcblk', b'\xe2\x94\x94\xe2\x94\x80'.decode('utf-8')]
+
+    dev_info = subprocess.check_output("lsblk", shell=True).splitlines()
+
+    def check_ignore(name):
+      for pat in ignore_patterns:
+        if (pat in name):
+          return True
+
+      return False
+
+    for line in dev_info:
+      if (not check_ignore(line.decode('utf-8'))):
+        self.usb_path = "/dev/" + line.decode('utf-8').split(' ')[0] + "1" # bad
+
+  # https://stackoverflow.com/a/39477913/2710227
+  def mount_usb(self):
+    try:
+      self.get_usb_path()
+
+      if (self.usb_path != None):
+        if (not os.path.exists("/mnt/mpi-usb")):
+          os.system("mkdir /mnt/mpi-usb")
+          os.system("mount " + self.usb_path + " /home/pi/tmp")
+    except Exception as e:
+      print('failed to mount USB')
+      return False
+    
+    return True
+  
+  def get_usb_details(self):
+    usb_info = subprocess.check_output("df -h /mnt/mpi-usb", shell=True).splitlines()[1].decode('ascii')
+
+    '''
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda1        30G  6.4M   30G   1% /mnt/mpi-usb
+    '''
+
+    usb_info_parts = usb_info.split(' ')
+    
+    incr = 0
+    usb_size = None
+    usb_used = None
+    usb_avail = None
+    usb_use = None
+
+    for usb_info_part in usb_info_parts:
+      if (incr == 0):
+        incr += 1
+        continue
+
+      if (usb_size == None and usb_info_part != ''):
+        usb_size = usb_info_part
+        incr += 1
+        continue
+
+      if (usb_used == None and usb_info_part != ''):
+        usb_used = usb_info_part
+        incr += 1
+        continue
+
+      if (usb_avail == None and usb_info_part != ""):
+        usb_avail = usb_info_part
+        incr += 1
+        continue
+
+      if (usb_use == None and usb_info_part != ""):
+        usb_use = usb_info_part
+        break
+
+      incr += 1
+
+    return dict(
+      size = usb_size,
+      used = usb_used,
+      avail = usb_avail,
+      usage = usb_use
+    )
+  
+  def get_files_to_transfer(self):
+    files = []
+
+    for filename in os.listdir(self.capture_path):
+      file_path = os.path.join(self.capture_path, filename)
+
+      if ('.gitkeep' not in file_path):
+        files.append(dict(
+          filename = filename,
+          file = file_path,
+          size_bytes = os.stat(file_path).st_size     
+        ))
+
+    return files
+
+  def transfer_to_usb(self):
+    if (self.mount_usb()):
+      files = self.get_files_to_transfer()
+
+      if (len(files) != 0):
+        usb_info = self.get_usb_details()
+      else:
+        self.main.display.render_usb_transfer('No files')
+        
