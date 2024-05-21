@@ -61,7 +61,7 @@ class Main:
 
   def startup(self):
     self.battery = Battery(self)
-    self.utils = Utils()
+    self.utils = Utils(self)
     self.display = Display(self)
     self.camera = Camera(self)
     self.menu = Menu(self)

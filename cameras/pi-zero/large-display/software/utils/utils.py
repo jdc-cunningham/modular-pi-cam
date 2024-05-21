@@ -1,10 +1,13 @@
-import os, os.path
+import os, os.path, time
 
 from subprocess import run
 
 class Utils:
-  def __init__(self):
+  def __init__(self, main):
+    self.main = main
     self.pi_ver = 1 # or 2 determine
+    self.base_path = os.getcwd()
+    self.capture_path = self.base_path + "/captured-media/"
 
     self.get_pi_ver()
 
@@ -23,15 +26,11 @@ class Utils:
 
   # https://stackoverflow.com/a/2632251
   def get_file_count(self):
-    base_path = os.getcwd()
-    capture_path = base_path + "/captured-media/"
     # -1 for gitkeep file
-    return len([name for name in os.listdir(capture_path) if os.path.isfile(os.path.join(capture_path, name))]) - 1
+    return len([name for name in os.listdir(self.capture_path) if os.path.isfile(os.path.join(self.capture_path, name))]) - 1
   
   def get_files(self):
-    base_path = os.getcwd()
-    capture_path = base_path + "/captured-media/"
-    files = os.listdir(capture_path)
+    files = os.listdir(self.capture_path)
 
     ret_files = []
 
@@ -40,3 +39,28 @@ class Utils:
         ret_files.append(file)
 
     return ret_files
+  
+  # https://stackoverflow.com/a/185941/2710227
+  def delete_all_files(self):
+    error_occurred = False
+
+    self.main.display.render_deleting_files()
+
+    for filename in os.listdir(self.capture_path):
+      file_path = os.path.join(self.capture_path, filename)
+
+      try:
+        print(file_path)
+        if ((os.path.isfile(file_path) or os.path.islink(file_path)) and '.gitkeep' not in file_path):
+            os.unlink(file_path)
+      except Exception as e:
+          error_occurred = True
+          print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+      time.sleep(0.05) # artificial delay
+
+    msg = "Error Occurred" if error_occurred else "Files Deleted"
+
+    self.main.display.render_deleting_files(msg)
+    time.sleep(2)
+    self.main.menu.update_state("BACK") # simulate back button event

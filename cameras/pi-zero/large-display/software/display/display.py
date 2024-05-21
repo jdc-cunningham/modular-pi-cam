@@ -260,6 +260,8 @@ class Display:
     draw.text((5, 52), "Battery Profiler", fill = "BLACK", font = large_font)
     draw.text((5, 78), "Reset Battery", fill = "BLACK", font = large_font)
     draw.text((5, 104), "Timelapse", fill = "BLACK", font = large_font)
+    draw.text((5, 130), "Transfer To USB", fill = "BLACK", font = large_font)
+    draw.text((5, 156), "Delete All Files", fill = "BLACK", font = large_font)
 
     return image
   
@@ -283,6 +285,16 @@ class Display:
 
     draw.text((0, 48), "5 min timelapse", fill = "BLACK", font = large_font)
     draw.text((0, 72), "Press back to cancel", fill = "BLACK", font = small_font)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  def render_delete_all_files(self, active_yes = False):
+    image = Image.new("RGB", (320, 320), "WHITE")
+    draw = ImageDraw.Draw(image)
+
+    draw.text((22, 48), "Delete All Files?", fill = "BLACK", font = large_font)
+    draw.text((22, 72), "Yes", fill = "BLUE" if (active_yes) else "BLACK", font = small_font)
+    draw.text((60, 72), "No", fill = "BLACK" if (active_yes) else "BLUE", font = small_font)
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -325,6 +337,30 @@ class Display:
     draw = ImageDraw.Draw(image)
 
     draw.line([(0, 104), (0, 120)], fill = "BLUE", width = 2)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  def draw_active_transfer_to_usb(self):
+    image = self.get_settings_img()
+    draw = ImageDraw.Draw(image)
+
+    draw.line([(0, 130), (0, 146)], fill = "BLUE", width = 2)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  def draw_active_delete_all_files(self):
+    image = self.get_settings_img()
+    draw = ImageDraw.Draw(image)
+
+    draw.line([(0, 156), (0, 172)], fill = "BLUE", width = 2)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
+  def render_deleting_files(self, msg = ""):
+    image = Image.new("RGB", (320, 320), "WHITE")
+    draw = ImageDraw.Draw(image)
+
+    draw.text((22, 48), msg if (msg) else "Deleting Files...", fill = "BLACK", font = small_font)
 
     self.disp.ShowImage(self.match_lcd(image))
 

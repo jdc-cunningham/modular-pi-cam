@@ -20,3 +20,12 @@ When entering a specific menu subpage/state, the coordinate system is with respe
 
 - battery indicator
 - auto/manual camera mode eg. shutter/exposure settings
+
+### Development notes
+
+In order to add a new menu page/state wrt the buttons, edit these two files:
+
+- display.py
+- menu.py
+
+See this [PR](https://github.com/jdc-cunningham/modular-pi-cam/pull/13/files) for an example adding battery reset
