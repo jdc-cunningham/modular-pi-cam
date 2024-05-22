@@ -298,6 +298,14 @@ class Display:
 
     self.disp.ShowImage(self.match_lcd(image))
 
+  def render_video_processing(self):
+    image = Image.new("RGB", (320, 320), "WHITE")
+    draw = ImageDraw.Draw(image)
+
+    draw.text((22, 48), "Video processing", fill = "BLACK", font = large_font)
+
+    self.disp.ShowImage(self.match_lcd(image))
+
   def render_usb_transfer(self, msg = ""):
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)

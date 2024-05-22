@@ -33,6 +33,7 @@ class Camera:
     self.encoder = H264Encoder(30000000, repeat=True)
     self.encoder.output = CircularOutput(buffersize = 150)
     self.video_filename = ""
+    self.video_processing = False
 
     self.which_camera()
 
@@ -122,8 +123,15 @@ class Camera:
       time.sleep(0.03)
 
   def start_video_recording(self):
+    if (self.video_processing):
+      self.main.display.render_video_processing()
+      time.sleep(2)
+      self.main.display.start_menu()
+      return
+
     self.video_filename = str(time.time()).split(".")[0] + ".h264"
     self.recording_video = True
+    self.video_processing = True
     self.change_mode("video")
     self.recording_time = time.time()
     self.picam2.start_encoder(self.encoder)
@@ -153,6 +161,7 @@ class Camera:
       cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
+      self.video_processing = False
 
   def change_mode(self, mode):
     self.last_mode = mode

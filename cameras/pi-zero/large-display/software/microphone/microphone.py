@@ -124,3 +124,4 @@ class Microphone:
 
       self.filename = ""
       self.chunk_id = 0
+      self.main.camera.video_processing = False
