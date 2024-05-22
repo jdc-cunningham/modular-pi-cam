@@ -80,6 +80,7 @@ class Utils:
     for line in dev_info:
       if (not check_ignore(line.decode('utf-8'))):
         self.usb_path = "/dev/" + line.decode('utf-8').split(' ')[0] + "1" # bad
+        break
 
   # https://stackoverflow.com/a/39477913/2710227
   def mount_usb(self):
@@ -89,7 +90,7 @@ class Utils:
       if (self.usb_path != None):
         if (not os.path.exists("/mnt/mpi-usb")):
           os.system("mkdir /mnt/mpi-usb")
-          os.system("mount " + self.usb_path + " /mnt/mpi-usb")
+        os.system("mount " + self.usb_path + " /mnt/mpi-usb")
     except Exception as e:
       print('failed to mount USB')
       return False
