@@ -164,6 +164,7 @@ class Camera:
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
       self.video_processing = False
+      self.main.display.draw_text("Recording saved")
 
   def change_mode(self, mode):
     self.last_mode = mode

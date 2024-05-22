@@ -33,6 +33,7 @@ class Microphone:
 
   def record(self, filename):
     self.filename = filename
+
     Thread(target=self.start_recording).start()
 
   def get_audio_files(self, filename):
@@ -81,8 +82,8 @@ class Microphone:
     self.record_frames = []
 
     self.stream = self.audio.open(format=self.format, channels=self.channels,
-                rate=self.rate, input=True, input_device_index = self.device_id,
-                frames_per_buffer=self.chunk)
+            rate=self.rate, input=True, input_device_index = self.device_id,
+            frames_per_buffer=self.chunk)
     
     for i in range(0, int(self.rate / self.chunk * self.record_duration)):
         # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
@@ -94,10 +95,10 @@ class Microphone:
   def stop_recording(self):
     self.stream.stop_stream()
     self.stream.close()
-    
+
     if (not self.recording):
       self.audio.terminate()
-    
+
     waveFile = wave.open(self.filename + '-' + str(self.chunk_id) + '.wav', 'wb')
     waveFile.setnchannels(self.channels)
     waveFile.setsampwidth(self.audio.get_sample_size(self.format))
@@ -125,3 +126,4 @@ class Microphone:
       self.filename = ""
       self.chunk_id = 0
       self.main.camera.video_processing = False
+      self.main.display.draw_text("Recording saved")
