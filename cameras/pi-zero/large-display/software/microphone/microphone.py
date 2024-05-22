@@ -16,7 +16,6 @@ class Microphone:
     self.audio = pyaudio.PyAudio()
     self.recorded_audio = [] # keep track of audio chunks
     self.recording = False
-    self.filename = ""
     self.chunk_id = 0 # increment as you record new chunks
     self.stream = None
     self.record_frames = []
@@ -32,8 +31,7 @@ class Microphone:
         self.device_id = i
 
   def record(self, filename):
-    self.filename = filename
-    Thread(target=self.start_recording).start()
+    Thread(target=self.start_recording, args=(filename,)).start()
 
   def get_audio_files(self, filename):
     base_name = filename.split('.h264')[0].split('/captured-media/')[1]
@@ -76,7 +74,7 @@ class Microphone:
     cmd += " -map '[out]' " + filename + '.wav'
     os.system(cmd)
 
-  def start_recording(self):
+  def start_recording(self, filename):
     self.recording = True
     self.record_frames = []
 
@@ -89,16 +87,16 @@ class Microphone:
         data = self.stream.read(self.chunk, exception_on_overflow=False)
         self.record_frames.append(data)
 
-    self.stop_recording()
+    self.stop_recording(filename)
 
-  def stop_recording(self):
+  def stop_recording(self, filename):
     self.stream.stop_stream()
     self.stream.close()
     
     if (not self.recording):
       self.audio.terminate()
     
-    waveFile = wave.open(self.filename + '-' + str(self.chunk_id) + '.wav', 'wb')
+    waveFile = wave.open(filename + '-' + str(self.chunk_id) + '.wav', 'wb')
     waveFile.setnchannels(self.channels)
     waveFile.setsampwidth(self.audio.get_sample_size(self.format))
     waveFile.setframerate(self.rate)
@@ -107,20 +105,19 @@ class Microphone:
 
     if (self.recording):
       self.chunk_id += 1
-      self.start_recording()
+      self.start_recording(filename)
     else:
       # combine audio chunks into 1 file
-      self.join_audio_files(self.filename)
+      self.join_audio_files(filename)
 
       # h264 to mp4
-      cmd = 'ffmpeg -framerate 30 -i ' + self.filename
-      cmd += ' -c copy ' + self.filename + '.mp4'
+      cmd = 'ffmpeg -framerate 30 -i ' + filename
+      cmd += ' -c copy ' + filename + '.mp4'
       os.system(cmd)
 
       # join wav and mp4 file
       # https://superuser.com/a/277667/572931
-      cmd = 'ffmpeg -i ' + self.filename + '.mp4' + ' -i ' + self.filename + '.wav' + ' -c:v copy -c:a aac ' + self.filename  + '-wsound' + '.mp4'
+      cmd = 'ffmpeg -i ' + filename + '.mp4' + ' -i ' + filename + '.wav' + ' -c:v copy -c:a aac ' + filename  + '-wsound' + '.mp4'
       os.system(cmd)
 
-      self.filename = ""
       self.chunk_id = 0
