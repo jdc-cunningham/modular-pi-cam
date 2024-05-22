@@ -126,6 +126,8 @@ class Camera:
     if (self.video_processing):
       self.main.display.render_video_processing()
       time.sleep(2)
+      self.main.menu.recording_video = False
+      self.main.active_menu = "Home"
       self.main.display.start_menu()
       return
 

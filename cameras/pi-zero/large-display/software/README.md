@@ -22,11 +22,10 @@ Type=idle
 WorkingDirectory=/home/pi/modular-pi-cam/cameras/pi-zero/large-display/software
 User=root
 ExecStart=/usr/bin/python3 /home/pi/modular-pi-cam/cameras/pi-zero/large-display/software/main.py
-Restart=no
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
-Commands for myself
 ```
 
 Add the service
