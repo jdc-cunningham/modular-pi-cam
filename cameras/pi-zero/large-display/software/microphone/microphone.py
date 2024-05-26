@@ -11,7 +11,7 @@ class Microphone:
     self.channels = 1
     self.rate = 44100
     self.chunk = 4096
-    self.record_duration = 5 # seconds
+    self.record_duration = 60 # seconds
     self.device_id = 0
     self.audio = pyaudio.PyAudio()
     self.recorded_audio = [] # keep track of audio chunks
@@ -85,9 +85,12 @@ class Microphone:
                 frames_per_buffer=self.chunk)
     
     for i in range(0, int(self.rate / self.chunk * self.record_duration)):
-        # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
-        data = self.stream.read(self.chunk, exception_on_overflow=False)
-        self.record_frames.append(data)
+      # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
+      data = self.stream.read(self.chunk, exception_on_overflow=False)
+      self.record_frames.append(data)
+
+      if (not self.main.mic.recording):
+        break
 
     self.stop_recording()
 
