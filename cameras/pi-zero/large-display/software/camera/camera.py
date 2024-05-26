@@ -33,6 +33,7 @@ class Camera:
     self.encoder = H264Encoder(30000000, repeat=True)
     self.encoder.output = CircularOutput(buffersize = 150)
     self.video_filename = ""
+    self.video_processing = False
 
     self.which_camera()
 
@@ -122,6 +123,14 @@ class Camera:
       time.sleep(0.03)
 
   def start_video_recording(self):
+    # force 1 video at a time
+    if (self.video_processing):
+      self.main.display.draw_text("Video processing")
+      time.sleep(2)
+      self.main.active_menu = "Home"
+      self.main.display.start_menu()
+
+    self.video_processing = True
     self.video_filename = str(time.time()).split(".")[0] + ".h264"
     self.recording_video = True
     self.change_mode("video")
@@ -153,6 +162,8 @@ class Camera:
       cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
+      self.main.display.draw_text("Recording saved")
+      self.video_processing = False
 
   def change_mode(self, mode):
     self.last_mode = mode
