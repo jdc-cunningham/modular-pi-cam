@@ -113,7 +113,10 @@ class Display:
     # draw.text((7, 105), "E: 100", fill = "WHITE", font = small_font)
     draw.text((22, 48), center_text, fill = "BLACK", font = large_font)
     draw.text((58, 3), self.main.battery.get_remaining_time(), fill = "BLACK", font = small_font)
-    draw.text((60, 103), str(self.utils.get_file_count()), fill = "BLACK", font = small_font)
+
+    file_count = self.utils.get_file_count()
+
+    draw.text((60 if file_count < 100 else 55, 103), str(file_count), fill = "BLACK", font = small_font)
 
     battery_icon = Image.open(battery_sprite_path)
     folder_icon = Image.open(folder_sprite_path)

@@ -47,6 +47,9 @@ class Usb:
     if (not self.storage_available):
       os.system('umount /mnt/mpi-usb')
 
+    if (not self.mic_available):
+      self.main.mic = None
+
   # could improve this via listening to plug/unplug usb event
   def scan_for_devices(self):
     while True:

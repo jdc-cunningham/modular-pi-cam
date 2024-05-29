@@ -28,11 +28,11 @@ class Camera:
     self.timelapse_active = False
     self.has_autofocus = False # v3 modules have it
     self.max_resolution = [0, 0]
-    self.recording_video = False
     self.recording_start = 0
     self.encoder = H264Encoder(30000000, repeat=True)
     self.encoder.output = CircularOutput(buffersize = 150)
     self.video_filename = ""
+    self.video_processing = False
 
     self.which_camera()
 
@@ -116,31 +116,31 @@ class Camera:
     self.encoder.output.fileoutput = video_file_path
     self.encoder.output.start()
 
-    while (self.recording_video):
+    while (self.main.menu.recording_video and (not self.video_processing)):
       cap = self.picam2.capture_array("lores")
       self.sample_video(cap)
       time.sleep(0.03)
 
   def start_video_recording(self):
-    self.video_filename = str(time.time()).split(".")[0] + ".h264"
-    self.recording_video = True
-    self.change_mode("video")
-    self.recording_time = time.time()
-    self.picam2.start_encoder(self.encoder)
-    self.picam2.set_controls({"FrameRate": 30})
+      self.video_filename = str(time.time()).split(".")[0] + ".h264"
+      self.change_mode("video")
+      self.recording_time = time.time()
+      self.picam2.start_encoder(self.encoder)
+      self.picam2.set_controls({"FrameRate": 30})
 
-    # the mic is assumed to always be plugged in or not
-    # since plugging it back in turns off the pi
-    if (self.main.usb.mic_available):
-      self.main.mic.record(self.img_base_path + self.video_filename)
+      # the mic is assumed to always be plugged in or not
+      # since plugging it back in turns off the pi
+      if (self.main.usb.mic_available):
+        self.main.mic.record(self.img_base_path + self.video_filename)
 
-    Thread(target=self.record_video).start()
+      Thread(target=self.record_video).start()
 
   def stop_video_recording(self):
+    self.video_processing = True
+
     if (self.main.mic != None):
       self.main.mic.recording = False
 
-    self.recording_video = False
     self.recording_time = 0
     self.encoder.output.stop()
     self.picam2.stop_encoder()
@@ -153,6 +153,12 @@ class Camera:
       cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
+      self.main.display.draw_text("Recording saved")
+      self.main.menu.recording_video = False
+      self.video_processing = False
+      time.sleep(2)
+      self.main.active_menu = "Home"
+      self.main.display.start_menu()
 
   def change_mode(self, mode):
     self.last_mode = mode

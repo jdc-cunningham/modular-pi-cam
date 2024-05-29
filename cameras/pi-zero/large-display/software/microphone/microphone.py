@@ -1,4 +1,4 @@
-import os, pyaudio, wave
+import os, pyaudio, wave, time
 
 from threading import Thread
 
@@ -11,7 +11,7 @@ class Microphone:
     self.channels = 1
     self.rate = 44100
     self.chunk = 4096
-    self.record_duration = 5 # seconds
+    self.record_duration = 60 # seconds
     self.device_id = 0
     self.audio = pyaudio.PyAudio()
     self.recorded_audio = [] # keep track of audio chunks
@@ -23,7 +23,7 @@ class Microphone:
     self.set_device_id()
   
   def set_device_id(self):
-    p = pyaudio.PyAudio()
+    p = self.audio
 
     for i in range(p.get_device_count()):
       # nasty terminal dump
@@ -77,6 +77,7 @@ class Microphone:
     os.system(cmd)
 
   def start_recording(self):
+
     self.recording = True
     self.record_frames = []
 
@@ -85,9 +86,12 @@ class Microphone:
                 frames_per_buffer=self.chunk)
     
     for i in range(0, int(self.rate / self.chunk * self.record_duration)):
-        # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
-        data = self.stream.read(self.chunk, exception_on_overflow=False)
-        self.record_frames.append(data)
+      # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
+      data = self.stream.read(self.chunk, exception_on_overflow=False)
+      self.record_frames.append(data)
+
+      if (not self.main.mic.recording):
+        break
 
     self.stop_recording()
 
@@ -95,8 +99,8 @@ class Microphone:
     self.stream.stop_stream()
     self.stream.close()
     
-    if (not self.recording):
-      self.audio.terminate()
+    # if (not self.recording):
+    #   self.audio.terminate()
     
     waveFile = wave.open(self.filename + '-' + str(self.chunk_id) + '.wav', 'wb')
     waveFile.setnchannels(self.channels)
@@ -124,3 +128,9 @@ class Microphone:
 
       self.filename = ""
       self.chunk_id = 0
+      self.main.display.draw_text("Recording saved")
+      self.main.menu.recording_video = False
+      self.main.camera.video_processing = False
+      time.sleep(2)
+      self.main.active_menu = "Home"
+      self.main.display.start_menu()
