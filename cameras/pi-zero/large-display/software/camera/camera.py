@@ -116,7 +116,7 @@ class Camera:
     self.encoder.output.fileoutput = video_file_path
     self.encoder.output.start()
 
-    while (self.main.menu.recording_video):
+    while (self.main.menu.recording_video and (not self.video_processing)):
       cap = self.picam2.capture_array("lores")
       self.sample_video(cap)
       time.sleep(0.03)

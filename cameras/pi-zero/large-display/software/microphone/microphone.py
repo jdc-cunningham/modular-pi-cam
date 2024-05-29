@@ -23,7 +23,7 @@ class Microphone:
     self.set_device_id()
   
   def set_device_id(self):
-    p = pyaudio.PyAudio()
+    p = self.audio
 
     for i in range(p.get_device_count()):
       # nasty terminal dump
@@ -77,6 +77,7 @@ class Microphone:
     os.system(cmd)
 
   def start_recording(self):
+
     self.recording = True
     self.record_frames = []
 
@@ -98,8 +99,8 @@ class Microphone:
     self.stream.stop_stream()
     self.stream.close()
     
-    if (not self.recording):
-      self.audio.terminate()
+    # if (not self.recording):
+    #   self.audio.terminate()
     
     waveFile = wave.open(self.filename + '-' + str(self.chunk_id) + '.wav', 'wb')
     waveFile.setnchannels(self.channels)
