@@ -128,7 +128,7 @@ class Microphone:
       self.filename = ""
       self.chunk_id = 0
       self.main.display.draw_text("Recording saved")
-      self.video_processing = False
+      self.main.menu.recording_video = False
       time.sleep(2)
       self.main.active_menu = "Home"
       self.main.display.start_menu()

@@ -207,10 +207,8 @@ class Menu:
           self.recording_video = True
         else:
           self.camera.stop_video_recording()
-          time.sleep(1)
-          self.recording_video = False
           self.main.active_menu = "Home"
-          self.display.start_menu()
+          self.main.display.start_menu()
 
     if (self.main.active_menu == "Battery Profiler"):
       if (button == "BACK"):

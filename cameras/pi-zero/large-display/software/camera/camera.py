@@ -28,7 +28,6 @@ class Camera:
     self.timelapse_active = False
     self.has_autofocus = False # v3 modules have it
     self.max_resolution = [0, 0]
-    self.recording_video = False
     self.recording_start = 0
     self.encoder = H264Encoder(30000000, repeat=True)
     self.encoder.output = CircularOutput(buffersize = 150)
@@ -117,7 +116,7 @@ class Camera:
     self.encoder.output.fileoutput = video_file_path
     self.encoder.output.start()
 
-    while (self.recording_video):
+    while (self.main.menu.recording_video):
       cap = self.picam2.capture_array("lores")
       self.sample_video(cap)
       time.sleep(0.03)
@@ -132,7 +131,6 @@ class Camera:
     else:
       self.video_processing = True
       self.video_filename = str(time.time()).split(".")[0] + ".h264"
-      self.recording_video = True
       self.change_mode("video")
       self.recording_time = time.time()
       self.picam2.start_encoder(self.encoder)
@@ -149,7 +147,6 @@ class Camera:
     if (self.main.mic != None):
       self.main.mic.recording = False
 
-    self.recording_video = False
     self.recording_time = 0
     self.encoder.output.stop()
     self.picam2.stop_encoder()
@@ -163,6 +160,7 @@ class Camera:
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
       self.main.display.draw_text("Recording saved")
+      self.main.menu.recording_video = False
       self.video_processing = False
       time.sleep(2)
       self.main.active_menu = "Home"
