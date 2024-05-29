@@ -1,4 +1,4 @@
-import os, pyaudio, wave
+import os, pyaudio, wave, time
 
 from threading import Thread
 
@@ -129,3 +129,6 @@ class Microphone:
       self.chunk_id = 0
       self.main.display.draw_text("Recording saved")
       self.video_processing = False
+      time.sleep(2)
+      self.main.active_menu = "Home"
+      self.main.display.start_menu()
