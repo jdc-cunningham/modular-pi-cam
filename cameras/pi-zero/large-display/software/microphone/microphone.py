@@ -1,136 +1,77 @@
-import os, pyaudio, wave, time
+import os, re, time, subprocess
 
 from threading import Thread
 
-# https://stackoverflow.com/questions/40704026/voice-recording-using-pyaudio
-
-class Microphone:
+class Usb:
   def __init__(self, main):
     self.main = main
-    self.format = pyaudio.paInt16
-    self.channels = 1
-    self.rate = 44100
-    self.chunk = 4096
-    self.record_duration = 60 # seconds
-    self.device_id = 0
-    self.audio = pyaudio.PyAudio()
-    self.recorded_audio = [] # keep track of audio chunks
-    self.recording = False
-    self.filename = ""
-    self.chunk_id = 0 # increment as you record new chunks
-    self.stream = None
-    self.record_frames = []
-    self.set_device_id()
+    self.storage_available = False
+    self.mic_available = False
+    self.device_count = 0
+    self.devices = []
+
+    self.start()
+
+  # https://stackoverflow.com/a/8265634/2710227
+  def get_usb_devices(self):
+    device_re = re.compile(b"Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<id>\w+:\w+)\s(?P<tag>.+)$", re.I)
+    df = subprocess.check_output("lsusb")
+    devices = []
+
+    for i in df.split(b'\n'):
+      if i:
+        info = device_re.match(i)
+        
+        if info:
+          dinfo = info.groupdict()
+          dinfo['device'] = '/dev/bus/usb/%s/%s' % (dinfo.pop('bus'), dinfo.pop('device'))
+          devices.append(dinfo)
+
+    return devices
   
-  def set_device_id(self):
-    p = self.audio
+  def update_mic_storage_availability(self, devices):
+    # scan for mic/mass storage
+    self.mic_available = False
+    self.storage_available = False
 
-    for i in range(p.get_device_count()):
-      # nasty terminal dump
-      # 'Lavalier' is my custom USB mic, have to verify your device's name
-      if ('Lavalier' in p.get_device_info_by_index(i).get('name')):
-        self.device_id = i
+    # likely device specific strings, verify
+    for device in devices:
+      tag = device['tag'].decode('ascii').lower()
 
-  def record(self, filename):
-    self.filename = filename
-    Thread(target=self.start_recording).start()
+      if ('mic' in tag):
+        self.mic_available = True # assumption no proof/test
 
-  def get_audio_files(self, filename):
-    base_name = filename.split('.h264')[0].split('/captured-media/')[1]
-    base_path = os.getcwd()
-    capture_path = base_path + "/captured-media/"
-    files = os.listdir(capture_path)
-    audio_files = []
-    marker = 0
-    markers = ''
+      if ('flash drive' in tag or 'storage' in tag):
+        self.storage_available = True
 
-    for file in files:
-      if (base_name in file and 'wav' in file):
-        audio_files.append(file)
-        markers += "[" + str(marker) + ":0]"
-        marker += 1
+    if (not self.storage_available):
+      os.system('umount /mnt/mpi-usb')
 
-    audio_files.sort()
+    if (not self.mic_available):
+      self.main.mic = None
 
-    return dict(
-      files = audio_files,
-      markers = markers
-    )
+  # could improve this via listening to plug/unplug usb event
+  def scan_for_devices(self):
+    while True:
+      devices = self.get_usb_devices()
 
-  # https://superuser.com/a/587553/572931
-  def join_audio_files(self, filename):
-    '''
-      ffmpeg -i input1.wav -i input2.wav -i input3.wav -i input4.wav \
-      -filter_complex '[0:0][1:0][2:0][3:0]concat=n=4:v=0:a=1[out]' \
-      -map '[out]' output.wav
-    '''
+      if (self.device_count == 0):
+        self.device_count = len(devices)
+        self.devices = devices
+        self.update_mic_storage_availability(devices)
 
-    base_path = os.getcwd() + '/captured-media/'
-    audio_files = self.get_audio_files(filename)
-    cmd = 'ffmpeg'
+        if (self.mic_available and self.main.mic == None):
+          self.main.start_mic()
 
-    for audio_file in audio_files['files']:
-      cmd += ' -i ' + base_path + audio_file
+      # change eg. mass storage plugged in
+      # mic has to be plugged in before system starts due to power draw restarting GPU
+      # https://forums.raspberrypi.com/viewtopic.php?t=237554
+      if (self.device_count != len(devices)):
+          self.device_count = len(devices)
+          self.devices = devices
+          self.update_mic_storage_availability(devices)
 
-    cmd += " -filter_complex '" + audio_files['markers'] + "concat=n=" + str(len(audio_files['files'])) + ":v=0:a=1[out]'"
-    cmd += " -map '[out]' " + filename + '.wav'
-    os.system(cmd)
+      time.sleep(0.5)
 
-  def start_recording(self):
-
-    self.recording = True
-    self.record_frames = []
-
-    self.stream = self.audio.open(format=self.format, channels=self.channels,
-                rate=self.rate, input=True, input_device_index = self.device_id,
-                frames_per_buffer=self.chunk)
-    
-    for i in range(0, int(self.rate / self.chunk * self.record_duration)):
-      # https://stackoverflow.com/questions/10733903/pyaudio-input-overflowed
-      data = self.stream.read(self.chunk, exception_on_overflow=False)
-      self.record_frames.append(data)
-
-      if (not self.main.mic.recording):
-        break
-
-    self.stop_recording()
-
-  def stop_recording(self):
-    self.stream.stop_stream()
-    self.stream.close()
-    
-    # if (not self.recording):
-    #   self.audio.terminate()
-    
-    waveFile = wave.open(self.filename + '-' + str(self.chunk_id) + '.wav', 'wb')
-    waveFile.setnchannels(self.channels)
-    waveFile.setsampwidth(self.audio.get_sample_size(self.format))
-    waveFile.setframerate(self.rate)
-    waveFile.writeframes(b''.join(self.record_frames))
-    waveFile.close()
-
-    if (self.recording):
-      self.chunk_id += 1
-      self.start_recording()
-    else:
-      # combine audio chunks into 1 file
-      self.join_audio_files(self.filename)
-
-      # h264 to mp4
-      cmd = 'ffmpeg -framerate 30 -i ' + self.filename
-      cmd += ' -c copy ' + self.filename + '.mp4'
-      os.system(cmd)
-
-      # join wav and mp4 file
-      # https://superuser.com/a/277667/572931
-      cmd = 'ffmpeg -i ' + self.filename + '.mp4' + ' -i ' + self.filename + '.wav' + ' -c:v copy -c:a aac ' + self.filename  + '-wsound' + '.mp4'
-      os.system(cmd)
-
-      self.filename = ""
-      self.chunk_id = 0
-      self.main.display.draw_text("Recording saved")
-      self.main.menu.recording_video = False
-      self.main.camera.video_processing = False
-      time.sleep(2)
-      self.main.active_menu = "Home"
-      self.main.display.start_menu()
+  def start(self):
+     Thread(target=self.scan_for_devices).start()
