@@ -206,7 +206,12 @@ class Menu:
           self.camera.start_video_recording()
           self.recording_video = True
         else:
-          self.camera.stop_video_recording()
+          if (not self.main.camera.video_processing):
+            self.camera.stop_video_recording()
+          else:
+            self.main.display.draw_text("Video processing")
+
+          time.sleep(1)
           self.main.active_menu = "Home"
           self.main.display.start_menu()
 

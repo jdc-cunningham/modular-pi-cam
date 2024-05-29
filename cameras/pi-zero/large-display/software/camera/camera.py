@@ -122,14 +122,6 @@ class Camera:
       time.sleep(0.03)
 
   def start_video_recording(self):
-    # force 1 video at a time
-    if (self.video_processing):
-      self.main.display.draw_text("Video processing")
-      time.sleep(2)
-      self.main.active_menu = "Home"
-      self.main.display.start_menu()
-    else:
-      self.video_processing = True
       self.video_filename = str(time.time()).split(".")[0] + ".h264"
       self.change_mode("video")
       self.recording_time = time.time()
@@ -144,6 +136,8 @@ class Camera:
       Thread(target=self.record_video).start()
 
   def stop_video_recording(self):
+    self.video_processing = True
+
     if (self.main.mic != None):
       self.main.mic.recording = False
 

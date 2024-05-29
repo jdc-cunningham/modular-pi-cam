@@ -129,6 +129,7 @@ class Microphone:
       self.chunk_id = 0
       self.main.display.draw_text("Recording saved")
       self.main.menu.recording_video = False
+      self.main.camera.video_processing = False
       time.sleep(2)
       self.main.active_menu = "Home"
       self.main.display.start_menu()
