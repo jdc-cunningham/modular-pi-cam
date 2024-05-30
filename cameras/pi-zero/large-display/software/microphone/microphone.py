@@ -98,10 +98,7 @@ class Microphone:
   def stop_recording(self):
     self.stream.stop_stream()
     self.stream.close()
-    
-    # if (not self.recording):
-    #   self.audio.terminate()
-    
+
     waveFile = wave.open(self.filename + '-' + str(self.chunk_id) + '.wav', 'wb')
     waveFile.setnchannels(self.channels)
     waveFile.setsampwidth(self.audio.get_sample_size(self.format))
