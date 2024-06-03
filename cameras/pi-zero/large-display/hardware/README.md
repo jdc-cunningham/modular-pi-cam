@@ -11,6 +11,7 @@
 - 18650 battery
   - https://www.18650batterystore.com/products/panasonic-ncr18650b
 - waveshare 2.4" LCD display
+  - https://www.amazon.com/dp/B08H24H7KX?psc=1&ref=ppx_yo2ov_dt_b_product_details
   - https://www.waveshare.com/2.4inch-lcd-module.htm
 - tactile button
   - https://www.amazon.com/gp/product/B07VSNN9S2/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
@@ -22,6 +23,18 @@
   - https://www.amazon.com/gp/product/B072Z7Y19F/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
 - soft wire
   - https://www.amazon.com/gp/product/B01LH1G2IE/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
+- switch
+  - https://www.amazon.com/gp/product/B01N235HVR/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
+- screws (used M1.7*6)
+  - https://www.amazon.com/gp/product/B07HF46Q4R/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
+- otg usb
+  - https://www.amazon.com/dp/B083WML1XB?psc=1&ref=ppx_yo2ov_dt_b_product_details
+- usb mic
+  - https://www.amazon.com/gp/product/B074BLM973/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
+- 15 pin extender for camera
+  - https://www.amazon.com/gp/product/B07RWF4QCY/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
+- 15 pin type a cable needed for above
+  - https://www.amazon.com/gp/product/B07RWTC13Q/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
 
 <img src="./annotated.png"/>
 
