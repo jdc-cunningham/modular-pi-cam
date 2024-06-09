@@ -2,6 +2,14 @@
 
 - need SPI enabled (raspi-config)
 
+### Tested mics
+
+* MOVO MA5U pocket audio microphone (left)
+* DUNGDUZ CHANGEEK USB microphone (center)
+* Maono USB lavalier (right)
+
+<img src="./mics.JPG"/>
+
 ### Boot script (ROOT)
 
 Disclaimer: you can disable root user here by not having USB or dealing with non-sudo user usb mount support
