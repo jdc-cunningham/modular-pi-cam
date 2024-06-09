@@ -4,9 +4,9 @@
 
 ### Tested mics
 
-* MOVO MA5U pocket audio microphone (left)
-* DUNGDUZ CHANGEEK USB microphone (center)
-* Maono USB lavalier (right)
+* MOVO MA5U pocket audio microphone
+* DUNGDUZ CHANGEEK USB microphone
+* Maono USB lavalier
 
 <img src="./mics.JPG"/>
 
