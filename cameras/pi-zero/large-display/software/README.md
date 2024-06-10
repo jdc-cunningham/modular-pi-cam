@@ -4,11 +4,12 @@
 
 ### Tested mics
 
-* MOVO MA5U pocket audio microphone
-* DUNGDUZ CHANGEEK USB microphone
+* Movo MA5U pocket audio microphone
+* Changeek USB microphone
 * Maono USB lavalier
+* Changeek USB mic (bending stem design)
 
-<img src="./mics.JPG"/>
+<img src="./annotated-mics.png"/>
 
 ### Boot script (ROOT)
 
