@@ -38,7 +38,7 @@ class Usb:
     for device in devices:
       tag = device['tag'].decode('ascii').lower()
 
-      if ('mic' in tag):
+      if ('mic' in tag or 'audio' in tag):
         self.mic_available = True # assumption no proof/test
 
       if ('flash drive' in tag or 'storage' in tag):
