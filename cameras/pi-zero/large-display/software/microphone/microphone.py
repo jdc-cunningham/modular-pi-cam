@@ -33,7 +33,7 @@ class Microphone:
 
   def record(self, filename):
     self.filename = filename
-    Thread(target=self.start_recording).start()
+    Thread(target=self.start_recording, args=(filename.split('/captured-media/')[1],)).start()
 
   def get_audio_files(self, filename):
     base_name = filename.split('.h264')[0].split('/captured-media/')[1]
@@ -76,7 +76,9 @@ class Microphone:
     cmd += " -map '[out]' " + filename + '.wav'
     os.system(cmd)
 
-  def start_recording(self):
+  def start_recording(self, filename):
+    print('>>> what')
+    print(filename)
 
     self.recording = True
     self.record_frames = []
@@ -93,9 +95,9 @@ class Microphone:
       if (not self.main.mic.recording):
         break
 
-    self.stop_recording()
+    self.stop_recording(filename)
 
-  def stop_recording(self):
+  def stop_recording(self, filename):
     self.stream.stop_stream()
     self.stream.close()
 
@@ -123,13 +125,13 @@ class Microphone:
       cmd = 'ffmpeg -i ' + self.filename + '.mp4' + ' -i ' + self.filename + '.wav' + ' -c:v copy -c:a aac ' + self.filename  + '-wsound' + '.mp4'
       os.system(cmd)
 
-      self.filename = ""
       self.chunk_id = 0
       self.main.menu.recording_video = False
-      self.main.camera.video_processing.remove(self.filename)
       print(self.main.camera.video_processing)
       print('>>> remove mic')
-      print(self.filename)
+      print(filename)
+      self.main.camera.video_processing.remove(filename)
+      self.filename = ""
       time.sleep(2)
       self.main.active_menu = "Home"
       self.main.display.start_menu()

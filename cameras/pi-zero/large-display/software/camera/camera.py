@@ -93,7 +93,7 @@ class Camera:
     self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)}) # 320 is based on display size
     self.config_3x = self.picam2.create_still_configuration(main={"size": (960, 960)}) # x3 so a step in either direction
     self.config_7x = self.picam2.create_still_configuration(main={"size": (2240, 2240)}) # x7
-    self.video_config = self.picam2.create_video_configuration(main={"size": (1920, 1080), "format":"RGB888"}, lores={"size": (400, 400), "format": "YUV420"})
+    self.video_config = self.picam2.create_video_configuration(main={"size": (1920, 1080), "format":"RGB888"}, lores={"size": (320, 320), "format": "YUV420"})
     self.picam2.configure(self.config_1x)
     self.start()
 
@@ -124,6 +124,9 @@ class Camera:
   def start_video_recording(self):
       self.video_filename = str(time.time()).split(".")[0] + ".h264"
       self.video_processing.append(self.video_filename)
+      print('>>> appended')
+      print(self.video_filename)
+      print(self.video_processing)
       self.change_mode("video")
       self.recording_time = time.time()
       self.picam2.start_encoder(self.encoder)
@@ -153,10 +156,11 @@ class Camera:
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
       self.main.menu.recording_video = False
-      self.video_processing.remove(self.video_filename)
       print(self.video_processing)
       print('>>> cam remove')
       print(self.video_filename)
+      self.video_processing.remove(self.video_filename)
+      self.video_filename = ""
       time.sleep(2)
       self.main.active_menu = "Home"
       self.main.display.start_menu()
