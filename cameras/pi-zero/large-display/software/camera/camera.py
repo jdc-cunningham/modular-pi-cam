@@ -123,6 +123,7 @@ class Camera:
 
   def start_video_recording(self):
       self.video_filename = str(time.time()).split(".")[0] + ".h264"
+      self.video_processing.append(self.video_filename)
       self.change_mode("video")
       self.recording_time = time.time()
       self.picam2.start_encoder(self.encoder)
@@ -136,8 +137,6 @@ class Camera:
       Thread(target=self.record_video).start()
 
   def stop_video_recording(self):
-    self.video_processing.append(self.video_filename)
-
     if (self.main.mic != None):
       self.main.mic.recording = False
 
@@ -153,9 +152,11 @@ class Camera:
       cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
-      self.main.display.draw_text("Recording saved")
       self.main.menu.recording_video = False
       self.video_processing.remove(self.video_filename)
+      print(self.video_processing)
+      print('>>> cam remove')
+      print(self.video_filename)
       time.sleep(2)
       self.main.active_menu = "Home"
       self.main.display.start_menu()

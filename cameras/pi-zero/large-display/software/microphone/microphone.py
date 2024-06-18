@@ -125,9 +125,11 @@ class Microphone:
 
       self.filename = ""
       self.chunk_id = 0
-      self.main.display.draw_text("Recording saved")
       self.main.menu.recording_video = False
       self.main.camera.video_processing.remove(self.filename)
+      print(self.main.camera.video_processing)
+      print('>>> remove mic')
+      print(self.filename)
       time.sleep(2)
       self.main.active_menu = "Home"
       self.main.display.start_menu()
