@@ -32,7 +32,7 @@ class Camera:
     self.encoder = H264Encoder(30000000, repeat=True)
     self.encoder.output = CircularOutput(buffersize = 150)
     self.video_filename = ""
-    self.video_processing = False
+    self.video_processing = []
 
     self.which_camera()
 
@@ -116,7 +116,7 @@ class Camera:
     self.encoder.output.fileoutput = video_file_path
     self.encoder.output.start()
 
-    while (self.main.menu.recording_video and (not self.video_processing)):
+    while (self.main.menu.recording_video):
       cap = self.picam2.capture_array("lores")
       self.sample_video(cap)
       time.sleep(0.03)
@@ -136,7 +136,7 @@ class Camera:
       Thread(target=self.record_video).start()
 
   def stop_video_recording(self):
-    self.video_processing = True
+    self.video_processing.append(self.video_filename)
 
     if (self.main.mic != None):
       self.main.mic.recording = False
@@ -155,7 +155,7 @@ class Camera:
       os.system(cmd)
       self.main.display.draw_text("Recording saved")
       self.main.menu.recording_video = False
-      self.video_processing = False
+      self.video_processing.remove(self.video_filename)
       time.sleep(2)
       self.main.active_menu = "Home"
       self.main.display.start_menu()

@@ -208,8 +208,6 @@ class Menu:
         else:
           if (not self.main.camera.video_processing):
             self.camera.stop_video_recording()
-          else:
-            self.main.display.draw_text("Video processing")
 
           time.sleep(1)
           self.main.active_menu = "Home"
