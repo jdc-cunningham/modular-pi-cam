@@ -32,7 +32,7 @@ class Camera:
     self.encoder = H264Encoder(30000000, repeat=True)
     self.encoder.output = CircularOutput(buffersize = 150)
     self.video_filename = ""
-    self.video_processing = False
+    self.video_processing = []
 
     self.which_camera()
 
@@ -93,7 +93,7 @@ class Camera:
     self.config_1x = self.picam2.create_still_configuration(main={"size": (320, 320)}) # 320 is based on display size
     self.config_3x = self.picam2.create_still_configuration(main={"size": (960, 960)}) # x3 so a step in either direction
     self.config_7x = self.picam2.create_still_configuration(main={"size": (2240, 2240)}) # x7
-    self.video_config = self.picam2.create_video_configuration(main={"size": (1920, 1080), "format":"RGB888"}, lores={"size": (400, 400), "format": "YUV420"})
+    self.video_config = self.picam2.create_video_configuration(main={"size": (1920, 1080), "format":"RGB888"}, lores={"size": (320, 320), "format": "YUV420"})
     self.picam2.configure(self.config_1x)
     self.start()
 
@@ -111,18 +111,19 @@ class Camera:
     pil_img = Image.fromarray(np.uint8(rgb_img2))
     self.display.show_image(pil_img, "video")
 
-  def record_video(self):
+  def record_video(self, filename):
+    self.video_filename = filename
     video_file_path =  self.img_base_path + self.video_filename
     self.encoder.output.fileoutput = video_file_path
     self.encoder.output.start()
 
-    while (self.main.menu.recording_video and (not self.video_processing)):
+    while (self.main.menu.recording_video):
       cap = self.picam2.capture_array("lores")
       self.sample_video(cap)
       time.sleep(0.03)
 
-  def start_video_recording(self):
-      self.video_filename = str(time.time()).split(".")[0] + ".h264"
+  def start_video_recording(self, video_filename):
+      self.video_processing.append(video_filename)
       self.change_mode("video")
       self.recording_time = time.time()
       self.picam2.start_encoder(self.encoder)
@@ -131,13 +132,11 @@ class Camera:
       # the mic is assumed to always be plugged in or not
       # since plugging it back in turns off the pi
       if (self.main.usb.mic_available):
-        self.main.mic.record(self.img_base_path + self.video_filename)
+        self.main.mic.record(self.img_base_path + video_filename)
 
-      Thread(target=self.record_video).start()
+      Thread(target=self.record_video, args=(video_filename,)).start()
 
-  def stop_video_recording(self):
-    self.video_processing = True
-
+  def stop_video_recording(self, video_filename):
     if (self.main.mic != None):
       self.main.mic.recording = False
 
@@ -150,15 +149,14 @@ class Camera:
     # can set it as another thread or don't do it
 
     if (self.main.mic == None):
-      cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + self.video_filename
+      cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + video_filename
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
-      self.main.display.draw_text("Recording saved")
-      self.main.menu.recording_video = False
-      self.video_processing = False
-      time.sleep(2)
-      self.main.active_menu = "Home"
-      self.main.display.start_menu()
+      self.video_processing.remove(video_filename)
+
+      if (self.main.active_menu != "Video"):
+        self.main.active_menu = "Home"
+        self.main.display.start_menu()
 
   def change_mode(self, mode):
     self.last_mode = mode

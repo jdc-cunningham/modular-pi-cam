@@ -17,6 +17,7 @@ class Menu:
     self.battery_charged = False # yes, no question
     self.menu_daf_x = 1 # delete all files (no)
     self.menu_txfer_x = 1 # transfer usb (cancel)
+    self.video_filename = ""
 
   def update_state(self, button_pressed):
     if (self.main.active_menu == "Home"):
@@ -203,15 +204,14 @@ class Menu:
       if (button == "SHUTTER"):
         if (not self.recording_video):
           self.display.clear_screen()
-          self.camera.start_video_recording()
+          self.video_filename = str(time.time()).split(".")[0] + ".h264"
+          self.camera.start_video_recording(self.video_filename)
           self.recording_video = True
         else:
-          if (not self.main.camera.video_processing):
-            self.camera.stop_video_recording()
-          else:
-            self.main.display.draw_text("Video processing")
-
+          self.camera.stop_video_recording(self.video_filename)
           time.sleep(1)
+          self.recording_video = False
+          self.video_filename = ""
           self.main.active_menu = "Home"
           self.main.display.start_menu()
 
