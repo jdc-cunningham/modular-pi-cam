@@ -16,7 +16,6 @@ class Microphone:
     self.audio = pyaudio.PyAudio()
     self.recorded_audio = [] # keep track of audio chunks
     self.recording = False
-    self.filename = ""
     self.chunk_id = 0 # increment as you record new chunks
     self.stream = None
     self.record_frames = []
@@ -32,11 +31,18 @@ class Microphone:
         self.device_id = i
 
   def record(self, filename):
-    self.filename = filename
+    print('')
+    print('>>> pased into record')
+    print(filename)
+    print('')
     Thread(target=self.start_recording, args=(filename.split('/captured-media/')[1],)).start()
 
   def get_audio_files(self, filename):
-    base_name = filename.split('.h264')[0].split('/captured-media/')[1]
+    print('')
+    print('>>> get audio files')
+    print(filename)
+    print('')
+    base_name = filename.split('.h264')[0]
     base_path = os.getcwd()
     capture_path = base_path + "/captured-media/"
     files = os.listdir(capture_path)
@@ -67,18 +73,24 @@ class Microphone:
 
     base_path = os.getcwd() + '/captured-media/'
     audio_files = self.get_audio_files(filename)
+    print('')
+    print('>>> audio files')
+    print(audio_files)
+    print('')
     cmd = 'ffmpeg'
 
     for audio_file in audio_files['files']:
       cmd += ' -i ' + base_path + audio_file
 
     cmd += " -filter_complex '" + audio_files['markers'] + "concat=n=" + str(len(audio_files['files'])) + ":v=0:a=1[out]'"
-    cmd += " -map '[out]' " + filename + '.wav'
+    cmd += " -map '[out]' " + base_path + filename + '.wav'
     os.system(cmd)
 
   def start_recording(self, filename):
+    print('')
     print('>>> what')
     print(filename)
+    print('')
 
     self.recording = True
     self.record_frames = []
@@ -98,10 +110,15 @@ class Microphone:
     self.stop_recording(filename)
 
   def stop_recording(self, filename):
+    print('')
+    print('>>> stop recording')
+    print('')
     self.stream.stop_stream()
     self.stream.close()
 
-    waveFile = wave.open(self.filename + '-' + str(self.chunk_id) + '.wav', 'wb')
+    base_path = os.getcwd() + '/captured-media/'
+
+    waveFile = wave.open(base_path + filename + '-' + str(self.chunk_id) + '.wav', 'wb')
     waveFile.setnchannels(self.channels)
     waveFile.setsampwidth(self.audio.get_sample_size(self.format))
     waveFile.setframerate(self.rate)
@@ -110,28 +127,29 @@ class Microphone:
 
     if (self.recording):
       self.chunk_id += 1
-      self.start_recording()
+      self.start_recording(filename)
     else:
       # combine audio chunks into 1 file
-      self.join_audio_files(self.filename)
+      self.join_audio_files(filename)
 
       # h264 to mp4
-      cmd = 'ffmpeg -framerate 30 -i ' + self.filename
-      cmd += ' -c copy ' + self.filename + '.mp4'
+      cmd = 'ffmpeg -framerate 30 -i ' + base_path + filename
+      cmd += ' -c copy ' + base_path + filename + '.mp4'
       os.system(cmd)
 
       # join wav and mp4 file
       # https://superuser.com/a/277667/572931
-      cmd = 'ffmpeg -i ' + self.filename + '.mp4' + ' -i ' + self.filename + '.wav' + ' -c:v copy -c:a aac ' + self.filename  + '-wsound' + '.mp4'
+      cmd = 'ffmpeg -i ' + base_path + filename + '.mp4' + ' -i ' + base_path + filename + '.wav' + ' -c:v copy -c:a aac ' + base_path + filename  + '-wsound' + '.mp4'
       os.system(cmd)
 
       self.chunk_id = 0
-      self.main.menu.recording_video = False
+      print('')
       print(self.main.camera.video_processing)
       print('>>> remove mic')
       print(filename)
+      print('')
       self.main.camera.video_processing.remove(filename)
-      self.filename = ""
-      time.sleep(2)
-      self.main.active_menu = "Home"
-      self.main.display.start_menu()
+
+      if (self.main.active_menu != "Video"):
+        self.main.active_menu = "Home"
+        self.main.display.start_menu()
