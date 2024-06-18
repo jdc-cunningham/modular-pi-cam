@@ -124,11 +124,6 @@ class Camera:
 
   def start_video_recording(self, video_filename):
       self.video_processing.append(video_filename)
-      print('')
-      print('>>> appended')
-      print(video_filename)
-      print(self.video_processing)
-      print('')
       self.change_mode("video")
       self.recording_time = time.time()
       self.picam2.start_encoder(self.encoder)
@@ -157,11 +152,6 @@ class Camera:
       cmd = 'ffmpeg -framerate 30 -i ' + self.img_base_path + video_filename
       cmd += ' -c copy ' + self.img_base_path + self.video_filename + '.mp4'
       os.system(cmd)
-      print('')
-      print(self.video_processing)
-      print('>>> cam remove')
-      print(video_filename)
-      print('')
       self.video_processing.remove(video_filename)
 
       if (self.main.active_menu != "Video"):
