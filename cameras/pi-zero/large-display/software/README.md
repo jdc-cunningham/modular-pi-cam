@@ -35,7 +35,6 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
-Commands for myself
 ```
 
 Add the service
