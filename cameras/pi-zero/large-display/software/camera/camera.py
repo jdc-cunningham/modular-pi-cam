@@ -21,7 +21,7 @@ class Camera:
     self.live_preview_start = 0
     self.live_preview_pause = False
     self.zoom_level = 1
-    self.pan_offset_x = 0 # based on block multiples eg. 3x = 3 blocks [0, 1, 2]s
+    self.pan_offset_x = 0 # based on block multiples eg. 3x = 3 blocks [0, 1, 2]
     self.pan_offset_y = 0
     self.crop = [320, 320]
     self.last_mode = "zoom 1x"
