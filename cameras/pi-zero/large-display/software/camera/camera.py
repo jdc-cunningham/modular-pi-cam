@@ -302,8 +302,8 @@ class Camera:
       self.display.clear_screen()
 
       if self.delayed_shutter:
-        self.display.draw_text("Waiting 5 seconds...")
-        time.sleep(5)
+        self.display.draw_text("Waiting 3 seconds...")
+        time.sleep(3)
 
       self.display.draw_text("Taking photo...")
       photo_path = self.take_photo()
