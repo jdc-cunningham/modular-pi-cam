@@ -33,6 +33,7 @@ class Camera:
     self.encoder.output = CircularOutput(buffersize = 150)
     self.video_filename = ""
     self.video_processing = []
+    self.delayed_shutter = False
 
     self.which_camera()
 
@@ -249,7 +250,6 @@ class Camera:
     self.picam2.capture_file(img_path)
     time.sleep(0.15) # delay may help to save?
     self.change_mode(self.last_mode)
-
     return img_path
 
   def timelapse(self):
@@ -300,6 +300,11 @@ class Camera:
       self.toggle_live_preview(False)
       time.sleep(0.3) # allow live_preview thread to pick this up/stop painting oled
       self.display.clear_screen()
+
+      if self.delayed_shutter:
+        self.display.draw_text("Waiting 3 seconds...")
+        time.sleep(3)
+
       self.display.draw_text("Taking photo...")
       photo_path = self.take_photo()
       self.display.clear_screen()

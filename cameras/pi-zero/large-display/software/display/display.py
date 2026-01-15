@@ -261,7 +261,6 @@ class Display:
   def get_settings_img(self):
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
-
     draw.line([(0, 0), (320, 0)], fill = "BLACK", width = 40)
     draw.text((5, 0), "Settings", fill = "WHITE", font = large_font)
     draw.text((5, 26), "Telemetry", fill = "BLACK", font = large_font)
@@ -270,7 +269,7 @@ class Display:
     draw.text((5, 104), "Timelapse", fill = "BLACK", font = large_font)
     draw.text((5, 130), "Transfer To USB", fill = "BLACK", font = large_font)
     draw.text((5, 156), "Delete All Files", fill = "BLACK", font = large_font)
-
+    draw.text((5, 180), "Shutter Delay", fill = "BLACK", font = large_font)
     return image
   
   def render_settings(self):
@@ -367,9 +366,13 @@ class Display:
   def draw_active_delete_all_files(self):
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
-
     draw.line([(0, 156), (0, 172)], fill = "BLUE", width = 2)
+    self.disp.ShowImage(self.match_lcd(image))
 
+  def draw_active_shutter_delay(self):
+    image = self.get_settings_img()
+    draw = ImageDraw.Draw(image)
+    draw.line([(0, 182), (0, 198)], fill = "BLUE", width = 2)
     self.disp.ShowImage(self.match_lcd(image))
 
   # this is not advanced eg. a thread where it can detect USB plugged in here
