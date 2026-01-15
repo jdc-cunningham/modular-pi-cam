@@ -33,7 +33,7 @@ class Menu:
       if (button_pressed == "DOWN" and self.menu_y < 1):
         self.menu_y += 1
     elif (self.main.active_menu == "Settings"):
-      if (button_pressed == "DOWN" and self.menu_settings_y < 6):
+      if (button_pressed == "DOWN" and self.menu_settings_y < 7):
         self.menu_settings_y += 1
       
       if (button_pressed == "UP" and self.menu_settings_y > 1):
@@ -75,6 +75,9 @@ class Menu:
         if (self.active_menu_item == "Delete All Files"):
           self.main.active_menu = "Delete All Files"
           self.display.render_delete_all_files()
+        
+        if (self.active_menu_item == "Shutter Delay"):
+          self.main.active_menu = "Shutter Delay"
     elif (self.main.active_menu == "Delete All Files"):
       if (button_pressed == "BACK"):
         self.main.active_menu = "Settings"
@@ -189,6 +192,11 @@ class Menu:
         self.display.draw_active_delete_all_files()
         self.active_menu_item = "Delete All Files"
 
+      if (self.menu_settings_y == 7):
+        self.display.render_settings()
+        self.display.draw_active_shutter_delay()
+        self.active_menu_item = "Shutter Delay"
+
     if (self.main.active_menu == "Files"):
       if (button == "BACK"):
         self.main.active_menu = "Home"
@@ -242,6 +250,16 @@ class Menu:
         if (self.battery_charged):
           self.main.battery.reset_uptime()
 
+        self.main.active_menu = "Home"
+        self.display.start_menu()
+
+    if (self.main.active_menu == "Shutter Delay"):
+      if (button == "CENTER"):
+        self.main.camera.delayed_shutter = True
+        self.main.active_menu = "Home"
+        self.display.start_menu()
+
+      if (button == "BACK"):
         self.main.active_menu = "Home"
         self.display.start_menu()
 

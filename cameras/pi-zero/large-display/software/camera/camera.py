@@ -21,7 +21,7 @@ class Camera:
     self.live_preview_start = 0
     self.live_preview_pause = False
     self.zoom_level = 1
-    self.pan_offset_x = 0 # based on block multiples eg. 3x = 3 blocks [0, 1, 2]
+    self.pan_offset_x = 0 # based on block multiples eg. 3x = 3 blocks [0, 1, 2]s
     self.pan_offset_y = 0
     self.crop = [320, 320]
     self.last_mode = "zoom 1x"
@@ -33,6 +33,7 @@ class Camera:
     self.encoder.output = CircularOutput(buffersize = 150)
     self.video_filename = ""
     self.video_processing = []
+    self.delayed_shutter = False
 
     self.which_camera()
 
@@ -249,7 +250,6 @@ class Camera:
     self.picam2.capture_file(img_path)
     time.sleep(0.15) # delay may help to save?
     self.change_mode(self.last_mode)
-
     return img_path
 
   def timelapse(self):
@@ -300,6 +300,11 @@ class Camera:
       self.toggle_live_preview(False)
       time.sleep(0.3) # allow live_preview thread to pick this up/stop painting oled
       self.display.clear_screen()
+
+      if self.delayed_shutter:
+        self.display.draw_text("Waiting 5 seconds...")
+        time.sleep(5)
+
       self.display.draw_text("Taking photo...")
       photo_path = self.take_photo()
       self.display.clear_screen()
