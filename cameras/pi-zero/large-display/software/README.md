@@ -1,3 +1,7 @@
+### Note on FPS
+
+Please note that this code uses image capture vs. streaming which may be way faster. Check out this [mjpeg_server sample code](https://github.com/raspberrypi/picamera2/blob/main/examples/mjpeg_server.py).
+
 ### Deps
 
 - need SPI enabled (raspi-config)
@@ -93,3 +97,4 @@ In the settings menu there is a `battery profiler` function which you would run 
 It is a loose estimate since it does not reflect how many times the user has turned the live preview on/off... it's about 75% of max capacity... based 50% testing eg. 50% preview on/off before camera dies + 25% of that to be under 80% battery usage.
 
 I had measured some current draw values before based on what the camera is doing but I did not do a good job/accurately do it, plus the electronics changed since then. But the highest current draw is during live camera preview eg. around 600mA. For reference the pi zero 1 would draw around 65mA during idle.
+
