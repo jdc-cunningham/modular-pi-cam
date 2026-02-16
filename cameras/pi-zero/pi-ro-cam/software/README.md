@@ -1,3 +1,7 @@
+### Note on FPS
+
+Please note that this code uses image capture vs. streaming which may be way faster. Check out this [mjpeg_server sample code](https://github.com/raspberrypi/picamera2/blob/main/examples/mjpeg_server.py).
+
 ### Deps
 * need SPI enabled (raspi-config, interface options, SPI)
 
@@ -64,3 +68,4 @@ There is a Sqlite database `battery.db` that keeps track of the camera's uptime 
 In the settings menu there is a `battery profiler` function which you would run after fully charging your pi cam.
 
 There is not an accurate estimate of usage based on idle and dynamic current draw (highest being camera on, live preview on display)
+
