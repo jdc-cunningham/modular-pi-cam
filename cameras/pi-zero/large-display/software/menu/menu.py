@@ -53,7 +53,9 @@ class Menu:
 
       if (button_pressed == "CENTER"):
         if (self.active_menu_item == "Telemetry"):
-          self.display.render_telemetry_page()
+          # no IMU in this camera
+          self.display.render_settings()
+          # self.display.render_telemetry_page()
     
         if (self.active_menu_item == "Battery Profiler"):
           self.display.render_battery_profiler()
@@ -123,6 +125,12 @@ class Menu:
 
         if (self.menu_txfer_x == 1):
           self.main.active_menu = "Settings"
+    elif self.main.active_menu == "Files":
+      if button_pressed == "LEFT":
+        self.display.render_prev_img()
+
+      if button_pressed == "RIGHT":
+        self.display.render_next_img()
       
     self.main.processing = False
     self.update_menu(button_pressed)
@@ -147,7 +155,7 @@ class Menu:
           self.main.active_menu = "Video"
         
         if (button == "BACK"):
-          self.camera.change_mode("small")
+          self.camera.change_mode("zoom 1x")
           self.display.toggle_text("photo")
           self.main.active_menu = "Home"
 
@@ -201,12 +209,13 @@ class Menu:
       if (button == "BACK"):
         self.main.active_menu = "Home"
         self.display.start_menu()
+        self.display.view_img_id = 0
 
-      if (self.files_y == 0): # footer
-        print('navigate files')
-        # future is view full size, delete
-      else: # thumbnails
-        print('navigate footer/pagination')
+      # if (self.files_y == 0): # footer
+      #   print('navigate files')
+      #   # future is view full size, delete
+      # else: # thumbnails
+      #   print('navigate footer/pagination')
 
     if (self.main.active_menu == "Video"):
       if (button == "SHUTTER"):
@@ -216,12 +225,12 @@ class Menu:
           self.camera.start_video_recording(self.video_filename)
           self.recording_video = True
         else:
-          self.camera.stop_video_recording(self.video_filename)
-          time.sleep(1)
           self.recording_video = False
-          self.video_filename = ""
           self.main.active_menu = "Home"
           self.main.display.start_menu()
+          self.camera.stop_video_recording(self.video_filename)
+          time.sleep(1)
+          self.video_filename = ""
 
     if (self.main.active_menu == "Battery Profiler"):
       if (button == "BACK"):

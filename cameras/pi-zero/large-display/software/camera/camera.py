@@ -34,11 +34,12 @@ class Camera:
     self.video_filename = ""
     self.video_processing = []
     self.delayed_shutter = False
+    self.recording_time = 0
 
     self.which_camera()
 
   def which_camera(self):
-    cam_info = subprocess.check_output("libcamera-hello --list-cameras", shell=True)
+    cam_info = subprocess.check_output("rpicam-hello --list-cameras", shell=True)
 
     # ex
     '''
@@ -119,8 +120,13 @@ class Camera:
     self.encoder.output.start()
 
     while (self.main.menu.recording_video):
-      cap = self.picam2.capture_array("lores")
-      self.sample_video(cap)
+      try:
+        cap = self.picam2.capture_array("lores")
+        self.sample_video(cap)
+      except Exception as e:
+        print(e)
+        pass
+
       time.sleep(0.03)
 
   def start_video_recording(self, video_filename):
@@ -141,10 +147,13 @@ class Camera:
     if (self.main.mic != None):
       self.main.mic.recording = False
 
+    self.live_preview_active = False
     self.recording_time = 0
     self.encoder.output.stop()
     self.picam2.stop_encoder()
-    self.change_mode("zoom 1x")
+    self.stop()
+    self.picam2.configure(self.config_1x)
+    self.start()
     # this does block the menu from rendering immediately
     # depends how long the video is
     # can set it as another thread or don't do it
@@ -407,5 +416,3 @@ class Camera:
         self.main.focus_level -= 1
 
     self.update_aperture()
-
-    
