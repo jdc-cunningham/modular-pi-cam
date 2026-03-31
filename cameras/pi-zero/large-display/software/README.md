@@ -1,3 +1,9 @@
+### Note on FPS
+
+Please note that this code uses image capture vs. streaming which may be way faster.
+
+Check out this [mjpeg_server sample code](https://github.com/raspberrypi/picamera2/blob/main/examples/mjpeg_server.py).
+
 ### Deps
 
 - need SPI enabled (raspi-config)
