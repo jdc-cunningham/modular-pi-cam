@@ -14,6 +14,8 @@ class Battery:
     self.con = sqlite3.connect(base_path + "/battery/battery.db", check_same_thread=False)
     self.init_batt_table()
     self.main = main
+    self.prev_uptime = 0
+    self.prev_max_uptime = 0
 
   def get_con(self):
     return self.con
@@ -75,6 +77,12 @@ class Battery:
     cur.execute("UPDATE battery_status SET uptime = ? WHERE rowid = 1", [0])
     con.commit()
 
+  def set_uptime(self, uptime):
+    con = self.get_con()
+    cur = self.get_cursor()
+    cur.execute("UPDATE battery_status SET uptime = ? WHERE rowid = 1", [uptime])
+    con.commit()
+
   def get_remaining_capacity(self):
     uptime = self.get_uptime_info()
 
@@ -127,10 +135,14 @@ class Battery:
   # you could reduce the down time for the OLED but I was concerned about burn in
   # should also make it look at some changing scene to help randomize what is displayed
   def profile_battery(self):
+    uptime_info = self.get_uptime_info()
+    self.prev_uptime = uptime_info[0]
+    self.prev_max_uptime = uptime_info[1]
+
     while (self.run_profiler):
       # turn camera on every minute, it will turn the preview off after 1 minute
       self.main.camera.handle_shutter()
-      time.sleep(125)
+      time.sleep(60)
       uptime = self.get_uptime_info()
       prev_max_uptime = uptime[1]
       new_max_uptime = prev_max_uptime + 2 # minutes
@@ -145,3 +157,5 @@ class Battery:
 
   def stop_profiler(self):
     self.run_profiler = False
+    self.set_uptime(self.prev_uptime)
+    self.set_max_uptime(self.prev_max_uptime)

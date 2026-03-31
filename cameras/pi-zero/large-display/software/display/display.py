@@ -3,6 +3,7 @@ import sys
 import time
 import spidev as SPI
 import math
+import numpy as np
 
 base_path = os.getcwd()
 
@@ -22,8 +23,8 @@ battery_sprite_path = base_path + "/menu/menu-sprites/battery_25_15.jpg"
 folder_sprite_path = base_path + "/menu/menu-sprites/folder_21_18.jpg"
 gear_sprite_path = base_path + "/menu/menu-sprites/gear_23_20.jpg"
 
-small_font = ImageFont.truetype(base_path + "/display/Font/Font00.ttf", 13)
-large_font = ImageFont.truetype(base_path + "/display/Font/Font02.ttf", 16)
+small_font = ImageFont.truetype(base_path + "/display/Font/Font00.ttf", 16)
+large_font = ImageFont.truetype(base_path + "/display/Font/Font02.ttf", 20)
 larger_font = ImageFont.truetype(base_path + "/display/Font/Font02.ttf", 24)
 
 class Display:
@@ -36,6 +37,8 @@ class Display:
     self.file_count = self.utils.get_file_count() # maybe shouldn't be here
     self.disp = None
     self.formatted_time = 0
+    self.captured_imgs = []
+    self.view_img_id = 0
 
     self.setup_lcd()
 
@@ -102,35 +105,30 @@ class Display:
 
     return f_img
 
-  def render_menu_base(self, center_text = "Camera on", photo_text = "photo"):
+  # [240, 320]
+  def render_menu_base(self, center_text = "Camera on", photo_text = "Photo"):
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
-
-    draw.text((7, 3), photo_text, fill = "BLACK", font = small_font)
-    draw.text((7, 105), "Auto", fill = "BLACK", font = small_font)
+    draw.text((7, 3), photo_text, fill = "BLACK", font = large_font)
+    draw.text((7, 210), "Auto", fill = "BLACK", font = large_font)
     # manual photography mode
     # draw.text((7, 90), "S: 1/60", fill = "WHITE", font = small_font)
     # draw.text((7, 105), "E: 100", fill = "WHITE", font = small_font)
-    draw.text((22, 48), center_text, fill = "BLACK", font = large_font)
+    draw.text((100, 100), center_text, fill = "BLACK", font = larger_font)
     processing_text = len(self.main.camera.video_processing) > 0
 
     if (processing_text):
-      draw.text((22, 60), "video processing", fill = "BLACK", font = small_font)
+      draw.text((100, 120), "video processing", fill = "BLACK", font = large_font)
 
-    draw.text((58, 3), self.main.battery.get_remaining_time(), fill = "BLACK", font = small_font)
-
+    draw.text((230, 3), self.main.battery.get_remaining_time(), fill = "BLACK", font = large_font)
     file_count = self.utils.get_file_count()
-
-    draw.text((60 if file_count < 100 else 55, 103), str(file_count), fill = "BLACK", font = small_font)
-
+    draw.text((240 if file_count < 100 else 230, 210), str(file_count), fill = "BLACK", font = large_font)
     battery_icon = Image.open(battery_sprite_path)
     folder_icon = Image.open(folder_sprite_path)
     gear_icon = Image.open(gear_sprite_path)
-
-    image.paste(battery_icon, (98, 5))
-    image.paste(folder_icon, (77, 103))
-    image.paste(gear_icon, (101, 102))
-
+    image.paste(battery_icon, (290, 7))
+    image.paste(folder_icon, (265, 213))
+    image.paste(gear_icon, (290, 213))
     return image
 
   def start_menu(self):
@@ -216,7 +214,7 @@ class Display:
 
     self.clear_screen()
 
-  def set_menu_center_text(self, draw, text, x = 22, y = 48):
+  def set_menu_center_text(self, draw, text, x = 100, y = 100):
     draw.text((x, y), text, fill = "BLACK", font = large_font)
 
   def draw_active_icon(self, icon_name):
@@ -224,28 +222,28 @@ class Display:
     draw = ImageDraw.Draw(image)
 
     if (icon_name == "Files"):
-      draw.line([(60, 121), (98, 121)], fill = "BLUE", width = 2)
-      self.set_menu_center_text(draw, "Files")
+      draw.line([(252, 235), (283, 235)], fill = "BLUE", width = 3)
+      self.set_menu_center_text(draw, "Files", 140, 100)
 
     if (icon_name == "Camera Settings"):
-      draw.line([(7, 121), (34, 121)], fill = "BLUE", width = 2)
-      self.set_menu_center_text(draw, "Camera Settings", 5)
+      draw.line([(7, 235), (35, 235)], fill = "BLUE", width = 3)
+      self.set_menu_center_text(draw, "Camera Settings")
 
     if (icon_name == "Photo Video Toggle"):
-      draw.line([(7, 22), (34, 22)], fill = "BLUE", width = 2)
-      self.set_menu_center_text(draw, "Toggle Mode")
+      draw.line([(7, 25), (40, 25)], fill = "BLUE", width = 3)
+      self.set_menu_center_text(draw, "Toggle Mode", 110, 100)
 
     if (icon_name == "Settings"):
-      draw.line([(101, 122), (124, 122)], fill = "BLUE", width = 2)
-      self.set_menu_center_text(draw, "Settings")
+      draw.line([(292, 235), (310, 235)], fill = "BLUE", width = 3)
+      self.set_menu_center_text(draw, "Settings", 130, 100)
     
     self.disp.ShowImage(self.match_lcd(image))
   
   def toggle_text(self, mode):
     if (mode == "video"):
-      image = self.render_menu_base("Tap to record", "video")
+      image = self.render_menu_base("Tap to record", "Video")
     else:
-      image = self.render_menu_base("Toggle Mode", "photo")
+      image = self.render_menu_base("Toggle Mode", "Photo")
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -261,9 +259,9 @@ class Display:
   def get_settings_img(self):
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
-    draw.line([(0, 0), (320, 0)], fill = "BLACK", width = 40)
+    draw.line([(0, 0), (320, 0)], fill = "BLACK", width = 50)
     draw.text((5, 0), "Settings", fill = "WHITE", font = large_font)
-    draw.text((5, 26), "Telemetry", fill = "BLACK", font = large_font)
+    draw.text((5, 26), "Telemetry (no IMU)", fill = "BLACK", font = large_font)
     draw.text((5, 52), "Battery Profiler", fill = "BLACK", font = large_font)
     draw.text((5, 78), "Reset Battery", fill = "BLACK", font = large_font)
     draw.text((5, 104), "Timelapse", fill = "BLACK", font = large_font)
@@ -281,8 +279,8 @@ class Display:
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
 
-    draw.text((0, 48), "Profiling battery", fill = "BLACK", font = large_font)
-    draw.text((0, 72), "Press back to cancel", fill = "BLACK", font = small_font)
+    draw.text((80, 120), "Profiling battery", fill = "BLACK", font = large_font)
+    draw.text((80, 142), "Press back to cancel", fill = "BLACK", font = small_font)
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -290,8 +288,8 @@ class Display:
     image = Image.new("RGB", (320, 320), "WHITE")
     draw = ImageDraw.Draw(image)
 
-    draw.text((0, 48), "5 min timelapse", fill = "BLACK", font = large_font)
-    draw.text((0, 72), "Press back to cancel", fill = "BLACK", font = small_font)
+    draw.text((80, 120), "5 min timelapse", fill = "BLACK", font = large_font)
+    draw.text((80, 142), "Press back to cancel", fill = "BLACK", font = small_font)
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -327,7 +325,7 @@ class Display:
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
 
-    draw.line([(0, 26), (0, 42)], fill = "BLUE", width = 2) # 16 tall, 10 y apart
+    draw.line([(0, 30), (0, 46)], fill = "BLUE", width = 4) # 16 tall, 10 y apart
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -335,7 +333,7 @@ class Display:
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
 
-    draw.line([(0, 52), (0, 68)], fill = "BLUE", width = 2)
+    draw.line([(0, 56), (0, 72)], fill = "BLUE", width = 4)
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -343,7 +341,7 @@ class Display:
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
 
-    draw.line([(0, 78), (0, 94)], fill = "BLUE", width = 2)
+    draw.line([(0, 82), (0, 98)], fill = "BLUE", width = 4)
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -351,7 +349,7 @@ class Display:
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
 
-    draw.line([(0, 104), (0, 120)], fill = "BLUE", width = 2)
+    draw.line([(0, 108), (0, 124)], fill = "BLUE", width = 4)
 
     self.disp.ShowImage(self.match_lcd(image))
 
@@ -359,20 +357,20 @@ class Display:
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
 
-    draw.line([(0, 130), (0, 146)], fill = "BLUE", width = 2)
+    draw.line([(0, 134), (0, 150)], fill = "BLUE", width = 4)
 
     self.disp.ShowImage(self.match_lcd(image))
 
   def draw_active_delete_all_files(self):
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
-    draw.line([(0, 156), (0, 172)], fill = "BLUE", width = 2)
+    draw.line([(0, 160), (0, 176)], fill = "BLUE", width = 4)
     self.disp.ShowImage(self.match_lcd(image))
 
   def draw_active_shutter_delay(self):
     image = self.get_settings_img()
     draw = ImageDraw.Draw(image)
-    draw.line([(0, 182), (0, 198)], fill = "BLUE", width = 2)
+    draw.line([(0, 186), (0, 202)], fill = "BLUE", width = 4)
     self.disp.ShowImage(self.match_lcd(image))
 
   # this is not advanced eg. a thread where it can detect USB plugged in here
@@ -466,15 +464,42 @@ class Display:
       draw.text((110, 110), ">", fill = "BLACK", font = small_font)
 
     return image
+  
+  def render_next_img(self):
+    if self.view_img_id + 1 < len(self.captured_imgs):
+      self.view_img_id += 1
+      self.render_file()
+
+  def render_prev_img(self):
+    if self.view_img_id - 1 > -1:
+      self.view_img_id -= 1
+      self.render_file()
+
+  def render_file(self):
+    base_img_path = base_path + "/captured-media/"
+    file = self.captured_imgs[self.view_img_id]
+    cam_image = Image.open(base_img_path + file)
+    base_width= 320
+    wpercent = (base_width / float(cam_image.size[1]))
+    hsize = int((float(cam_image.size[1]) * float(wpercent)))
+    cam_img = cam_image.resize((base_width, hsize), resample=Image.LANCZOS)
+    cam_img = cam_img.crop((0, 0, 320, 320))
+    pil_img = ImageDraw.Draw(cam_img)
+    pagination_text = f"{self.view_img_id + 1}/{len(self.captured_imgs)}"
+    pil_img.text((270, 280), pagination_text, fill = (255,255,255), font=larger_font)
+    cam_img = cam_img.rotate(-90)
+    base_img = Image.new("RGB", (240, 320), "BLACK")
+    base_img.paste(cam_img, (0, 0))
+    self.disp.ShowImage(base_img)
 
   def render_files(self):
     files = self.utils.get_files()
     file_count = len(files)
+    self.captured_imgs = files
     self.main.menu.files_pages = 1 if ((file_count / 4) < 1) else math.ceil(file_count / 4)
 
     if (file_count == 0):
       self.draw_text("No Files")
     else:
       self.main.active_menu = "Files"
-      files_scene = self.get_files_scene(files, self.main.menu.files_page, self.main.menu.files_pages)
-      self.disp.ShowImage(self.match_lcd(files_scene))
+      self.render_file()
